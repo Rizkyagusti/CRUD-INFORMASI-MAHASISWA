@@ -71,6 +71,15 @@
                                         <input type="text" name="nama" class="form-control" id="nama" value="<?= $_SESSION["form-input"]["nama"] ?? "" ?>" placeholder="Masukkan Nama" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <!-- <input type="text" name="gender" class="form-control" id="gender" value="<?= $_SESSION["form-input"]["gender"] ?? "" ?>" placeholder="Masukkan Gender" required> -->
+
+                                        <select name="gender" id="gender" style="width: 100%;" class="js-example-basic-single">
+                                            <option value="Pria">Pria</option>
+                                            <option value="Wanita">Wanita</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="jurusan">Jurusan</label>
                                         <select style="width: 100%;" name="id_jurusan" class="js-example-basic-single" id="jurusan">
                                             <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
@@ -88,6 +97,10 @@
                                                 }
                                             ?>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="asal_sekolah">Asal Sekolah</label>
+                                        <input type="text" name="asal_sekolah" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? "" ?>" placeholder="Masukkan Asal Sekolah" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
