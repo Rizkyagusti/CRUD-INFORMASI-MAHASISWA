@@ -24,12 +24,14 @@ class MahasiswaController {
         $data = [
             "nim" => $_POST["nim"],
             "nama" => $_POST["nama"],
+            "gender" => $_POST["gender"],
             "id_jurusan" => $_POST["id_jurusan"],
+            "asal_sekolah" => $_POST["asal_sekolah"],
             "alamat" => $_POST["alamat"],
             "telepon" => $_POST["telepon"]
         ];
 
-        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["alamat"])) || empty(trim($data["telepon"])) || empty(trim($data["id_jurusan"]))) {
+        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["alamat"])) || empty(trim($data["telepon"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /mahasiswas/create");

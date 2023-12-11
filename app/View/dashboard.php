@@ -62,9 +62,9 @@
 									<th>#</th>
 									<th>NIM</th>
 									<th>Nama</th>
+									<th>Gender</th>
 									<th>Jurusan</th>
-									<th>Matkul (Kode)</th>
-									<th>Jumlah SKS</th>
+									<th>Asal Sekolah</th>
 									<th>Alamat</th>
 									<th>Telepon</th>
 									<?php
@@ -93,26 +93,9 @@
 										<td><?= $iteration ?? "-" ?></td>
 										<td><?= $row["nim"] ?? "-" ?></td>
 										<td><?= $row["nama"] ?? "-" ?></td>
+										<td><?= $row["gender"] ?? "-" ?></td>
 										<td><?= $row["id_jurusan"] < 0 ? "-" : $majors->getNamaById($row["id_jurusan"])["nama"] ?></td>
-										<?php
-                                            $namaKode = [];
-                                            $sks = [];
-                                            foreach ($subjects->getAllSubject() as $subject) {
-                                                foreach ($majors_subjects as $major_subject) {
-                                                    if ($subject["id"] == $major_subject["id"]) {
-                                                        $namaKode[] = $subject["nama"] . " (" . $subject["kode"] . ")";
-                                                        $sks[] = $subject["jumlah_sks"];
-                                                    }
-                                                }
-                                            }
-
-                                            // Jika array kosong, ubah jadi -
-                                            $namaKode = empty($namaKode) ? ["-"] : $namaKode;
-                                            $sks = empty($sks) ? ["-"] : $sks;
-                                            
-                                            echo '<td>' . implode("<br>", $namaKode) . '</td>';
-                                            echo '<td>' . implode("<br>", $sks) . '</td>';
-                                        ?>
+										<td><?= $row["asal_sekolah"] ?? "-" ?></td>
 										<td><?= $row["alamat"] ?? "-" ?></td>
 										<td><?= $row["telepon"] ?? "-" ?></td>
 
@@ -139,9 +122,11 @@
 									<th>#</th>
 									<th>NIM</th>
 									<th>Nama</th>
+									<th>Gender</th>
 									<th>Jurusan</th>
-									<th>Matkul (Kode)</th>
-									<th>Jumlah SKS</th>
+									<th>Asal Sekolah</th>
+									<!-- <th>Matkul (Kode)</th>
+									<th>Jumlah SKS</th> -->
 									<th>Alamat</th>
 									<th>Telepon</th>
 									<?php
