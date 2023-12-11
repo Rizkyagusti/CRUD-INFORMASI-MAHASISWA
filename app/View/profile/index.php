@@ -46,7 +46,18 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="<?php __DIR__ ?>/AdminLTE/dist/img/user4-128x128.jpg" alt="User profile picture">
+                                    <img class="profile-user-img img-fluid img-circle" src="<?php __DIR__ ?>/img/<?php
+					if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+						$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+						$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+						$query = new Krispachi\KrisnaLTE\Model\UserModel;
+						$result = $query->getUserById($payload->user_id);
+						$role = $query->getRoleUserById($payload->user_id)["role"];
+						echo $result["gambar"];
+					} else {
+						echo "Uknown Users" ;
+					}
+				?>" alt="User profile picture">
                                 </div>
 
                                 <?php

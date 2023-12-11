@@ -22,7 +22,7 @@
         <div class="card-body register-card-body">
         <p class="login-box-msg">Registrasi akun baru</p>
 
-        <form action="/register" method="post">
+        <form action="/register" method="post" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <input type="text" name="username" class="form-control" value="<?= $_SESSION["form-input"]["username"] ?? "" ?>" placeholder="Username" required>
                 <div class="input-group-append">
@@ -36,6 +36,14 @@
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="file" name="gambar" class="form-control" value="<?= $_SESSION["form-input"]["gambar"] ?? "" ?>" placeholder="Gambar" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-image"></span>
                     </div>
                 </div>
             </div>

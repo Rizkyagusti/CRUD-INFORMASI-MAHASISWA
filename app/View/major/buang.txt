@@ -1,0 +1,28 @@
+<?php
+                                            $kode = [];
+                                            $nama = [];
+                                            $sks = [];
+                                            foreach ($subjects as $subject) {
+                                                foreach ($majors_subjects as $major_subject) {
+                                                    if ($subject["id"] == $major_subject["id"]) {
+                                                        $kode[] = $subject["kode"];
+                                                        $nama[] = $subject["nama"];
+                                                        $sks[] = $subject["jumlah_sks"];
+                                                    }
+                                                }
+                                            }
+
+                                            // Jika array kosong, ubah jadi -
+                                            $kode = empty($kode) ? ["-"] : $kode;
+                                            $nama = empty($nama) ? ["-"] : $nama;
+                                            $sks = empty($sks) ? ["-"] : $sks;
+                                            
+                                            echo '<td>' . implode("<br>", $kode) . '</td>';
+                                            echo '<td>' . implode("<br>", $nama) . '</td>';
+                                            echo '<td>' . implode("<br>", $sks) . '</td>';
+                                        ?>
+
+
+                                        <td><?= $iteration ?></td>
+                                        <td><?= $major["nama"] ?? "-" ?></td>
+                                        

@@ -52,14 +52,48 @@ class AuthController {
     }
 
     public function signup() {
+        
+function upload(){
+    $name = $_FILES['gambar']['name'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+    $error = $_FILES['gambar']['error'];
+    $size = $_FILES['gambar']['size'];
+  
+    if($error == 4){
+      echo("<script>alert('Gambar belum ditambahkan')</script>");
+      return false;
+    }
+  
+    $ekstensiValid = ['jpg','jpeg','png'];
+    $ekstensiFile = explode('.',$name);
+    $ekstensiFile = strtolower(end($ekstensiFile));
+  
+    if(!in_array($ekstensiFile,$ekstensiValid)){
+      echo("<script>alert('Yang anda upload bukan gambar')</script>");
+      return false;
+    }
+  
+  
+    if($size > 2000000){
+      echo("<script>alert('Ukuran gambar terlalu besar')</script>");
+      return false;
+    }
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= ".";
+    $namaFileBaru .= $ekstensiFile;
+    move_uploaded_file($tmpName, 'img/'. $namaFileBaru);
+    return $namaFileBaru;
+  } 
+  $gambar = upload();
         $data = [
             "username" => $_POST["username"],
             "email" => $_POST["email"],
             "password" => $_POST["password"],
+            "gambar" => $gambar,
             "confirm_password" => $_POST["confirm_password"]
         ];
 
-        if(empty(trim($data["username"])) || empty(trim($data["email"])) || empty(trim($data["password"])) || empty(trim($data["confirm_password"]))) {
+        if(empty(trim($data["username"])) || empty(trim($data["email"])) || empty(trim($data["password"])) || empty(trim($data["confirm_password"])) || empty(trim($data["gambar"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /register");

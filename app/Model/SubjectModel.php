@@ -103,6 +103,13 @@ class SubjectModel {
         return $this->database->resultSet();
     }
 
+    public function getJumlahMahasiswa($id) {
+        $query = "SELECT COUNT(*) AS jumlah_mahasiswa FROM mahasiswas WHERE id_jurusan = :id_jurusan";
+        $this->database->query($query);
+        $this->database->bind(":id_jurusan", $id);
+        return $this->database->single();
+    }
+
     public function getByMajor($id) {
         $this->database->query("SELECT mata_kuliahs.id FROM {$this->major_table} INNER JOIN {$this->jurusan_mata_kuliah_table} ON jurusans_mata_kuliahs.id_jurusan = jurusans.id INNER JOIN {$this->table} ON mata_kuliahs.id = jurusans_mata_kuliahs.id_mata_kuliah WHERE jurusans.id = '$id'");
         return $this->database->resultSet();

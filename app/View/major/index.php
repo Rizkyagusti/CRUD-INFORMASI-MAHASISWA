@@ -117,11 +117,10 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>No</th>
                                     <th>Jurusan</th>
-                                    <th>Kode Mata Kuliah</th>
-                                    <th>Mata Kuliah</th>
-                                    <th>Jumlah SKS</th>
+                                    <th>Jumlah kelas</th>
+                                    <th>Jumlah Mahasiswa</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -136,36 +135,20 @@
 
                                             try {
                                                 $majors_subjects = $model->getByMajor($major["id"]);
+                                                $jumlah_mahasiswa = $model->getJumlahMahasiswa($major["id"]);
                                             } catch (Exception $exception) {
                                                 $majors_subjects = [];
+                                                $jumlah_mahasiswa = 0;
                                             }
+
+                                            // $majors_subjects2 = $model->getJumlahMahasiswa($major["id"]);
                                     ?>
                                     <tr>
                                         <td><?= $iteration ?></td>
                                         <td><?= $major["nama"] ?? "-" ?></td>
-                                        <?php
-                                            $kode = [];
-                                            $nama = [];
-                                            $sks = [];
-                                            foreach ($subjects as $subject) {
-                                                foreach ($majors_subjects as $major_subject) {
-                                                    if ($subject["id"] == $major_subject["id"]) {
-                                                        $kode[] = $subject["kode"];
-                                                        $nama[] = $subject["nama"];
-                                                        $sks[] = $subject["jumlah_sks"];
-                                                    }
-                                                }
-                                            }
+                                        <td><?= $major["jumlah_kelas"]." kelas" ?? "-" ?></td>
+                                        <td><?= is_array($jumlah_mahasiswa) ? implode(', ', $jumlah_mahasiswa) : $jumlah_mahasiswa ?></td>
 
-                                            // Jika array kosong, ubah jadi -
-                                            $kode = empty($kode) ? ["-"] : $kode;
-                                            $nama = empty($nama) ? ["-"] : $nama;
-                                            $sks = empty($sks) ? ["-"] : $sks;
-                                            
-                                            echo '<td>' . implode("<br>", $kode) . '</td>';
-                                            echo '<td>' . implode("<br>", $nama) . '</td>';
-                                            echo '<td>' . implode("<br>", $sks) . '</td>';
-                                        ?>
                                         <td>
                                             <button data-id="<?= $major["id"] ?>" class="btn btn-sm btn-warning button-edit">Ubah</button>
                                             <form action="/majors/delete/<?= $major["id"] ?>" method="post" class="form-delete d-inline-block">
@@ -178,14 +161,14 @@
                                     ?>
                                 </tbody>
                                 <tfoot>
-                                <tr>
+                                <!-- <tr>
                                     <th>#</th>
                                     <th>Jurusan</th>
                                     <th>Kode Mata Kuliah</th>
                                     <th>Mata Kuliah</th>
                                     <th>Jumlah SKS</th>
                                     <th>Aksi</th>
-                                </tr>
+                                </tr> -->
                                 </tfoot>
                                 </table>
                             </div>
