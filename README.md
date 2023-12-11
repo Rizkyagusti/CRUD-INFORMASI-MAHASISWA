@@ -1,6 +1,6 @@
 # PHP MVC CRUD Mahasiswa
 Website Create, Read, Update, Delete (CRUD) Mahasiswa dengan PHP MVC menggunakan template AdminLTE
-
+edit
 ## Informasi singkat
 - Website ini dibuat dengan PHP menggunakan arsitektur MVC.<br>
 - Dalam website ini bisa CRUD Mahasiswa, CRUD Jurusan, CRUD Mata kuliah, dan CRUD User (login, logout, register, edit profil, delete akun).<br>
