@@ -105,7 +105,7 @@ class SubjectModel {
     }
 
     public function getJumlahMahasiswa($id) {
-        $query = "SELECT COUNT(*) AS jumlah_mahasiswa FROM mahasiswas WHERE id_jurusan = :id_jurusan";
+        $query = "SELECT COUNT(*) AS jumlah_mahasiswa FROM mahasiswa_kampus WHERE jurusan = :id_jurusan";
         $this->database->query($query);
         $this->database->bind(":id_jurusan", $id);
         return $this->database->single();

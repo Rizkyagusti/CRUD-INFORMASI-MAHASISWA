@@ -47,7 +47,8 @@
 					<div class="col">
 						<div class="card">
 							<div class="card-header d-flex align-items-center">
-								<h3 class="card-title">Tabel Mahasiswa</h3>
+								<h3 class="card-title">Informasi Kampus Tabel Mahasiswa</h3><br>
+								
 								<?php
 									if($role === "admin" || $role === "petugas_pendaftaran") {
 										echo '<a href="/mahasiswas/create" class="btn btn-success ml-auto">Tambah Mahasiswa</a>';
@@ -59,14 +60,16 @@
 								<table id="example1" class="table table-bordered table-striped">
 								<thead>
 								<tr>
-									<th>#</th>
+									<th>id</th>
 									<th>NIM</th>
 									<th>Nama</th>
 									<th>Gender</th>
 									<th>Jurusan</th>
+									<th>Kelas</th>
 									<th>Asal Sekolah</th>
-									<th>Alamat</th>
+									<th>Tahun Ajaran</th>
 									<th>Telepon</th>
+									<th>Email</th>
 									<?php
 										if($role === "admin" || $role === "petugas_pendaftaran") {
 											echo '<th>Aksi</th>';
@@ -84,30 +87,33 @@
 											$iteration++;
 
 											try {
-                                                $majors_subjects = $subjects ->getByMajor($row["id_jurusan"]);
+                                                $majors_subjects = $subjects ->getByMajor($row["jurusan"]);
                                             } catch (Exception $exception) {
                                                 $majors_subjects = [];
                                             }
 									?>
 									<tr>
-										<td><?= $iteration ?? "-" ?></td>
+										<td><?= $iteration  ?></td>
 										<td><?= $row["nim"] ?? "-" ?></td>
 										<td><?= $row["nama"] ?? "-" ?></td>
-										<td><?= $row["gender"] ?? "-" ?></td>
-										<td><?= $row["id_jurusan"] < 0 ? "-" : $majors->getNamaById($row["id_jurusan"])["nama"] ?></td>
+										<td><?= $row["jenis_kelamin"] ?? "-" ?></td>
+										<td><?= $row["jurusan"] < 0 ? "-" : $majors->getNamaById($row["jurusan"])["nama"] ?></td>
+										<td><?= $row["kelas"] ?? "-"  ?></td>
 										<td><?= $row["asal_sekolah"] ?? "-" ?></td>
-										<td><?= $row["alamat"] ?? "-" ?></td>
-										<td><?= $row["telepon"] ?? "-" ?></td>
+										<td><?= $row["tahun_ajaran"] ?? "-" ?></td>
+										<td><?= $row["no_hp"] ?? "-" ?></td>
+										<td><?= $row["email"] ?? "-" ?></td>
 
 										<?php
 											if($role === "admin" || $role === "petugas_pendaftaran") :
 										?>
 										<td style="white-space: nowrap;">
-											<a href="/mahasiswas/update/<?= $row["id"] ?>" class="btn btn-sm btn-warning">Ubah</a>
-											<form action="/mahasiswas/delete/<?= $row["id"] ?>" method="post" class="form-delete d-inline-block">
+											<a href="/mahasiswas/update/<?= $row["id_mahasiswa"] ?>" class="btn btn-sm btn-warning">Ubah</a>
+											<form action="/mahasiswas/delete/<?= $row["id_mahasiswa"] ?>" method="post" class="form-delete d-inline-block">
 												<button type="submit" class="btn btn-sm btn-danger button-delete">Hapus</button>
 											</form>
 										</td>
+										
 										<?php
 											endif;
 										?>
@@ -118,23 +124,14 @@
 									?>
 								</tbody>
 								<tfoot>
-								<tr>
-									<th>#</th>
-									<th>NIM</th>
-									<th>Nama</th>
-									<th>Gender</th>
-									<th>Jurusan</th>
-									<th>Asal Sekolah</th>
-									<!-- <th>Matkul (Kode)</th>
-									<th>Jumlah SKS</th> -->
-									<th>Alamat</th>
-									<th>Telepon</th>
+								<!-- <tr>
+									
 									<?php
 										if($role === "admin" || $role === "petugas_pendaftaran") {
 											echo '<th>Aksi</th>';
 										}
 									?>
-								</tr>
+								</tr> -->
 								</tfoot>
 								</table>
 							</div>

@@ -60,11 +60,15 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="/mahasiswas/update/<?= $model["mahasiswa"]["id"] ?>" method="post" class="update-form">
+                            <form action="/mahasiswas/update/<?= $model["mahasiswa"]["id_mahasiswa"] ?>" method="post" class="update-form">
                                 <div class="card-body">
+                                <div class="form-group">
+                                        <label for="nim">ID</label>
+                                        <input type="number" name="id_mahasiswa" class="form-control" id="id_mahasiswa" value="<?= $model["mahasiswa"]["id_mahasiswa"] ?? "" ?>" readonly>
+                                    </div>
                                     <div class="form-group">
                                         <label for="nim">NIM</label>
-                                        <input type="number" name="nim" class="form-control" id="nim" value="<?= $_SESSION["form-input"]["nim"] ?? $model["mahasiswa"]["nim"] ?? "" ?>" placeholder="Masukkan NIM">
+                                        <input type="number" name="nim" class="form-control" id="nim" value="<?=  $model["mahasiswa"]["nim"] ?? "" ?>" placeholder="Masukkan NIM">
                                     </div>
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
@@ -85,13 +89,13 @@
                                             <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
                                             <?php
                                                 foreach($model["majors"] as $jurusan) {
-                                                    if(isset($_SESSION["form-input"]["id_jurusan"])) {
-                                                        if($_SESSION["form-input"]["id_jurusan"] == $jurusan["id"]) {
+                                                    if(isset($_SESSION["form-input"]["jurusan"])) {
+                                                        if($_SESSION["form-input"]["jurusan"] == $jurusan["id"]) {
                                                             echo "<option value=" . $jurusan["id"] . " selected>" . $jurusan["nama"] . "</option>";
                                                         } else {
                                                             echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
                                                         }
-                                                    } else if($model["mahasiswa"]["id_jurusan"] == $jurusan["id"]) {
+                                                    } else if($model["mahasiswa"]["jurusan"] == $jurusan["id"]) {
                                                         echo "<option value=" . $jurusan["id"] . " selected>" . $jurusan["nama"] . "</option>";
                                                     } else {
                                                         echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
@@ -101,16 +105,27 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="kelas">Kelas</label>
+                                        <input type="text" name="kelas" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["kelas"] ?? "" ?>" placeholder="Masukkan Kelas" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="asal_sekolah">Asal Sekolah</label>
-                                        <input type="text" name="asal_sekolah" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? $model["mahasiswa"]["asal_sekolah"] ?? "" ?>" placeholder="Masukkan Asal Sekolah" required>
+                                        <input type="text" name="asal_sekolah" class="form-control" id="kelas" value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? "" ?>" placeholder="Masukkan Asal Sekolah" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="alamat">Alamat</label>
-                                        <input type="text" name="alamat" class="form-control" id="alamat" value="<?= $_SESSION["form-input"]["alamat"] ?? $model["mahasiswa"]["alamat"] ?? "" ?>" placeholder="Masukkan Alamat">
+                                        <label for="tahun_ajaran">Tahun Ajaran</label>
+                                        <select name="tahun_ajaran" id="tahun_ajaran" style="width: 100%;" class="js-example-basic-single">
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="telepon">Telepon</label>
-                                        <input type="number" name="telepon" class="form-control" id="telepon" value="<?= $_SESSION["form-input"]["telepon"] ?? $model["mahasiswa"]["telepon"] ?? "" ?>" placeholder="Masukkan Telepon">
+                                        <label for="no_hp">Telepon</label>
+                                        <input type="number" name="no_hp" class="form-control" id="no_hp" value="<?= $_SESSION["form-input"]["no_hp"] ?? "" ?>" placeholder="Masukkan Telepon" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION["form-input"]["email"] ?? "" ?>" placeholder="Masukkan Telepon" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

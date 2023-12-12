@@ -156,11 +156,27 @@
                                                 ?>
                                             </td>
                                             <td> <!-- Kolom untuk menampilkan jumlah mahasiswa -->
-                                                
+                                            <!-- <?php
+                                                // Mendapatkan data kelas berdasarkan id_jurusan
+                                                $kelas = $modelKelas->getKelasByJurusanId($major['id']);
+                                                foreach ($kelas as $kelasData) {
+                                                    // echo $kelasData['kelas'] . '<br>';
+                                                    
+                                                    // Ambil jumlah mahasiswa berdasarkan kelas
+                                                    $jumlahMahasiswa = $modelMahasiswa->getJumlahMahasiswaByKelas($kelasData['id']);
+                                                    echo  $jumlahMahasiswa . '<br>';
+                                                }
+                                                ?> -->
                                             </td>
-                                            <td>
+                                            
                                                 <!-- Tombol Ubah dan Hapus -->
-                                            </td>
+                                                <td>
+                                            <button data-id="<?= $major["id"] ?>" class="btn btn-sm btn-warning button-edit">Ubah</button>
+                                            <form action="/majors/delete/<?= $major["id"] ?>" method="post" class="form-delete d-inline-block">
+												<button type="submit" class="btn btn-sm btn-danger button-delete">Hapus</button>
+											</form>
+                                        </td>
+                                            
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

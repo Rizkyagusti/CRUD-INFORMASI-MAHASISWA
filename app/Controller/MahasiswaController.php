@@ -26,12 +26,14 @@ class MahasiswaController {
             "nama" => $_POST["nama"],
             "gender" => $_POST["gender"],
             "id_jurusan" => $_POST["id_jurusan"],
+            "kelas" => $_POST["kelas"],
             "asal_sekolah" => $_POST["asal_sekolah"],
-            "alamat" => $_POST["alamat"],
-            "telepon" => $_POST["telepon"]
+            "tahun_ajaran" => $_POST["tahun_ajaran"],
+            "no_hp" => $_POST["no_hp"],
+            "email" => $_POST["email"]
         ];
 
-        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["alamat"])) || empty(trim($data["telepon"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"]))) {
+        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["email"])) || empty(trim($data["no_hp"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"])) || empty(trim($data["kelas"]))|| empty(trim($data["tahun_ajaran"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /mahasiswas/create");
@@ -53,6 +55,7 @@ class MahasiswaController {
     }
 
     public function update($id) {
+        
         $result = [];
         $model = new MahasiswaModel();
         $result += [
@@ -71,16 +74,21 @@ class MahasiswaController {
     }
 
     public function edit($id) {
+        // echo "<script>console.log($id)</script>";
         $data = [
-            "id" => $id,
+            "id_mahasiswa" => $id,
             "nim" => $_POST["nim"],
             "nama" => $_POST["nama"],
+            "gender" => $_POST["gender"],
             "id_jurusan" => $_POST["id_jurusan"],
-            "alamat" => $_POST["alamat"],
-            "telepon" => $_POST["telepon"]
+            "kelas" => $_POST["kelas"],
+            "asal_sekolah" => $_POST["asal_sekolah"],
+            "tahun_ajaran" => $_POST["tahun_ajaran"],
+            "no_hp" => $_POST["no_hp"],
+            "email" => $_POST["email"]
         ];
 
-        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["alamat"])) || empty(trim($data["telepon"])) || empty(trim($data["id_jurusan"]))) {
+        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["email"])) || empty(trim($data["no_hp"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"])) || empty(trim($data["kelas"]))|| empty(trim($data["tahun_ajaran"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /mahasiswas/update/{$id}");

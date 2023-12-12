@@ -98,17 +98,29 @@
                                             ?>
                                         </select>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="kelas">Kelas</label>
+                                        <input type="text" name="kelas" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["kelas"] ?? "" ?>" placeholder="Masukkan Kelas" required>
+                                    </div>
                                     <div class="form-group">
                                         <label for="asal_sekolah">Asal Sekolah</label>
-                                        <input type="text" name="asal_sekolah" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? "" ?>" placeholder="Masukkan Asal Sekolah" required>
+                                        <input type="text" name="asal_sekolah" class="form-control" id="kelas" value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? "" ?>" placeholder="Masukkan Asal Sekolah" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="alamat">Alamat</label>
-                                        <input type="text" name="alamat" class="form-control" id="alamat" value="<?= $_SESSION["form-input"]["alamat"] ?? "" ?>" placeholder="Masukkan Alamat" required>
+                                        <label for="tahun_ajaran">Tahun Ajaran</label>
+                                        <select name="tahun_ajaran" id="tahun_ajaran" style="width: 100%;" class="js-example-basic-single">
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="telepon">Telepon</label>
-                                        <input type="number" name="telepon" class="form-control" id="telepon" value="<?= $_SESSION["form-input"]["telepon"] ?? "" ?>" placeholder="Masukkan Telepon" required>
+                                        <label for="no_hp">Telepon</label>
+                                        <input type="number" name="no_hp" class="form-control" id="no_hp" value="<?= $_SESSION["form-input"]["no_hp"] ?? "" ?>" placeholder="Masukkan Telepon" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION["form-input"]["email"] ?? "" ?>" placeholder="Masukkan Telepon" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
