@@ -93,4 +93,14 @@ class MahasiswaModel {
 
         return $this->database->resultSet();
     }
+
+    public function getMahasiswaByKelas($idKelas) {
+        $query = "SELECT * FROM {$this->table} WHERE kelas = :id_kelas";
+        $this->database->query($query);
+    
+        $this->database->bind("kelas", $idKelas);
+    
+        return $this->database->resultSet();
+    }
+    
 }
