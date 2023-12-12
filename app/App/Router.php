@@ -21,7 +21,7 @@ class Router {
             $path = $_SERVER["PATH_INFO"];
         }
         $method = $_SERVER["REQUEST_METHOD"];
-
+        
         foreach(self::$routes as $route) {
             $pattern = "#^" . $route['path'] . "$#";
             if(preg_match($pattern, $path, $variables) && $method == $route["method"]) {

@@ -9,6 +9,7 @@ class SubjectModel {
     private $table = "mata_kuliahs";
     private $jurusan_mata_kuliah_table = "jurusans_mata_kuliahs";
     private $major_table = "jurusans";
+    private $kelas_table = "kelas";
     private $database;
 
     public function __construct() {
@@ -107,6 +108,13 @@ class SubjectModel {
         $query = "SELECT COUNT(*) AS jumlah_mahasiswa FROM mahasiswas WHERE id_jurusan = :id_jurusan";
         $this->database->query($query);
         $this->database->bind(":id_jurusan", $id);
+        return $this->database->single();
+    }
+
+    public function getKelas($id_jurusan) {
+        $query = "SELECT kelas FROM kelas WHERE id_jurusan = :id_jurusan";
+        $this->database->query($query);
+        $this->database->bind(":id_jurusan", $id_jurusan);
         return $this->database->single();
     }
 

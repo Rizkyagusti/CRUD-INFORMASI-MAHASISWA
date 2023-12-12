@@ -90,6 +90,12 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a href="/kelas" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/kelas' ? 'active' : '' ?>">
+						<i class="nav-icon fas fa-university"></i>
+						<p>Kelas</p>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a href="/subjects" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/subjects' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-book"></i>
 						<p>Mata Kuliah</p>

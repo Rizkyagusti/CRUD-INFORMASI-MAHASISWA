@@ -146,9 +146,8 @@
                                     <tr>
                                         <td><?= $iteration ?></td>
                                         <td><?= $major["nama"] ?? "-" ?></td>
-                                        <td><?= $major["jumlah_kelas"]." kelas" ?? "-" ?></td>
-                                        <td><?= is_array($jumlah_mahasiswa) ? implode(', ', $jumlah_mahasiswa) : $jumlah_mahasiswa ?></td>
-
+                                        <td></td>
+                                        <td></td>
                                         <td>
                                             <button data-id="<?= $major["id"] ?>" class="btn btn-sm btn-warning button-edit">Ubah</button>
                                             <form action="/majors/delete/<?= $major["id"] ?>" method="post" class="form-delete d-inline-block">

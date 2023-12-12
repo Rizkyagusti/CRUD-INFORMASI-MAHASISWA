@@ -11,6 +11,7 @@ use Krispachi\KrisnaLTE\Middleware\GuestMiddleware;
 use Krispachi\KrisnaLTE\Controller\SubjectController;
 use Krispachi\KrisnaLTE\Controller\MahasiswaController;
 use Krispachi\KrisnaLTE\Controller\MajorController;
+use Krispachi\KrisnaLTE\Controller\KelasController;
 use Krispachi\KrisnaLTE\Middleware\AdminMiddleware;
 use Krispachi\KrisnaLTE\Middleware\PetugasPendaftaranMiddleware;
 
@@ -20,6 +21,7 @@ Router::add("GET", "/register", AuthController::class, "register", [GuestMiddlew
 Router::add("POST", "/register", AuthController::class, "signup", [GuestMiddleware::class]);
 Router::add("GET", "/forgot-password", AuthController::class, "forgotPassword", [GuestMiddleware::class]);
 Router::add("GET", "/logout", AuthController::class, "logout", [AuthMiddleware::class]);
+
 
 Router::add("GET", "/", MahasiswaController::class, "index", [AuthMiddleware::class]);
 Router::add("GET", "/mahasiswas/create", MahasiswaController::class, "create", [AuthMiddleware::class, PetugasPendaftaranMiddleware::class]);
@@ -43,5 +45,7 @@ Router::add("POST", "/majors", MajorController::class, "store", [AuthMiddleware:
 Router::add("GET", "/majors/([0-9a-zA-Z]*)", MajorController::class, "major", [AuthMiddleware::class, AdminMiddleware::class]);
 Router::add("POST", "/majors/delete/([0-9a-zA-Z]*)", MajorController::class, "delete", [AuthMiddleware::class, AdminMiddleware::class]);
 Router::add("POST", "/majors/([0-9a-zA-Z]*)", MajorController::class, "edit", [AuthMiddleware::class, AdminMiddleware::class]);
+
+Router::add("GET", "/kelas", KelasController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
 
 Router::run();
