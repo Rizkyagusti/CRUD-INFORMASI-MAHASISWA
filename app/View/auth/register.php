@@ -90,24 +90,24 @@
 <script>
     $(document).ready(function() {
         function hideShowPassword() {
-            if($("#password").attr("type") === "password") {
-                $("#password").attr("type", "text");
-                $(".eye-icon").removeClass("fa-eye").addClass("fa-eye-slash");
-            } else {
-                $("#password").attr("type", "password");
-                $(".eye-icon").removeClass("fa-eye-slash").addClass("fa-eye");
-            }
+        if ($("#password").attr("type") === "password") {
+            $("#password").attr("type", "text");
+            $(".eye-icon").removeClass("fa-eye").addClass("fa-eye-slash");
+        } else {
+            $("#password").attr("type", "password");
+            $(".eye-icon").removeClass("fa-eye-slash").addClass("fa-eye");
         }
+    }
 
-        function hideShowConfirmPassword() {
-            if($("#confirm_password").attr("type") === "password") {
-                $("#confirm_password").attr("type", "text");
-                $(".eye-icon2").removeClass("fa-eye").addClass("fa-eye-slash");
-            } else {
-                $("#confirm_password").attr("type", "password");
-                $(".eye-icon2").removeClass("fa-eye-slash").addClass("fa-eye");
-            }
+    function hideShowConfirmPassword() {
+        if ($("#confirm_password").attr("type") === "password") {
+            $("#confirm_password").attr("type", "text");
+            $(".eye-icon2").removeClass("fa-eye").addClass("fa-eye-slash");
+        } else {
+            $("#confirm_password").attr("type", "password");
+            $(".eye-icon2").removeClass("fa-eye-slash").addClass("fa-eye");
         }
+    }
     });
 </script>
 </body>

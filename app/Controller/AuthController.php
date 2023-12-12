@@ -9,34 +9,37 @@ use Krispachi\KrisnaLTE\App\FlashMessage;
 use Krispachi\KrisnaLTE\App\View;
 use Krispachi\KrisnaLTE\Model\UserModel;
 
-class AuthController {
+class AuthController
+{
     public static string $SECRET_KEY = "IniAdalahWebsiteYangDibuatOlehKrispachiYangLebihDikenalDenganNamaKrisna#NamaWebsiteIniKrisnaLTE#YangNamanyaDiambilDariAdminLTE:v";
-    
-    public function index() {
+
+    public function index()
+    {
         View::render("auth/login");
     }
 
-    public function signin() {
+    public function signin()
+    {
         $username = $_POST["username"];
         $password = $_POST["password"];
-        
+
         // Validasi
-        if(empty(trim($username)) || empty(trim($password))) {
+        if (empty(trim($username)) || empty(trim($password))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             header("Location: /login");
             exit(0);
         }
-        
+
         $model = new UserModel();
         $result = $model->authUser($username, $password);
-        if(!empty($result)) {
+        if (!empty($result)) {
             $payload = [
                 "user_id" => $result["id"]
             ];
             // jwt token
             $jwt = JWT::encode($payload, self::$SECRET_KEY, "HS256");
             setcookie("X-KRISNALTE-SESSION", $jwt);
-            
+
             FlashMessage::setFlashMessage("success", "Log In berhasil, Halo {$result['username']}");
             header("Location: /");
             exit(0);
@@ -47,44 +50,47 @@ class AuthController {
         }
     }
 
-    public function register() {
+    public function register()
+    {
         View::render("auth/register");
     }
 
-    public function signup() {
-        
-function upload(){
-    $name = $_FILES['gambar']['name'];
-    $tmpName = $_FILES['gambar']['tmp_name'];
-    $error = $_FILES['gambar']['error'];
-    $size = $_FILES['gambar']['size'];
-  
-    if($error == 4){
-      echo("<script>alert('Gambar belum ditambahkan')</script>");
-      return false;
-    }
-  
-    $ekstensiValid = ['jpg','jpeg','png'];
-    $ekstensiFile = explode('.',$name);
-    $ekstensiFile = strtolower(end($ekstensiFile));
-  
-    if(!in_array($ekstensiFile,$ekstensiValid)){
-      echo("<script>alert('Yang anda upload bukan gambar')</script>");
-      return false;
-    }
-  
-  
-    if($size > 2000000){
-      echo("<script>alert('Ukuran gambar terlalu besar')</script>");
-      return false;
-    }
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= ".";
-    $namaFileBaru .= $ekstensiFile;
-    move_uploaded_file($tmpName, 'img/'. $namaFileBaru);
-    return $namaFileBaru;
-  } 
-  $gambar = upload();
+    public function signup()
+    {
+
+        function upload()
+        {
+            $name = $_FILES['gambar']['name'];
+            $tmpName = $_FILES['gambar']['tmp_name'];
+            $error = $_FILES['gambar']['error'];
+            $size = $_FILES['gambar']['size'];
+
+            if ($error == 4) {
+                echo ("<script>alert('Gambar belum ditambahkan')</script>");
+                return false;
+            }
+
+            $ekstensiValid = ['jpg', 'jpeg', 'png'];
+            $ekstensiFile = explode('.', $name);
+            $ekstensiFile = strtolower(end($ekstensiFile));
+
+            if (!in_array($ekstensiFile, $ekstensiValid)) {
+                echo ("<script>alert('Yang anda upload bukan gambar')</script>");
+                return false;
+            }
+
+
+            if ($size > 2000000) {
+                echo ("<script>alert('Ukuran gambar terlalu besar')</script>");
+                return false;
+            }
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= ".";
+            $namaFileBaru .= $ekstensiFile;
+            move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
+            return $namaFileBaru;
+        }
+        $gambar = upload();
         $data = [
             "username" => $_POST["username"],
             "email" => $_POST["email"],
@@ -93,14 +99,14 @@ function upload(){
             "confirm_password" => $_POST["confirm_password"]
         ];
 
-        if(empty(trim($data["username"])) || empty(trim($data["email"])) || empty(trim($data["password"])) || empty(trim($data["confirm_password"])) || empty(trim($data["gambar"]))) {
+        if (empty(trim($data["username"])) || empty(trim($data["email"])) || empty(trim($data["password"])) || empty(trim($data["confirm_password"])) || empty(trim($data["gambar"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /register");
             exit(0);
         }
 
-        if($data["password"] != $data["confirm_password"]) {
+        if ($data["password"] != $data["confirm_password"]) {
             FlashMessage::setFlashMessage("error", "Konfirmasi password salah");
             $this->sendFormInput($data);
             header("Location: /register");
@@ -121,7 +127,8 @@ function upload(){
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         // cookie unset & ubah session_id (nanti)
         setcookie("X-KRISNALTE-SESSION", "");
         FlashMessage::setIfNotFlashMessage("success", "Log Out berhasil, Sampai jumpa");
@@ -129,21 +136,24 @@ function upload(){
         exit(0);
     }
 
-    public function forgotPassword() {
+    public function forgotPassword()
+    {
         View::render("auth/forgot-password");
     }
 
-    public function profile() {
+    public function profile()
+    {
         View::render("profile/index");
     }
 
-    public function delete(int $id) {       
+    public function delete(int $id)
+    {
         $model = new UserModel();
         try {
             // Supaya tidak bisa ubah user lain
             $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
             $payload = JWT::decode($jwt, new Key(AuthController::$SECRET_KEY, "HS256"));
-            if($payload->user_id != $id) {
+            if ($payload->user_id != $id) {
                 throw new Exception("Tidak bisa mengganggu akun lain");
             }
 
@@ -158,14 +168,15 @@ function upload(){
         }
     }
 
-    public function edit(int $id) {
+    public function edit(int $id)
+    {
         $data = [
             "id" => $id,
             "username" => $_POST["username"],
             "email" => $_POST["email"]
         ];
 
-        if(empty(trim($data["username"])) || empty(trim($data["email"]))) {
+        if (empty(trim($data["username"])) || empty(trim($data["email"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /users");
@@ -177,10 +188,10 @@ function upload(){
             // Supaya tidak bisa ubah user lain
             $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
             $payload = JWT::decode($jwt, new Key(AuthController::$SECRET_KEY, "HS256"));
-            if($payload->user_id != $id) {
+            if ($payload->user_id != $id) {
                 throw new Exception("Tidak bisa mengganggu akun lain");
             }
-            
+
             $model->updateUser($data);
             FlashMessage::setFlashMessage("success", "User berhasil diubah");
             header("Location: /users");
@@ -193,10 +204,11 @@ function upload(){
         }
     }
 
-    public function sendFormInput(array $data) : void {
+    public function sendFormInput(array $data): void
+    {
         $_SESSION["form-input"] = [];
-        foreach($data as $key => $input) {
-            if(!empty(trim($input))) {
+        foreach ($data as $key => $input) {
+            if (!empty(trim($input))) {
                 $_SESSION["form-input"] += [
                     "$key" => trim($input)
                 ];

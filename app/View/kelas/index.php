@@ -119,45 +119,50 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Jurusan</th>
-                                    <th>Jumlah kelas</th>
+                                    <th>Kelas</th>
                                     <th>Jumlah Mahasiswa</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
+                                <?php
+                                // Misalnya, Anda memiliki model MajorModel yang memiliki fungsi getAllMajor untuk mengambil semua jurusan
+                                $model = new Krispachi\KrisnaLTE\Model\MajorModel();
+                                $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
+                                $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
+
+                                // use Krispachi\KrisnaLTE\Model\MahasiswaModel;
+
+                                // $modelMahasiswa = new MahasiswaModel();
+
+                                $majors = $model->getAllMajor();
+                                
+
+                                
+                                ?>
+
+                           
                                 <tbody>
-                                    <?php
-                                        $majors = $model["majors"];
-                                        
-                                        $iteration = 0;
-                                        $model = new Krispachi\KrisnaLTE\Model\SubjectModel();
-                                        foreach($majors as $major) :
-                                            $iteration++;
-
-                                            try {
-                                                $majors_subjects = $model->getByMajor($major["id"]);
-                                                $jumlah_mahasiswa = $model->getJumlahMahasiswa($major["id"]);
-                                            } catch (Exception $exception) {
-                                                $majors_subjects = [];
-                                                $jumlah_mahasiswa = 0;
-                                            }
-
-                                            // $majors_subjects2 = $model->getJumlahMahasiswa($major["id"]);
-                                    ?>
-                                    <tr>
-                                        <td><?= $iteration ?></td>
-                                        <td><?= $major["nama"] ?? "-" ?></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <button data-id="<?= $major["id"] ?>" class="btn btn-sm btn-warning button-edit">Ubah</button>
-                                            <form action="/majors/delete/<?= $major["id"] ?>" method="post" class="form-delete d-inline-block">
-												<button type="submit" class="btn btn-sm btn-danger button-delete">Hapus</button>
-											</form>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                        endforeach;
-                                    ?>
+                                    <?php foreach($majors as $index => $major): ?>
+                                        <tr>
+                                            <td><?php echo $index + 1; ?></td>
+                                            <td><?php echo $major['nama']; ?></td>
+                                            <td>
+                                                <?php
+                                                // Mendapatkan data kelas berdasarkan id_jurusan
+                                                $kelas = $modelKelas->getKelasByJurusanId($major['id']);
+                                                foreach ($kelas as $kelasData) {
+                                                    echo $kelasData['kelas'] . '<br>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td> <!-- Kolom untuk menampilkan jumlah mahasiswa -->
+                                                
+                                            </td>
+                                            <td>
+                                                <!-- Tombol Ubah dan Hapus -->
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                 <!-- <tr>
