@@ -7,6 +7,7 @@ use Krispachi\KrisnaLTE\App\Database;
 
 class MahasiswaModel {
     private $table = "mahasiswa_kampus";
+    private $table2 = "mahasiswa_pribadi";
     private $database;
 
     public function __construct() {
@@ -113,6 +114,13 @@ class MahasiswaModel {
         $result = $this->database->single();
     
         return $result['jumlah'];
+    }
+
+
+    public function getAllMahasiswaPribadi()
+    {
+        $this->database->query("SELECT * FROM {$this->table2}");
+        return $this->database->resultSet();
     }
     
     

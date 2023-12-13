@@ -23,6 +23,7 @@
 <?php
     use Krispachi\KrisnaLTE\App\FlashMessage;
     FlashMessage::flashMessage();
+    use Krispachi\KrisnaLTE\Model\KelasModel;
 ?>
 
 <div class="wrapper">
@@ -101,7 +102,21 @@
                                     
                                     <div class="form-group">
                                         <label for="kelas">Kelas</label>
-                                        <input type="text" name="kelas" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["kelas"] ?? "" ?>" placeholder="Masukkan Kelas" required>
+                                        <select style="width: 100%;" name="kelas" class="" id="kelas">
+    <option value="" selected disabled>Pilih Kelas</option>
+    <?php
+    // Mendapatkan semua kelas
+    $kelasModel = new KelasModel();
+    $kelas = $kelasModel->getAllKelas();
+    
+    // Menampilkan opsi untuk setiap kelas
+    foreach ($kelas as $kelasData) {
+        echo "<option value='{$kelasData['id']}'>{$kelasData['kelas']}</option>";
+    }
+    ?>
+</select>
+
+
                                     </div>
                                     <div class="form-group">
                                         <label for="asal_sekolah">Asal Sekolah</label>

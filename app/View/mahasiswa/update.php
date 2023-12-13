@@ -23,6 +23,10 @@
 <?php
     use Krispachi\KrisnaLTE\App\FlashMessage;
     FlashMessage::flashMessage();
+    use Krispachi\KrisnaLTE\Model\KelasModel;
+
+    // Buat objek KelasModel
+    $kelasModel = new KelasModel();
 ?>
 
 <div class="wrapper">
@@ -47,7 +51,7 @@
 			</div><!-- /.container-fluid -->
 		</div>
 		<!-- /.content-header -->
-
+        
 		<!-- Main content -->
 		<section class="content">
 			<div class="container-fluid">
@@ -103,29 +107,36 @@
                                                 }
                                             ?>
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="kelas">Kelas</label>
-                                        <input type="text" name="kelas" class="form-control" id="asal_sekolah" value="<?= $_SESSION["form-input"]["kelas"] ?? "" ?>" placeholder="Masukkan Kelas" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="asal_sekolah">Asal Sekolah</label>
-                                        <input type="text" name="asal_sekolah" class="form-control" id="kelas" value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? "" ?>" placeholder="Masukkan Asal Sekolah" required>
-                                    </div>
+                                            </div>
+                                            <div class="form-group">
+    <label for="kelas">Kelas</label>
+    <select style="width: 100%;" name="kelas" class="" id="kelas">
+        <option value="" selected disabled>Pilih Kelas</option>
+        <?php
+        // Mendapatkan data kelas berdasarkan id_jurusan
+        $kelas = $kelasModel->getKelasByJurusanId($model["mahasiswa"]["id_mahasiswa"]);
+        foreach ($kelas as $kelasData) {
+            $selected = ($kelasData['id'] == $model["mahasiswa"]["jurusan"]) ? 'selected' : '';
+            echo "<option value='{$kelasData['id']}' {$selected}>{$kelasData['kelas']}</option>";
+        }
+        ?>
+    </select>
+</div>
+
                                     <div class="form-group">
                                         <label for="tahun_ajaran">Tahun Ajaran</label>
-                                        <select name="tahun_ajaran" id="tahun_ajaran" style="width: 100%;" class="js-example-basic-single">
+                                        <select name="tahun_ajaran" id="tahun_ajaran" style="width: 100%;" class="js-example-basic-single" value="<?= $_SESSION["form-input"]["tahun_ajaran"] ?? $model["mahasiswa"]["tahun_ajaran"] ?? "" ?>">
                                             <option value="2023">2023</option>
                                             <option value="2022">2022</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="no_hp">Telepon</label>
-                                        <input type="number" name="no_hp" class="form-control" id="no_hp" value="<?= $_SESSION["form-input"]["no_hp"] ?? "" ?>" placeholder="Masukkan Telepon" required>
+                                        <input type="number" name="no_hp" class="form-control" id="no_hp" value="<?= $_SESSION["form-input"]["no_hp"] ??  $model["mahasiswa"]["no_hp"] ?? "" ?>" placeholder="Masukkan Telepon" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION["form-input"]["email"] ?? "" ?>" placeholder="Masukkan Telepon" required>
+                                        <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION["form-input"]["email"]?? $model["mahasiswa"]["email"] ?? "" ?>" placeholder="Masukkan Telepon" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -156,36 +167,54 @@
 <?php require __DIR__ . "/../layouts/bodyscripts.php" ?>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(".js-example-basic-single").select2({
-            placeholder: "Pilih Jurusan",
-            allowClear: true
-        });
+ $(document).ready(function() {
+    $(".js-example-basic-single").select2({
+        placeholder: "Pilih Jurusan",
+        allowClear: true
+    });
 
-        $(".update-form").on("submit", function(e) {
-            e.preventDefault();
+    $(".update-form").on("submit", function(e) {
+        e.preventDefault();
+
+        // Periksa nilai dari elemen yang menggunakan Select2
+        var jurusanValue = $("#jurusan").val();
+        var kelasValue = $("#kelas").val();
+
+        // Tambahkan kondisi sesuai kebutuhan
+        if (!jurusanValue || !kelasValue) {
+            // Tampilkan pesan kesalahan jika nilai tidak valid
             Swal.fire({
-                title: 'Konfirmasi Ubah',
-                text: "kamu tidak bisa kembali setelah ini!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Ubah sekarang!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).unbind("submit").submit();
-                } else {
-                    Swal.fire({
-                        title: 'Batal!',
-                        text: 'Mahasiswa tidak diubah.',
-                        icon: 'success',
-                        timer: 4000
-                    });
-                }
+                title: 'Error',
+                text: 'Harap isi semua bidang dengan benar.',
+                icon: 'error',
             });
+            return;
+        }
+
+        Swal.fire({
+            title: 'Konfirmasi Ubah',
+            text: "Kamu tidak bisa kembali setelah ini!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Ubah sekarang!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).unbind("submit").submit();
+            } else {
+                Swal.fire({
+                    title: 'Batal!',
+                    text: 'Mahasiswa tidak diubah.',
+                    icon: 'success',
+                    timer: 4000
+                });
+            }
         });
     });
+});
+
+
 </script>
 </body>
 </html>

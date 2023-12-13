@@ -91,10 +91,11 @@
 				</li>
 				<li class="nav-item">
 					<a href="/kelas" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/kelas' ? 'active' : '' ?>">
-						<i class="nav-icon fas fa-university"></i>
+						<i class="nav-icon fas fa-columns"></i>
 						<p>Kelas</p>
 					</a>
 				</li>
+			
 				<li class="nav-item">
 					<a href="/subjects" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/subjects' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-book"></i>
@@ -104,7 +105,30 @@
 				<?php
 					endif;
 				?>
-
+				<li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Izin
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Izin Keluar Kampus</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Izin tidak masuk</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
 				<li class="nav-item">
 					<a href="/users" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/users' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-user-cog"></i>

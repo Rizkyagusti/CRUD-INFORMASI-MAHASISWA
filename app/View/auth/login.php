@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>eduPGT | Log in</title>
     <?php require __DIR__ . "/../layouts/headlinks.php" ?>
+    <style>
+      body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(90deg, #0a74da, #87cefa);
+  animation: backgroundAnimation 3s linear infinite; /* Mengubah durasi animasi menjadi 3 detik */
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+
+    </style>
 </head>
 <body class="hold-transition login-page">
 
@@ -15,12 +35,14 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a><b>EDU</b>PGT</a>
+    <img src="<?php __DIR__ ?>/img/logo.png" alt="Logo" style="width:50px;">
+<a><b>EDU</b>PGT</a>
+
     </div>
 
     <!-- /.login-logo -->
     <div class="card">
-        <div class="card-body login-card-body">
+        <div class="card-body login-card-body" style="border-top-left-radius:10px;border-top-right-radius:10px;">
             <p class="login-box-msg">Log In untuk melanjutkan ke aplikasi</p>
 
             <form action="/login" method="post">
