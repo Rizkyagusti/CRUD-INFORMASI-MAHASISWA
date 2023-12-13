@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Des 2023 pada 16.57
+-- Waktu pembuatan: 14 Des 2023 pada 00.37
 -- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Versi PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,6 +89,29 @@ INSERT INTO `jurusans_mata_kuliahs` (`id`, `id_jurusan`, `id_mata_kuliah`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `kelas`
+--
+
+CREATE TABLE `kelas` (
+  `id` int(11) NOT NULL,
+  `id_jurusan` int(11) NOT NULL,
+  `kelas` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`id`, `id_jurusan`, `kelas`) VALUES
+(1, 1, '1 Elektronika A'),
+(2, 1, '1 Elektronika B'),
+(3, 1, '2 Elektronika A'),
+(4, 1, '2 Elektronika B'),
+(5, 1, '3 Elektronika');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `mahasiswas`
 --
 
@@ -111,6 +134,65 @@ INSERT INTO `mahasiswas` (`id`, `nim`, `nama`, `gender`, `alamat`, `telepon`, `i
 (20, '2202049', 'RIZKY AGUSTI', 'Pria', 'Tangerang', '085691964185', 1, 'SMKN2 Kabupaten Tangerang'),
 (21, '2202039', 'Udin', 'Pria', 'cadas', '085691964185', 3, 'SMKN2 Kabupaten Tangerang'),
 (22, '220203', 'Udin', 'Pria', 'cadas', '085691964185', 1, 'SMKN2 Kabupaten Tangerang');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mahasiswa_kampus`
+--
+
+CREATE TABLE `mahasiswa_kampus` (
+  `id_mahasiswa` int(11) NOT NULL,
+  `nim` text NOT NULL,
+  `nama` text NOT NULL,
+  `jenis_kelamin` text NOT NULL,
+  `jurusan` text NOT NULL,
+  `kelas` text NOT NULL,
+  `asal_sekolah` text NOT NULL,
+  `tahun_ajaran` text NOT NULL,
+  `no_hp` text NOT NULL,
+  `email` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `mahasiswa_kampus`
+--
+
+INSERT INTO `mahasiswa_kampus` (`id_mahasiswa`, `nim`, `nama`, `jenis_kelamin`, `jurusan`, `kelas`, `asal_sekolah`, `tahun_ajaran`, `no_hp`, `email`) VALUES
+(1, '2202049', 'RIZKY AGUSTI', 'Pria', '1', '2 Elektronika B', 'SMKN2 Kabupaten Tangerang', '2022', '085691964185', 'gintama@gmail.com'),
+(2, '2202039', 'Yanto', 'Pria', '1', '2', 'SMKN2 Kabupaten Tangerang', '2023', '2202048', '111@gmail.com'),
+(4, '2202012', 'Kuningan', 'Pria', '1', '2', 'asdas', '2023', '22222', 'backupnyagus@gmail.com'),
+(5, '2202020', 'Finan', 'Pria', '1', '3', 'SMAN 14 Tangerang', '2023', '22223', 'finan@com'),
+(6, '2202021', 'July', 'Wanita', '3', '3', 'SMAN 14 Tangerang', '2023', '85691964183', 'gintama@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mahasiswa_pribadi`
+--
+
+CREATE TABLE `mahasiswa_pribadi` (
+  `id_mahasiswa_pribadi` int(11) NOT NULL,
+  `id_mahasiswa` int(11) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `agama` varchar(50) DEFAULT NULL,
+  `nik` varchar(20) DEFAULT NULL,
+  `nama_ibu_kandung` varchar(255) DEFAULT NULL,
+  `npwp` varchar(20) DEFAULT NULL,
+  `no_bpjs` varchar(20) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `golongan_darah` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `mahasiswa_pribadi`
+--
+
+INSERT INTO `mahasiswa_pribadi` (`id_mahasiswa_pribadi`, `id_mahasiswa`, `nama`, `agama`, `nik`, `nama_ibu_kandung`, `npwp`, `no_bpjs`, `alamat`, `golongan_darah`) VALUES
+(1, 2, 'Nama_2', 'Kristen', '0000000000953352', 'Ibu_2', '0000725981', '0000769852', 'Alamat_2', 'A'),
+(3, 1, 'Nama_1', 'Kristen', '0000000000041171', 'Ibu_1', '0000197426', '0000863617', 'Alamat_1', 'A'),
+(4, 4, 'Nama_4', 'Islam', '0000000000619297', 'Ibu_4', '0000405392', '0000169068', 'Alamat_4', 'A'),
+(5, 6, NULL, 'Islam', '229922', 'Yeni', '20220202', '202020', 'kdajsdjasdhkajs', 'a');
 
 -- --------------------------------------------------------
 
@@ -191,11 +273,30 @@ ALTER TABLE `jurusans_mata_kuliahs`
   ADD KEY `jurusans_mata_kuliahs_ibfk_3` (`id_jurusan`);
 
 --
+-- Indeks untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `mahasiswas`
 --
 ALTER TABLE `mahasiswas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_jurusan` (`id_jurusan`);
+
+--
+-- Indeks untuk tabel `mahasiswa_kampus`
+--
+ALTER TABLE `mahasiswa_kampus`
+  ADD PRIMARY KEY (`id_mahasiswa`);
+
+--
+-- Indeks untuk tabel `mahasiswa_pribadi`
+--
+ALTER TABLE `mahasiswa_pribadi`
+  ADD PRIMARY KEY (`id_mahasiswa_pribadi`),
+  ADD KEY `id_mahasiswa` (`id_mahasiswa`);
 
 --
 -- Indeks untuk tabel `mata_kuliahs`
@@ -224,19 +325,37 @@ ALTER TABLE `jumlah_kelas`
 -- AUTO_INCREMENT untuk tabel `jurusans`
 --
 ALTER TABLE `jurusans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusans_mata_kuliahs`
 --
 ALTER TABLE `jurusans_mata_kuliahs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `mahasiswas`
 --
 ALTER TABLE `mahasiswas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT untuk tabel `mahasiswa_kampus`
+--
+ALTER TABLE `mahasiswa_kampus`
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `mahasiswa_pribadi`
+--
+ALTER TABLE `mahasiswa_pribadi`
+  MODIFY `id_mahasiswa_pribadi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `mata_kuliahs`
@@ -266,6 +385,12 @@ ALTER TABLE `jurusans_mata_kuliahs`
 --
 ALTER TABLE `mahasiswas`
   ADD CONSTRAINT `mahasiswas_ibfk_1` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusans` (`id`);
+
+--
+-- Ketidakleluasaan untuk tabel `mahasiswa_pribadi`
+--
+ALTER TABLE `mahasiswa_pribadi`
+  ADD CONSTRAINT `mahasiswa_pribadi_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa_kampus` (`id_mahasiswa`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
