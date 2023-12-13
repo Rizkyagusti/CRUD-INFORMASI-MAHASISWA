@@ -9,7 +9,7 @@
 				<a href="/" class="nav-link">Home</a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
-				<a class="nav-link" onclick="alert('Krisna Ariwidnyana')">Kontak</a>
+				<a class="nav-link" onclick="alert('Hubungi BAAK')">Kontak</a>
 			</li>
 		</ul>
 	</nav>

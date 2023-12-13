@@ -54,6 +54,10 @@ class Database {
         return $this->connection->lastInsertId();
     }
 
+    public function getConnection() {
+        return $this->connection;
+    }
+
     public function resultSet() {
         $this->execute();
         return $this->statement->fetchAll(PDO::FETCH_ASSOC);

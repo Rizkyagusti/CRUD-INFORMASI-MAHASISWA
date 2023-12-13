@@ -33,6 +33,17 @@ class MahasiswaController {
             "email" => $_POST["email"]
         ];
 
+        $dataPribadi = [
+            "nama_pribadi" => $_POST["nama_pribadi"],
+            "agama" => $_POST["agama"],
+            "nik" => $_POST["nik"],
+            "nama_ibu_kandung" => $_POST["nama_ibu_kandung"],
+            "npwp" => $_POST["npwp"],
+            "no_bpjs" => $_POST["no_bpjs"],
+            "alamat" => $_POST["alamat"],
+            "golongan_darah" => $_POST["golongan_darah"]
+        ];
+
         if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["email"])) || empty(trim($data["no_hp"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"])) || empty(trim($data["kelas"]))|| empty(trim($data["tahun_ajaran"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
@@ -42,7 +53,7 @@ class MahasiswaController {
 
         $model = new MahasiswaModel();
         try {
-            $model->createMahasiswa($data);
+            $model->createMahasiswa($data, $dataPribadi);
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil ditambah");
             header("Location: /");
             exit(0);
@@ -88,6 +99,19 @@ class MahasiswaController {
             "email" => $_POST["email"]
         ];
 
+        $dataPribadi = [
+            "id_mahasiswa" => $id,
+            "nama_pribadi" => $_POST["nama_pribadi"],
+            "agama" => $_POST["agama"],
+            "nik" => $_POST["nik"],
+            "nama_ibu_kandung" => $_POST["nama_ibu_kandung"],
+            "npwp" => $_POST["npwp"],
+            "no_bpjs" => $_POST["no_bpjs"],
+            "alamat" => $_POST["alamat"],
+            "golongan_darah" => $_POST["golongan_darah"]
+        ];
+
+
         if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["email"])) || empty(trim($data["no_hp"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"])) || empty(trim($data["kelas"]))|| empty(trim($data["tahun_ajaran"]))) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
@@ -97,7 +121,7 @@ class MahasiswaController {
 
         $model = new MahasiswaModel();
         try {
-            $model->updateMahasiswa($data);
+            $model->updateMahasiswa($data, $dataPribadi);
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil diubah");
             header("Location: /");
             exit(0);
@@ -117,7 +141,7 @@ class MahasiswaController {
             header("Location: /");
             exit(0);
         } catch (Exception $exception) {
-            if(preg_match("/23000/", $exception->getMessage())) {
+            if (preg_match("/23000/", $exception->getMessage())) {
                 $message = "Hapus dibatalkan, data terdaftar sebagai Foreign Key di tabel lain";
             } else {
                 $message = $exception->getMessage();
@@ -127,6 +151,8 @@ class MahasiswaController {
             exit(0);
         }
     }
+
+    
 
     public function sendFormInput(array $data) : void {
         $_SESSION["form-input"] = [];

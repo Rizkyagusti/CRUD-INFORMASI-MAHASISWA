@@ -268,15 +268,60 @@
 			}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
 			var tableInformasiPribadi = $("#example2").DataTable({
-				"paging": true,
-				"lengthChange": false,
-				"searching": false,
-				"ordering": true,
-				"info": true,
-				"autoWidth": false,
-				"responsive": true,
-			});
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        "buttons": [
+            {
+                extend: 'copy',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'csv',
+                text: 'CSV',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'excel',
+                text: 'Excel',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdf',
+                text: 'PDF',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            'colvis'
+        ]
+    });
 
+    // Add the buttons container to the DataTable
+    tableInformasiPribadi.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+
+			
+
+				
 
 			
 			// Toggle visibility tabel-mahasiswa dan informasi-pribadi
