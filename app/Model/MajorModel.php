@@ -42,13 +42,13 @@
                 $last_insert_major = $this->database->exec();
 
                 // insert ke database jurusans_mata_kuliahs
-                foreach($data["mata_kuliahs"] as $subject_id) {
-                    $query = "INSERT INTO {$this->jurusan_mata_kuliah_table} (id_jurusan, id_mata_kuliah) VALUES (:major_id, :subject_id)";
-                    $this->database->query($query);
-                    $this->database->bind("major_id", $last_insert_major);
-                    $this->database->bind("subject_id", $subject_id);
-                    $this->database->execute();
-                }
+                // foreach($data["mata_kuliahs"] as $subject_id) {
+                //     $query = "INSERT INTO {$this->jurusan_mata_kuliah_table} (id_jurusan, id_mata_kuliah) VALUES (:major_id, :subject_id)";
+                //     $this->database->query($query);
+                //     $this->database->bind("major_id", $last_insert_major);
+                //     $this->database->bind("subject_id", $subject_id);
+                //     $this->database->execute();
+                // }
                 // db commit
                 $this->database->commit();
             } catch (Exception $exception) {
@@ -151,4 +151,6 @@
 
             return $this->database->single();
         }
+
+        
     }

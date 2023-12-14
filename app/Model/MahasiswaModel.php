@@ -204,7 +204,7 @@ class MahasiswaModel
 
     public function getJumlahMahasiswaByKelas($idKelas)
     {
-        $query = "SELECT COUNT(*) as jumlah FROM {$this->table} WHERE id_jurusan = :id_kelas";
+        $query = "SELECT COUNT(*) as jumlah FROM {$this->table} WHERE kelas = :id_kelas";
         $this->database->query($query);
 
         $this->database->bind("id_kelas", $idKelas);
@@ -234,7 +234,27 @@ class MahasiswaModel
         }
     }
 
+    public function getJumlahMahasiswaPriaByJurusan($kelas)
+    {
+        $query = "SELECT COUNT(*) as jumlah FROM {$this->table} WHERE jenis_kelamin = 'Pria' AND kelas = :kelas";
+        $this->database->query($query);
+        $this->database->bind("kelas", $kelas);
 
+        $result = $this->database->single();
+
+        return $result['jumlah'];
+    }
+
+    public function getJumlahMahasiswaWanitaByJurusan($kelas)
+    {
+        $query = "SELECT COUNT(*) as jumlah FROM {$this->table} WHERE jenis_kelamin = 'Wanita' AND kelas = :kelas";
+        $this->database->query($query);
+        $this->database->bind("kelas", $kelas);
+
+        $result = $this->database->single();
+
+        return $result['jumlah'];
+    }
 
 
 

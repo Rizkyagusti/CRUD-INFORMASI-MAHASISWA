@@ -49,7 +49,7 @@ class MajorController {
         ];
 
         // Return back with error if empty or null
-        if(empty(trim($data["nama"])) || empty($data["mata_kuliahs"])) {
+        if(empty(trim($data["nama"])) ) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /majors");
@@ -99,7 +99,7 @@ class MajorController {
             "mata_kuliahs" => $_POST["mata_kuliahs"] ?? null
         ];
 
-        if(empty(trim($data["nama"])) || empty($data["mata_kuliahs"])) {
+        if(empty(trim($data["nama"])) ) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             header("Location: /majors");
             exit(0);
