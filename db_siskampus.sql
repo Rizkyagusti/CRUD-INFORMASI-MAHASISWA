@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Des 2023 pada 00.37
+-- Waktu pembuatan: 14 Des 2023 pada 14.42
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.0.28
 
@@ -59,7 +59,7 @@ CREATE TABLE `jurusans` (
 --
 
 INSERT INTO `jurusans` (`id`, `nama`, `jumlah_kelas`) VALUES
-(1, 'Teknik Elektronika', 5),
+(1, 'Teknik Elektronika1', 5),
 (2, 'Teknik Mesin', 5),
 (3, 'Teknik Industri', 3);
 
@@ -80,9 +80,6 @@ CREATE TABLE `jurusans_mata_kuliahs` (
 --
 
 INSERT INTO `jurusans_mata_kuliahs` (`id`, `id_jurusan`, `id_mata_kuliah`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
 (4, 2, 3),
 (5, 3, 2);
 
@@ -95,6 +92,7 @@ INSERT INTO `jurusans_mata_kuliahs` (`id`, `id_jurusan`, `id_mata_kuliah`) VALUE
 CREATE TABLE `kelas` (
   `id` int(11) NOT NULL,
   `id_jurusan` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
   `kelas` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -102,12 +100,12 @@ CREATE TABLE `kelas` (
 -- Dumping data untuk tabel `kelas`
 --
 
-INSERT INTO `kelas` (`id`, `id_jurusan`, `kelas`) VALUES
-(1, 1, '1 Elektronika A'),
-(2, 1, '1 Elektronika B'),
-(3, 1, '2 Elektronika A'),
-(4, 1, '2 Elektronika B'),
-(5, 1, '3 Elektronika');
+INSERT INTO `kelas` (`id`, `id_jurusan`, `id_kelas`, `kelas`) VALUES
+(1, 1, 11, '1 Elektronika A'),
+(2, 1, 12, '1 Elektronika B'),
+(3, 1, 21, '2 Elektronika A'),
+(4, 1, 22, '2 Elektronika B'),
+(5, 1, 31, '3 Elektronika');
 
 -- --------------------------------------------------------
 
@@ -159,11 +157,11 @@ CREATE TABLE `mahasiswa_kampus` (
 --
 
 INSERT INTO `mahasiswa_kampus` (`id_mahasiswa`, `nim`, `nama`, `jenis_kelamin`, `jurusan`, `kelas`, `asal_sekolah`, `tahun_ajaran`, `no_hp`, `email`) VALUES
-(1, '2202049', 'RIZKY AGUSTI', 'Pria', '1', '2 Elektronika B', 'SMKN2 Kabupaten Tangerang', '2022', '085691964185', 'gintama@gmail.com'),
-(2, '2202039', 'Yanto', 'Pria', '1', '2', 'SMKN2 Kabupaten Tangerang', '2023', '2202048', '111@gmail.com'),
-(4, '2202012', 'Kuningan', 'Pria', '1', '2', 'asdas', '2023', '22222', 'backupnyagus@gmail.com'),
-(5, '2202020', 'Finan', 'Pria', '1', '3', 'SMAN 14 Tangerang', '2023', '22223', 'finan@com'),
-(6, '2202021', 'July', 'Wanita', '3', '3', 'SMAN 14 Tangerang', '2023', '85691964183', 'gintama@gmail.com');
+(1, '2202049', 'RIZKY AGUSTI', 'Pria', '1', '2 Elektronika A', 'SMAN 14 Tangerang', '2023', '085691964185', 'gintama@gmail.com'),
+(2, '2202039', 'Yanto', 'Pria', '1', '2 Elektronika A', 'SMKN2 Kabupaten Tangerang', '2023', '2202048', '111@gmail.com'),
+(4, '2202012', 'Kuningan', 'Pria', '1', '1 Elektronika A', 'asdas', '2023', '22222', 'backupnyagus@gmail.com'),
+(8, '2202043', 'July', 'Pria', '1', '2 Elektronika A', 'SMAN 14 Tangerang', '2023', '85691964183', 'gintama@gmail.com'),
+(9, '2202047', 'farid', 'Pria', '1', '1 Elektronika A', 'SMAN 14 Tangerang', '2023', '85691964183', 'gintama@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -190,9 +188,10 @@ CREATE TABLE `mahasiswa_pribadi` (
 
 INSERT INTO `mahasiswa_pribadi` (`id_mahasiswa_pribadi`, `id_mahasiswa`, `nama`, `agama`, `nik`, `nama_ibu_kandung`, `npwp`, `no_bpjs`, `alamat`, `golongan_darah`) VALUES
 (1, 2, 'Nama_2', 'Kristen', '0000000000953352', 'Ibu_2', '0000725981', '0000769852', 'Alamat_2', 'A'),
-(3, 1, 'Nama_1', 'Kristen', '0000000000041171', 'Ibu_1', '0000197426', '0000863617', 'Alamat_1', 'A'),
+(3, 1, 'Nama_1', 'Kristen', '0000000000041171', 'Ibu_5', '0000197426', '0000863617', 'Alamat_1', 'A'),
 (4, 4, 'Nama_4', 'Islam', '0000000000619297', 'Ibu_4', '0000405392', '0000169068', 'Alamat_4', 'A'),
-(5, 6, NULL, 'Islam', '229922', 'Yeni', '20220202', '202020', 'kdajsdjasdhkajs', 'a');
+(7, 8, NULL, 'Islam', '229922', 'Yeni', '20220202', '202020', 'anjay udah', 'a'),
+(8, 9, 'farid', 'Islam', '229922', 'Yeni', '20220202', '202020', 'anjay', 'a');
 
 -- --------------------------------------------------------
 
@@ -246,7 +245,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `gambar`) VA
 (23, 'gintama', 'rizkyagusti7@gmail.com', '$2y$10$8Vw3/7on6K.YyifAvPQR3.qR1EHimWAkmyWjAXy7d.Cx6/9ISuCx2', 'admin', ''),
 (24, 'Agusti Rizky', 'rizkyagusti7@gmail.com', '$2y$10$akkTz5EYZWK3RHHj6DkRzuLjYlogJOPvCfnUgB7k.yG0Ob7MtrQie', NULL, ''),
 (25, 'Agusti02', 'rizkyagusti7@gmail.com', '$2y$10$mbj8c/ni7Ffrn7CPu6YwYeM0lYn7bDuhb3WGYpjJMKz1gj88rMdAW', NULL, '65748144d491c.jpg'),
-(27, 'Agusti04', 'agusti@gmail.com', '$2y$10$wLslSHcuX.42McHWvcE4.eM.rZLkk0VSI41gTvKf3TCyx7QuF8Njq', NULL, '657483bda8f11.png');
+(27, 'Agusti04', 'agusti@gmail.com', '$2y$10$wLslSHcuX.42McHWvcE4.eM.rZLkk0VSI41gTvKf3TCyx7QuF8Njq', NULL, '657483bda8f11.png'),
+(28, 'Agussti', 'agusti@gmail.com', '$2y$10$idBiSXB9l5IkyYt4pHvUNO37ZQY2XkQxRyU3WXsk7jDWiVlqB1zdK', NULL, '657a52a2d4692.png');
 
 --
 -- Indexes for dumped tables
@@ -325,7 +325,7 @@ ALTER TABLE `jumlah_kelas`
 -- AUTO_INCREMENT untuk tabel `jurusans`
 --
 ALTER TABLE `jurusans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusans_mata_kuliahs`
@@ -349,13 +349,13 @@ ALTER TABLE `mahasiswas`
 -- AUTO_INCREMENT untuk tabel `mahasiswa_kampus`
 --
 ALTER TABLE `mahasiswa_kampus`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `mahasiswa_pribadi`
 --
 ALTER TABLE `mahasiswa_pribadi`
-  MODIFY `id_mahasiswa_pribadi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_mahasiswa_pribadi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `mata_kuliahs`
@@ -367,7 +367,7 @@ ALTER TABLE `mata_kuliahs`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
