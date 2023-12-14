@@ -123,7 +123,7 @@
 
                                                 // Menampilkan opsi untuk setiap kelas
                                                 foreach ($kelas as $kelasData) {
-                                                    echo "<option value='{$kelasData['id']}'>{$kelasData['kelas']}</option>";
+                                                    echo "<option value='{$kelasData['kelas']}'>{$kelasData['kelas']}</option>";
                                                 }
                                                 ?>
                                             </select>

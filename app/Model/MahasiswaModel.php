@@ -112,7 +112,7 @@ class MahasiswaModel
 
 
 
-    public function updateMahasiswa($data, $dataPribadi)
+    public function updateMahasiswa($data)
     {
         // Cek ada atau tidak di database
         if (empty($this->getMahasiswaById($data["id_mahasiswa"]))) {
@@ -143,8 +143,41 @@ class MahasiswaModel
         $this->database->bind("id_mahasiswa", $data["id_mahasiswa"]);
         $this->database->execute();
 
+       
+    }
+    public function updateMahasiswa2($dataPribadi)
+    {
+        // Cek ada atau tidak di database
+        if (empty($this->getMahasiswaById($dataPribadi["id_mahasiswa"]))) {
+            throw new Exception("Mahasiswa tidak ditemukan");
+        }
+
+        // Cek apakah ada nim itu? atau apakah nimnya sama dengan sebelumnya
+        $result = $this->getMahasiswaByNim($dataPribadi["nim"]);
+        if (!empty($result)) {
+            // Cek apakah nim dari database = nim dari data
+            if ($result[0]["id_mahasiswa"] != $dataPribadi["id_mahasiswa"]) {
+                throw new Exception("NIM sudah tersedia");
+            }
+        }
+
+        // Update mahasiswa_kampus table
+        // $queryKampus = "UPDATE {$this->table} SET nim = :nim, nama = :nama, jenis_kelamin = :gender, jurusan = :id_jurusan, kelas = :kelas, asal_sekolah = :asal_sekolah, tahun_ajaran = :tahun_ajaran, no_hp = :telepon, email = :email WHERE id_mahasiswa = :id_mahasiswa";
+        // $this->database->query($queryKampus);
+        // $this->database->bind("nim", $data["nim"]);
+        // $this->database->bind("nama", $data["nama"]);
+        // $this->database->bind("gender", $data["gender"]);
+        // $this->database->bind("id_jurusan", $data["id_jurusan"]);
+        // $this->database->bind("asal_sekolah", $data["asal_sekolah"]);
+        // $this->database->bind("kelas", $data["kelas"]);
+        // $this->database->bind("tahun_ajaran", $data["tahun_ajaran"]);
+        // $this->database->bind("telepon", $data["no_hp"]);
+        // $this->database->bind("email", $data["email"]);
+        // $this->database->bind("id_mahasiswa", $data["id_mahasiswa"]);
+        // $this->database->execute();
+
         // Update mahasiswa_pribadi table
-        $queryPribadi = "UPDATE {$this->table2} SET nama_pribadi = :nama_pribadi, agama = :agama, nik = :nik, nama_ibu_kandung = :nama_ibu_kandung, npwp = :npwp, no_bpjs = :no_bpjs, alamat = :alamat, golongan_darah = :golongan_darah WHERE id_mahasiswa = :id_mahasiswa";
+        $queryPribadi = "UPDATE {$this->table2} SET nama = :nama_pribadi, agama = :agama, nik = :nik, nama_ibu_kandung = :nama_ibu_kandung, npwp = :npwp, no_bpjs = :no_bpjs, alamat = :alamat, golongan_darah = :golongan_darah WHERE id_mahasiswa = :id_mahasiswa";
         $this->database->query($queryPribadi);
         $this->database->bind("nama_pribadi", $dataPribadi["nama_pribadi"]);
         $this->database->bind("agama", $dataPribadi["agama"]);
@@ -154,7 +187,7 @@ class MahasiswaModel
         $this->database->bind("no_bpjs", $dataPribadi["no_bpjs"]);
         $this->database->bind("alamat", $dataPribadi["alamat"]);
         $this->database->bind("golongan_darah", $dataPribadi["golongan_darah"]);
-        $this->database->bind("id_mahasiswa", $data["id_mahasiswa"]);
+        $this->database->bind("id_mahasiswa", $dataPribadi["id_mahasiswa"]);
         $this->database->execute();
     }
 
@@ -186,6 +219,19 @@ class MahasiswaModel
     {
         $this->database->query("SELECT * FROM {$this->table2}");
         return $this->database->resultSet();
+    }
+
+    public function getMahasiswaPribadiById($idMahasiswa)
+    {
+        try {
+            $query = "SELECT * FROM {$this->table2} WHERE id_mahasiswa = :id_mahasiswa";
+            $this->database->query($query);
+            $this->database->bind(':id_mahasiswa', $idMahasiswa);
+
+            return $this->database->single();
+        } catch (Exception $exception) {
+            throw $exception;
+        }
     }
 
 

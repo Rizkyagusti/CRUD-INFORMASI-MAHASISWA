@@ -35,7 +35,9 @@
     ?>
 
     <div class="wrapper">
-        <?php require __DIR__ . "/../layouts/nav-aside.php" ?>
+        <?php
+        // session_start();
+        require __DIR__ . "/../layouts/nav-aside.php" ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -124,13 +126,41 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                        <label for="kelas">Kelas</label>
-                                            <select style="width: 100%;" name="kelas" class="" id="kelas">
-                                                <option value="anjay" selected >Pilih Kelas</option>
-                                                
-                                            </select>
-                                        </div>
+                                            <label for="kelas">Kelas</label>
+                                            <select style="width: 100%;" name="kelas"
+                                                class="js-example-basic-single" id="kelas">
+                                            <?php
+                                            $idJurusan = $model["mahasiswa"]["jurusan"];
+                                            $kelasModel = new KelasModel();
 
+                                            // Jika ada Jurusan yang dipilih, dapatkan Kelas berdasarkan Jurusan
+                                            if ($kelasModel->getKelasByJurusanId($idJurusan)) {
+                                                // Mendapatkan data kelas berdasarkan id_jurusan
+                                                $kelas = $kelasModel->getKelasByJurusanId($idJurusan);
+
+                                                // Tampilkan opsi Kelas
+                                                foreach ($kelas as $kelasData) {
+                                                    // Tentukan nilai dan tampilkan opsi kelas
+                                                    $value = $kelasData["kelas"];
+                                                    $selected = "";
+
+                                                    echo "<option value='{$value}' {$selected}>{$kelasData['kelas']}</option>";
+                                                }
+                                            } else {
+                                                // Tidak ada data kelas untuk jurusan tersebut
+                                                echo '<option value="" disabled selected>Tidak Ada Kelas</option>';
+                                            }
+                                            ?>
+                                            </select>
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="asal_sekolah">Asal Sekolah</label>
+                                            <input type="text" name="asal_sekolah" class="form-control" id="asal_sekolah"
+                                                value="<?= $_SESSION["form-input"]["asal_sekolah"] ?? $model["mahasiswa"]["asal_sekolah"] ?? "" ?>"
+                                                placeholder="Masukkan Asal Sekolah" required>
+                                        </div>
                                         <div class="form-group">
                                             <label for="tahun_ajaran">Tahun Ajaran</label>
                                             <select name="tahun_ajaran" id="tahun_ajaran" style="width: 100%;"
@@ -154,62 +184,82 @@
                                         </div>
                                     </div>
                                     <div class="card card-info">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Data Pribadi</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="nama_pribadi">Nama Pribadi</label>
-                                                <input type="text" name="nama_pribadi" class="form-control"
-                                                    id="nama_pribadi"
-                                                    value="<?= $_SESSION["form-input"]["nama_pribadi"] ?? $model["mahasiswa"]["nama_pribadi"] ?? "" ?>"
-                                                    placeholder="Masukkan Nama Pribadi">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="agama">Agama</label>
-                                                <input type="text" name="agama" class="form-control" id="agama"
-                                                    value="<?= $_SESSION["form-input"]["agama"] ?? $model["mahasiswa"]["agama"] ?? "" ?>"
-                                                    placeholder="Masukkan Agama">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="nik">NIK</label>
-                                                <input type="text" name="nik" class="form-control" id="nik"
-                                                    value="<?= $_SESSION["form-input"]["nik"] ?? $model["mahasiswa"]["nik"] ?? "" ?>"
-                                                    placeholder="Masukkan NIK">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="nama_ibu_kandung">Nama Ibu Kandung</label>
-                                                <input type="text" name="nama_ibu_kandung" class="form-control"
-                                                    id="nama_ibu_kandung"
-                                                    value="<?= $_SESSION["form-input"]["nama_ibu_kandung"] ?? $model["mahasiswa"]["nama_ibu_kandung"] ?? "" ?>"
-                                                    placeholder="Masukkan Nama Ibu Kandung">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="npwp">NPWP</label>
-                                                <input type="text" name="npwp" class="form-control" id="npwp"
-                                                    value="<?= $_SESSION["form-input"]["npwp"] ?? $model["mahasiswa"]["npwp"] ?? "" ?>"
-                                                    placeholder="Masukkan NPWP">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="no_bpjs">No BPJS</label>
-                                                <input type="text" name="no_bpjs" class="form-control" id="no_bpjs"
-                                                    value="<?= $_SESSION["form-input"]["no_bpjs"] ?? $model["mahasiswa"]["no_bpjs"] ?? "" ?>"
-                                                    placeholder="Masukkan No BPJS">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="alamat">Alamat</label>
-                                                <textarea name="alamat" class="form-control" id="alamat"
-                                                    placeholder="Masukkan Alamat"><?= $_SESSION["form-input"]["alamat"] ?? $model["mahasiswa"]["alamat"] ?? "" ?></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="golongan_darah">Golongan Darah</label>
-                                                <input type="text" name="golongan_darah" class="form-control"
-                                                    id="golongan_darah"
-                                                    value="<?= $_SESSION["form-input"]["golongan_darah"] ?? $model["mahasiswa"]["golongan_darah"] ?? "" ?>"
-                                                    placeholder="Masukkan Golongan Darah">
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="card-header">
+        <h3 class="card-title">Data Pribadi</h3>
+    </div>
+    <div class="card-body">
+        <?php
+        // Ambil ID mahasiswa dari model
+        $idMahasiswa = $model["mahasiswa"]["id_mahasiswa"];
+        use Krispachi\KrisnaLTE\Model\MahasiswaModel;
+        // Buat instance model MahasiswaModel   
+        $mahasiswaModel = new MahasiswaModel();
+
+        // Ambil data pribadi dari tabel mahasiswa_pribadi berdasarkan ID mahasiswa
+        $dataPribadi = $mahasiswaModel->getMahasiswaPribadiById($idMahasiswa);
+
+        // Tampilkan data pribadi pada formulir
+        ?>
+        <div class="form-group">
+        <!-- <label for="id_mahasiswa">ID Mahasiswa</label> -->
+        <input type="hidden" name="id_mahasisw" class="form-control"
+            id="id_mahasiswa"
+            value="<?= isset($_SESSION["form-input"]["id_mahasiswa"]) ? $_SESSION["form-input"]["id_mahasiswa"] : (isset($dataPribadi["id_mahasiswa"]) ? $dataPribadi["id_mahasiswa"] : "") ?>"
+            placeholder="Masukkan Nama Pribadi" readonly>
+    </div>
+    <div class="form-group">
+        <!-- <label for="nama_pribadi">Nama Pribadi</label> -->
+        <input type="hidden" name="nama_pribadi" class="form-control"
+            id="nama_pribadi"
+            value="<?= $model["mahasiswa"]["nama"] ?? ""?>"
+            placeholder="Masukkan Nama Pribadi" readonly>
+    </div>
+        <div class="form-group">
+            <label for="agama">Agama</label>
+            <input type="text" name="agama" class="form-control" id="agama"
+                value="<?= isset($_SESSION["form-input"]["agama"]) ? $_SESSION["form-input"]["agama"] : (isset($dataPribadi["agama"]) ? $dataPribadi["agama"] : "") ?>"
+                placeholder="Masukkan Agama">
+        </div>
+        <div class="form-group">
+            <label for="agama">NIK</label>
+            <input type="text" name="nik" class="form-control" id="nik"
+                value="<?= isset($_SESSION["form-input"]["nik"]) ? $_SESSION["form-input"]["nik"] : (isset($dataPribadi["nik"]) ? $dataPribadi["nik"] : "") ?>"
+                placeholder="Masukkan NIK">
+        </div>
+        <div class="form-group">
+            <label for="agama">Nama Ibu Kandung</label>
+            <input type="text" name="nama_ibu_kandung" class="form-control" id="nama_ibu_kandung"
+                value="<?= isset($_SESSION["form-input"]["nama_ibu_kandung"]) ? $_SESSION["form-input"]["nama_ibu_kandung"] : (isset($dataPribadi["nama_ibu_kandung"]) ? $dataPribadi["nama_ibu_kandung"] : "") ?>"
+                placeholder="Masukkan Nama Ibu Kandung">
+        </div>
+        <div class="form-group">
+            <label for="agama">NPWP</label>
+            <input type="text" name="npwp" class="form-control" id="npwp"
+                value="<?= isset($_SESSION["form-input"]["npwp"]) ? $_SESSION["form-input"]["npwp"] : (isset($dataPribadi["npwp"]) ? $dataPribadi["npwp"] : "") ?>"
+                placeholder="Masukkan NPWP">
+        </div>
+        <div class="form-group">
+            <label for="agama">No BPJS</label>
+            <input type="text" name="no_bpjs" class="form-control" id="no_bpjs"
+                value="<?= isset($_SESSION["form-input"]["no_bpjs"]) ? $_SESSION["form-input"]["no_bpjs"] : (isset($dataPribadi["no_bpjs"]) ? $dataPribadi["no_bpjs"] : "") ?>"
+                placeholder="Masukkan No BPJS">
+        </div>
+        <div class="form-group">
+            <label for="agama">Alamat</label>
+            <input type="text" name="alamat" class="form-control" id="alamat"
+                value="<?= isset($_SESSION["form-input"]["alamat"]) ? $_SESSION["form-input"]["alamat"] : (isset($dataPribadi["alamat"]) ? $dataPribadi["alamat"] : "") ?>"
+                placeholder="Masukkan alamat">
+        </div>
+        <div class="form-group">
+            <label for="agama">Golongan darah</label>
+            <input type="text" name="golongan_darah" class="form-control" id="golongan_darah"
+                value="<?= isset($_SESSION["form-input"]["golongan_darah"]) ? $_SESSION["form-input"]["golongan_darah"] : (isset($dataPribadi["golongan_darah"]) ? $dataPribadi["golongan_darah"] : "") ?>"
+                placeholder="Golongan Darah">
+        </div>
+        <!-- Sisipkan bagian formulir lainnya sesuai kebutuhan Anda -->
+    </div>
+</div>
+
                                     <!-- /.card-body -->
 
                                     <div class="card-footer">
