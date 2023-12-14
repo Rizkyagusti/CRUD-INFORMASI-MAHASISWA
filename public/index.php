@@ -6,6 +6,7 @@ session_start();
 
 use Krispachi\KrisnaLTE\App\Router;
 use Krispachi\KrisnaLTE\Controller\AuthController;
+use Krispachi\KrisnaLTE\Controller\IzinController;
 use Krispachi\KrisnaLTE\Middleware\AuthMiddleware;
 use Krispachi\KrisnaLTE\Middleware\GuestMiddleware;
 use Krispachi\KrisnaLTE\Controller\SubjectController;
@@ -47,5 +48,6 @@ Router::add("POST", "/majors/delete/([0-9a-zA-Z]*)", MajorController::class, "de
 Router::add("POST", "/majors/([0-9a-zA-Z]*)", MajorController::class, "edit", [AuthMiddleware::class, AdminMiddleware::class]);
 
 Router::add("GET", "/kelas", KelasController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
-
+Router::add("GET", "/izin", IzinController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
+Router::add("GET", "/izin2", IzinController::class, "index2", [AuthMiddleware::class, AdminMiddleware::class]);
 Router::run();

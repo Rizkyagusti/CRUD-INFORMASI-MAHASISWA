@@ -115,13 +115,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+			  <a href="/izin" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/izin' ? 'active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Izin Keluar Kampus</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+			  <a href="/izin2" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/izin2' ? 'active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Izin tidak masuk</p>
                 </a>
