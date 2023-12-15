@@ -22,7 +22,7 @@
     FlashMessage::flashMessage();
     ?>
 
-    <div class="wrapper">
+<div class="wrapper">
         <?php require __DIR__ . "/../layouts/nav-aside.php"; ?>
 
         <!-- Modal -->
@@ -51,10 +51,6 @@
                                         <select style="width: 100%;" class="js-example-basic-multiple" id="mata_kuliah"
                                             name="mata_kuliahs[]" multiple="multiple">
                                             <?php
-                                            $majors = [];
-                                            $subjects = [];
-                                            $subjects = $model["subjects"];
-
                                             foreach ($subjects as $row) {
                                                 if (isset($_SESSION["form-input"]["mata_kuliahs"])) {
                                                     foreach ($_SESSION["form-input"]["mata_kuliahs"] as $id_mata_kuliah) {
@@ -110,112 +106,125 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <?php
+                $majors = [];
+                $subjects = [];
 
-                <section class="content">
-                    <div class="container-fluid">
-                                            <?php
-                                            $model = new Krispachi\KrisnaLTE\Model\MajorModel();
-                                            $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
-                                            $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-                                            $majors = $model->getAllMajor();
-                                            
-                                            ?>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header d-flex align-items-center">
-                                        <h3 class="card-title">Tabel Daftar Jurusan</h3>
-                                        <!-- Dropdown to select majors -->
-                                        <select id="majorDropdown" class="form-control ml-auto">
-                                            <?php foreach ($majors as $major): ?>
-                                                <option value="<?= $major['id'] ?>">
-                                                    <?= $major['nama'] ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <!-- /.card-header -->
-                                        <div class="card-body">
-                                        <!-- Table for displaying class information based on the selected major -->
-                                        <table id="classTable" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Jurusan</th>
-                                                    <th>Kelas</th>
-                                                    <th>Jumlah Mahasiswa</th>
-                                                    <th>Jumlah Pria</th>
-                                                    <th>Jumlah Wanita</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Class information will be dynamically loaded here -->
-                                                <?php
-                                                // Sample data, replace with actual data retrieval logic
-                                                // $majors = [
-                                                //     ['id' => 1, 'nama' => 'Teknik Elektronika'],
-                                                //     ['id' => 2, 'nama' => 'Teknik Informatika'],
-                                                //     // Add more majors as needed
-                                                // ];
-                                    
-                                                foreach ($majors as $index => $major):
-                                                    // Retrieve class information for the current major
-                                                    $kelas = $modelKelas->getKelasByJurusanId($major['id']);
-                                                    $rowspan = count($kelas); // Calculate rowspan based on the number of classes
-                                    
-                                                    foreach ($kelas as $classIndex => $classInfo):
-                                                ?>
-                                                        <tr>
-                                                            <?php if ($classIndex === 0): // Display Jurusan only for the first row ?>
-                                                                <td rowspan="<?= $rowspan ?>"><?php echo $index + 1; ?></td>
-                                                                <td rowspan="<?= $rowspan ?>"><?php echo $major['nama']; ?></td>
-                                                            <?php endif; ?>
-                                                            <td><?php echo $classInfo['kelas']; ?></td>
-                                                            <!-- Populate the table with the fetched class information -->
-                                                            <td><?php echo $modelMahasiswa->getJumlahMahasiswaByKelas($classInfo['kelas']); ?></td>
-                                                            <td><?php echo $modelMahasiswa->getJumlahMahasiswaPriaByJurusan($classInfo['kelas']); ?></td>
-                                                            <td><?php echo $modelMahasiswa->getJumlahMahasiswaWanitaByJurusan($classInfo['kelas']); ?></td>
-                                                            <td>
-                                                                <button class="btn btn-sm btn-warning button-edit">Ubah</button>
-                                                                <!-- Add your delete form here -->
-                                                            </td>
-                                                        </tr>
-                                                <?php
-                                                    endforeach;
-                                                endforeach;
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    
-                                
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
+                $model = new Krispachi\KrisnaLTE\Model\MajorModel();
+                $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
+                $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
+                $majors = $model->getAllMajor();
+                $classData = $modelKelas->getAllKelas();
+               
+                ?>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center">
+                                <h3 class="card-title">Tabel Daftar Jurusan</h3>
+                                <!-- Dropdown to select majors -->
+                                <select id="majorDropdown" class="form-control ml-auto">
+                                    <?php foreach ($majors as $major): ?>
+                                        <option value="<?= $major['id'] ?>">
+                                            <?= $major['nama'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
+                            <!-- /.card-header -->
+                           <!-- ... Your existing PHP code ... -->
+                           <?php
+
+// ... Your existing PHP code ...
+
+// Instantiate MajorModel, KelasModel, and MahasiswaModel
+$majorModel = new Krispachi\KrisnaLTE\Model\MajorModel();
+$kelasModel = new Krispachi\KrisnaLTE\Model\KelasModel();
+$mahasiswaModel = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
+
+// Get all majors from MajorModel
+$majors = $majorModel->getAllMajor();
+
+?>
+
+<!-- Display the combined data in the table -->
+<div class="card-body">
+    <table id="majorTable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Jurusan</th>
+                <th>Kelas</th>
+                <th>Jumlah Pria</th>
+                <th>Jumlah Wanita</th>
+                <!-- Add more columns as needed -->
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="majorTableBody">
+            <?php
+            $no = 1;
+            foreach ($majors as $major) {
+                // Get kelas by jurusan id from KelasModel
+                $kelas = $kelasModel->getKelasByJurusanId($major['id']);
+
+                // Determine the rowspan value for the "Jurusan" column
+                $rowspan = count($kelas);
+
+                foreach ($kelas as $key => $kelasItem) {
+                    // Output the "Jurusan" cell only for the first row of each major
+                    if ($key === 0) {
+                        ?>
+                        <tr>
+                            <td rowspan="<?= $rowspan ?>"><?= $no++ ?></td>
+                            <td rowspan="<?= $rowspan ?>"><?= $major['nama'] ?></td>
+                        <?php
+                    }
+                    ?>
+                    <td><?= $kelasItem['kelas'] ?></td>
+                    <td><?= $mahasiswaModel->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?></td>
+                    <td><?= $mahasiswaModel->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?></td>
+                    <!-- Add more columns as needed -->
+                    <td>
+                        <button class="btn btn-sm btn-warning button-edit">Ubah</button>
+                        <!-- Add your delete form here -->
+                    </td>
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- ... Your existing PHP code ... -->
+
+
+<!-- ... Your existing PHP code ... -->
+
                         </div>
+                    </div>
+                </div>
 
-                        <!-- JavaScript to handle dynamic loading of class information based on selected major -->
-                        <!-- ... (code sebelumnya) ... -->
+               
 
-<!-- JavaScript to handle dynamic loading of class information based on selected major -->
-
-
-
-                    </div><!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
-            <?php require __DIR__ . "/../layouts/footer.php"; ?>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
+    <?php require __DIR__ . "/../layouts/footer.php"; ?>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    </div>
+
     <!-- ./wrapper -->
 
     <?php require __DIR__ . "/../layouts/bodyscripts.php" ?>

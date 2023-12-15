@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Des 2023 pada 14.42
+-- Waktu pembuatan: 15 Des 2023 pada 11.56
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.0.28
 
@@ -105,7 +105,8 @@ INSERT INTO `kelas` (`id`, `id_jurusan`, `id_kelas`, `kelas`) VALUES
 (2, 1, 12, '1 Elektronika B'),
 (3, 1, 21, '2 Elektronika A'),
 (4, 1, 22, '2 Elektronika B'),
-(5, 1, 31, '3 Elektronika');
+(5, 1, 31, '3 Elektronika'),
+(6, 2, 32, '2 Teknik Mesin A');
 
 -- --------------------------------------------------------
 
@@ -337,7 +338,7 @@ ALTER TABLE `jurusans_mata_kuliahs`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `mahasiswas`
