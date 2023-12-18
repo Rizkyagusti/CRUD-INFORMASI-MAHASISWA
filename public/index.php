@@ -5,6 +5,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 session_start();
 
 use Krispachi\KrisnaLTE\App\Router;
+use Krispachi\KrisnaLTE\Controller\MainController;
 use Krispachi\KrisnaLTE\Controller\AuthController;
 use Krispachi\KrisnaLTE\Controller\IzinController;
 use Krispachi\KrisnaLTE\Middleware\AuthMiddleware;
@@ -15,6 +16,7 @@ use Krispachi\KrisnaLTE\Controller\MajorController;
 use Krispachi\KrisnaLTE\Controller\KelasController;
 use Krispachi\KrisnaLTE\Middleware\AdminMiddleware;
 use Krispachi\KrisnaLTE\Middleware\PetugasPendaftaranMiddleware;
+
 
 Router::add("GET", "/login", AuthController::class, "index", [GuestMiddleware::class]);
 Router::add("POST", "/login", AuthController::class, "signin", [GuestMiddleware::class]);
@@ -50,4 +52,6 @@ Router::add("POST", "/majors/([0-9a-zA-Z]*)", MajorController::class, "edit", [A
 Router::add("GET", "/kelas", KelasController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
 Router::add("GET", "/izin", IzinController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
 Router::add("GET", "/izin2", IzinController::class, "index2", [AuthMiddleware::class, AdminMiddleware::class]);
+Router::add("GET", "/dashboard", MainController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
 Router::run();
+?>

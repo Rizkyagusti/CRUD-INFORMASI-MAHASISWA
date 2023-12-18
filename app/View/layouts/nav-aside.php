@@ -84,6 +84,12 @@
 					if($role === "admin") :
 				?>
 				<li class="nav-item">
+					<a href="/dashboard" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/dashboard' ? 'active' : '' ?>">
+						<i class="nav-icon fas fa-university"></i>
+						<p>Main-Page</p>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a href="/majors" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/majors' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-university"></i>
 						<p>Jurusan</p>
