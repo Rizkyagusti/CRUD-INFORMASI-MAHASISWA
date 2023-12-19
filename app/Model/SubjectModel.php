@@ -122,4 +122,17 @@ class SubjectModel {
         $this->database->query("SELECT mata_kuliahs.id FROM {$this->major_table} INNER JOIN {$this->jurusan_mata_kuliah_table} ON jurusans_mata_kuliahs.id_jurusan = jurusans.id INNER JOIN {$this->table} ON mata_kuliahs.id = jurusans_mata_kuliahs.id_mata_kuliah WHERE jurusans.id = '$id'");
         return $this->database->resultSet();
     }
+
+    public function getJumlahKelas($idJurusan) {
+        try {
+            $query = "SELECT COUNT(*) AS total_kelas FROM kelas WHERE id_jurusan = :idJurusan";
+            $this->database->query($query);
+            $this->database->bind(':idJurusan', $idJurusan);
+            $result = $this->database->single();
+    
+            return $result['total_kelas'];
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
 }

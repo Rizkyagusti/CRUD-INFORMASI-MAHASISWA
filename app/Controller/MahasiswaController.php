@@ -98,7 +98,7 @@ class MahasiswaController {
             "no_hp" => $_POST["no_hp"],
             "email" => $_POST["email"]
         ];
-
+        
         $dataPribadi = [
             "id_mahasiswa" => $id,
             "nama_pribadi" => $_POST["nama_pribadi"],
@@ -110,18 +110,26 @@ class MahasiswaController {
             "alamat" => $_POST["alamat"],
             "golongan_darah" => $_POST["golongan_darah"]
         ];
+        
+        // Debugging: Print or log the form data
+        // echo '<pre>';
+        // print_r($data);
+        // print_r($dataPribadi);
+        // echo '</pre>';
 
 
-        if(empty(trim($data["nim"])) || empty(trim($data["nama"])) || empty(trim($data["email"])) || empty(trim($data["no_hp"])) || empty(trim($data["id_jurusan"]))  || empty(trim($data["gender"])) || empty(trim($data["asal_sekolah"])) || empty(trim($data["kelas"]))|| empty(trim($data["tahun_ajaran"]))) {
+        if (empty(trim($data["nim"])) ) {
             FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
             $this->sendFormInput($data);
             header("Location: /mahasiswas/update/{$id}");
             exit(0);
         }
+        
 
         $model = new MahasiswaModel();
         try {
-            $model->updateMahasiswa($data, $dataPribadi);
+            $model->updateMahasiswa($data);
+            $model->updateMahasiswa2($dataPribadi);
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil diubah");
             header("Location: /");
             exit(0);
