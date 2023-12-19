@@ -26,7 +26,8 @@ Router::add("GET", "/forgot-password", AuthController::class, "forgotPassword", 
 Router::add("GET", "/logout", AuthController::class, "logout", [AuthMiddleware::class]);
 
 
-Router::add("GET", "/", MahasiswaController::class, "index", [AuthMiddleware::class]);
+Router::add("GET", "/", MainController::class, "index",  [AuthMiddleware::class]);
+Router::add("GET", "/mahasiswas", MahasiswaController::class, "index", [AuthMiddleware::class]);
 Router::add("GET", "/mahasiswas/create", MahasiswaController::class, "create", [AuthMiddleware::class, PetugasPendaftaranMiddleware::class]);
 Router::add("POST", "/mahasiswas/create", MahasiswaController::class, "store", [AuthMiddleware::class, PetugasPendaftaranMiddleware::class]);
 Router::add("GET", "/mahasiswas/update/([0-9a-zA-Z]*)", MahasiswaController::class, "update", [AuthMiddleware::class, PetugasPendaftaranMiddleware::class]);

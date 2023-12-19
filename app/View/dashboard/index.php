@@ -45,7 +45,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -75,7 +75,7 @@
           <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-bolt"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Teknik Elektronika</span>
@@ -92,7 +92,7 @@
 
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+              <span class="info-box-icon elevation-1" style="background-color: #8A2BE2;"><i class="fas fa-industry"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Teknologi Industri</span>
@@ -356,23 +356,20 @@
 <script src="AdminLTE/plugins/chart.js/Chart.min.js"></script>
 
 <!-- AdminLTE for demo purposes -->
-<script src="AdminLTE/dist/js/demo.js"></script>
+<!-- <script src="AdminLTE/dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="AdminLTE/dist/js/pages/dashboard2.js"></script>
 <script>var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
     var donutData        = {
       labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
+          'Teknik Mesin',
+          'Teknik Elektro',
+          'Teknik Industri',
       ],
       datasets: [
         {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+          data: [700,500,400],
+          backgroundColor : ['#17A2B8', '#DC3545', '#8A2BE2'],
         }
       ]
     }
