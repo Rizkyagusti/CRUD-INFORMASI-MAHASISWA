@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Des 2023 pada 00.37
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.0.28
+-- Generation Time: Dec 14, 2023 at 08:22 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,41 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jumlah_kelas`
+-- Table structure for table `data_izin_1`
+--
+
+CREATE TABLE `data_izin_1` (
+  `tanggal` date NOT NULL,
+  `nama` text NOT NULL,
+  `nim` int(11) NOT NULL,
+  `keperluan` text NOT NULL,
+  `persetujuan1` text NOT NULL,
+  `persetujuan2` text NOT NULL,
+  `jam_keluar` time NOT NULL,
+  `jam_masuk` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_izin_2`
+--
+
+CREATE TABLE `data_izin_2` (
+  `tanggal` date NOT NULL,
+  `nama` text NOT NULL,
+  `nim` int(11) NOT NULL,
+  `kelas` text NOT NULL,
+  `tanggal_izin` date NOT NULL,
+  `keperluan` text NOT NULL,
+  `persetujuan1` text NOT NULL,
+  `persetujuan2` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jumlah_kelas`
 --
 
 CREATE TABLE `jumlah_kelas` (
@@ -34,7 +68,7 @@ CREATE TABLE `jumlah_kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `jumlah_kelas`
+-- Dumping data for table `jumlah_kelas`
 --
 
 INSERT INTO `jumlah_kelas` (`id`, `id_jurusans`, `jumlah_kelas`) VALUES
@@ -45,7 +79,7 @@ INSERT INTO `jumlah_kelas` (`id`, `id_jurusans`, `jumlah_kelas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jurusans`
+-- Table structure for table `jurusans`
 --
 
 CREATE TABLE `jurusans` (
@@ -55,7 +89,7 @@ CREATE TABLE `jurusans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `jurusans`
+-- Dumping data for table `jurusans`
 --
 
 INSERT INTO `jurusans` (`id`, `nama`, `jumlah_kelas`) VALUES
@@ -66,7 +100,7 @@ INSERT INTO `jurusans` (`id`, `nama`, `jumlah_kelas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jurusans_mata_kuliahs`
+-- Table structure for table `jurusans_mata_kuliahs`
 --
 
 CREATE TABLE `jurusans_mata_kuliahs` (
@@ -76,7 +110,7 @@ CREATE TABLE `jurusans_mata_kuliahs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `jurusans_mata_kuliahs`
+-- Dumping data for table `jurusans_mata_kuliahs`
 --
 
 INSERT INTO `jurusans_mata_kuliahs` (`id`, `id_jurusan`, `id_mata_kuliah`) VALUES
@@ -89,7 +123,7 @@ INSERT INTO `jurusans_mata_kuliahs` (`id`, `id_jurusan`, `id_mata_kuliah`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelas`
+-- Table structure for table `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -99,7 +133,7 @@ CREATE TABLE `kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `kelas`
+-- Dumping data for table `kelas`
 --
 
 INSERT INTO `kelas` (`id`, `id_jurusan`, `kelas`) VALUES
@@ -112,7 +146,7 @@ INSERT INTO `kelas` (`id`, `id_jurusan`, `kelas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mahasiswas`
+-- Table structure for table `mahasiswas`
 --
 
 CREATE TABLE `mahasiswas` (
@@ -127,7 +161,7 @@ CREATE TABLE `mahasiswas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `mahasiswas`
+-- Dumping data for table `mahasiswas`
 --
 
 INSERT INTO `mahasiswas` (`id`, `nim`, `nama`, `gender`, `alamat`, `telepon`, `id_jurusan`, `asal_sekolah`) VALUES
@@ -138,7 +172,7 @@ INSERT INTO `mahasiswas` (`id`, `nim`, `nama`, `gender`, `alamat`, `telepon`, `i
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mahasiswa_kampus`
+-- Table structure for table `mahasiswa_kampus`
 --
 
 CREATE TABLE `mahasiswa_kampus` (
@@ -155,7 +189,7 @@ CREATE TABLE `mahasiswa_kampus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `mahasiswa_kampus`
+-- Dumping data for table `mahasiswa_kampus`
 --
 
 INSERT INTO `mahasiswa_kampus` (`id_mahasiswa`, `nim`, `nama`, `jenis_kelamin`, `jurusan`, `kelas`, `asal_sekolah`, `tahun_ajaran`, `no_hp`, `email`) VALUES
@@ -168,7 +202,7 @@ INSERT INTO `mahasiswa_kampus` (`id_mahasiswa`, `nim`, `nama`, `jenis_kelamin`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mahasiswa_pribadi`
+-- Table structure for table `mahasiswa_pribadi`
 --
 
 CREATE TABLE `mahasiswa_pribadi` (
@@ -185,7 +219,7 @@ CREATE TABLE `mahasiswa_pribadi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `mahasiswa_pribadi`
+-- Dumping data for table `mahasiswa_pribadi`
 --
 
 INSERT INTO `mahasiswa_pribadi` (`id_mahasiswa_pribadi`, `id_mahasiswa`, `nama`, `agama`, `nik`, `nama_ibu_kandung`, `npwp`, `no_bpjs`, `alamat`, `golongan_darah`) VALUES
@@ -197,7 +231,7 @@ INSERT INTO `mahasiswa_pribadi` (`id_mahasiswa_pribadi`, `id_mahasiswa`, `nama`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mata_kuliahs`
+-- Table structure for table `mata_kuliahs`
 --
 
 CREATE TABLE `mata_kuliahs` (
@@ -210,7 +244,7 @@ CREATE TABLE `mata_kuliahs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `mata_kuliahs`
+-- Dumping data for table `mata_kuliahs`
 --
 
 INSERT INTO `mata_kuliahs` (`id`, `kode`, `nama`, `jumlah_sks`, `jumlah_kelas`, `tingkatan`) VALUES
@@ -222,7 +256,7 @@ INSERT INTO `mata_kuliahs` (`id`, `kode`, `nama`, `jumlah_sks`, `jumlah_kelas`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -235,7 +269,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `gambar`) VALUES
@@ -246,26 +280,27 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `gambar`) VA
 (23, 'gintama', 'rizkyagusti7@gmail.com', '$2y$10$8Vw3/7on6K.YyifAvPQR3.qR1EHimWAkmyWjAXy7d.Cx6/9ISuCx2', 'admin', ''),
 (24, 'Agusti Rizky', 'rizkyagusti7@gmail.com', '$2y$10$akkTz5EYZWK3RHHj6DkRzuLjYlogJOPvCfnUgB7k.yG0Ob7MtrQie', NULL, ''),
 (25, 'Agusti02', 'rizkyagusti7@gmail.com', '$2y$10$mbj8c/ni7Ffrn7CPu6YwYeM0lYn7bDuhb3WGYpjJMKz1gj88rMdAW', NULL, '65748144d491c.jpg'),
-(27, 'Agusti04', 'agusti@gmail.com', '$2y$10$wLslSHcuX.42McHWvcE4.eM.rZLkk0VSI41gTvKf3TCyx7QuF8Njq', NULL, '657483bda8f11.png');
+(27, 'Agusti04', 'agusti@gmail.com', '$2y$10$wLslSHcuX.42McHWvcE4.eM.rZLkk0VSI41gTvKf3TCyx7QuF8Njq', NULL, '657483bda8f11.png'),
+(28, 'JonSnow', 'JonSnow@gmail.com', '$2y$10$turGmKeyDI/ivnX4s7DbeeVvUcPFFDaj8NUkIqRP904qMFazR3J6O', NULL, '657a531561b7e.jpg');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `jumlah_kelas`
+-- Indexes for table `jumlah_kelas`
 --
 ALTER TABLE `jumlah_kelas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jurusans`
+-- Indexes for table `jurusans`
 --
 ALTER TABLE `jurusans`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jurusans_mata_kuliahs`
+-- Indexes for table `jurusans_mata_kuliahs`
 --
 ALTER TABLE `jurusans_mata_kuliahs`
   ADD PRIMARY KEY (`id`),
@@ -273,121 +308,121 @@ ALTER TABLE `jurusans_mata_kuliahs`
   ADD KEY `jurusans_mata_kuliahs_ibfk_3` (`id_jurusan`);
 
 --
--- Indeks untuk tabel `kelas`
+-- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `mahasiswas`
+-- Indexes for table `mahasiswas`
 --
 ALTER TABLE `mahasiswas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_jurusan` (`id_jurusan`);
 
 --
--- Indeks untuk tabel `mahasiswa_kampus`
+-- Indexes for table `mahasiswa_kampus`
 --
 ALTER TABLE `mahasiswa_kampus`
   ADD PRIMARY KEY (`id_mahasiswa`);
 
 --
--- Indeks untuk tabel `mahasiswa_pribadi`
+-- Indexes for table `mahasiswa_pribadi`
 --
 ALTER TABLE `mahasiswa_pribadi`
   ADD PRIMARY KEY (`id_mahasiswa_pribadi`),
   ADD KEY `id_mahasiswa` (`id_mahasiswa`);
 
 --
--- Indeks untuk tabel `mata_kuliahs`
+-- Indexes for table `mata_kuliahs`
 --
 ALTER TABLE `mata_kuliahs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `jumlah_kelas`
+-- AUTO_INCREMENT for table `jumlah_kelas`
 --
 ALTER TABLE `jumlah_kelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `jurusans`
+-- AUTO_INCREMENT for table `jurusans`
 --
 ALTER TABLE `jurusans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT untuk tabel `jurusans_mata_kuliahs`
+-- AUTO_INCREMENT for table `jurusans_mata_kuliahs`
 --
 ALTER TABLE `jurusans_mata_kuliahs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT untuk tabel `kelas`
+-- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `mahasiswas`
+-- AUTO_INCREMENT for table `mahasiswas`
 --
 ALTER TABLE `mahasiswas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT untuk tabel `mahasiswa_kampus`
+-- AUTO_INCREMENT for table `mahasiswa_kampus`
 --
 ALTER TABLE `mahasiswa_kampus`
   MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `mahasiswa_pribadi`
+-- AUTO_INCREMENT for table `mahasiswa_pribadi`
 --
 ALTER TABLE `mahasiswa_pribadi`
   MODIFY `id_mahasiswa_pribadi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `mata_kuliahs`
+-- AUTO_INCREMENT for table `mata_kuliahs`
 --
 ALTER TABLE `mata_kuliahs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `jurusans_mata_kuliahs`
+-- Constraints for table `jurusans_mata_kuliahs`
 --
 ALTER TABLE `jurusans_mata_kuliahs`
   ADD CONSTRAINT `jurusans_mata_kuliahs_ibfk_2` FOREIGN KEY (`id_mata_kuliah`) REFERENCES `mata_kuliahs` (`id`),
   ADD CONSTRAINT `jurusans_mata_kuliahs_ibfk_3` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `mahasiswas`
+-- Constraints for table `mahasiswas`
 --
 ALTER TABLE `mahasiswas`
   ADD CONSTRAINT `mahasiswas_ibfk_1` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusans` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `mahasiswa_pribadi`
+-- Constraints for table `mahasiswa_pribadi`
 --
 ALTER TABLE `mahasiswa_pribadi`
   ADD CONSTRAINT `mahasiswa_pribadi_ibfk_1` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa_kampus` (`id_mahasiswa`);
