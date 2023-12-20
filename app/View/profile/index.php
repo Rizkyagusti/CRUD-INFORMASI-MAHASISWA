@@ -79,6 +79,12 @@
                                         </li>
                                         <li class="list-group-item">
                                             <div class="row d-flex align-items-center">
+                                                <div class="col-3">NIM</div>
+                                                <div class="col-9"><input type="text" name="username" id="username" value="<?= $_SESSION["form-input"]["username"] ?? $result["username"] ?>" class="form-control"></div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row d-flex align-items-center">
                                                 <div class="col-3">Email</div>
                                                 <div class="col-9"><input type="email" name="email" id="email" value="<?= $_SESSION["form-input"]["email"] ?? $result["email"] ?>" class="form-control"></div>
                                             </div>

@@ -151,7 +151,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <p class="text-center">
-                      <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                      <strong>Recap: 1 Jan, 2014 - 30 Jul, 2014</strong>
                     </p>
 
                     <div class="chart">
@@ -163,11 +163,11 @@
                   <!-- /.col -->
                   <div class="col-md-4">
                     <p class="text-center">
-                      <strong>Goal Completion</strong>
+                      <strong>Jumlah Izin Mahasiswa</strong>
                     </p>
 
                     <div class="progress-group">
-                      Add Products to Cart
+                      Teknik Mesin
                       <span class="float-right"><b>160</b>/200</span>
                       <div class="progress progress-sm">
                         <div class="progress-bar bg-primary" style="width: 80%"></div>
@@ -176,7 +176,7 @@
                     <!-- /.progress-group -->
 
                     <div class="progress-group">
-                      Complete Purchase
+                      Teknik Elektronika
                       <span class="float-right"><b>310</b>/400</span>
                       <div class="progress progress-sm">
                         <div class="progress-bar bg-danger" style="width: 75%"></div>
@@ -185,16 +185,16 @@
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      <span class="progress-text">Visit Premium Page</span>
+                      <span class="progress-text">Teknologi Industri</span>
                       <span class="float-right"><b>480</b>/800</span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                        <div class="progress-bar " style="width: 60% ;background-color: #8A2BE2;"></div>
                       </div>
                     </div>
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      Send Inquiries
+                      Total
                       <span class="float-right"><b>250</b>/500</span>
                       <div class="progress progress-sm">
                         <div class="progress-bar bg-warning" style="width: 50%"></div>
@@ -255,35 +255,19 @@
                     <tr>
                       <td><a href="pages/examples/invoice.html">OR7429</a></td>
                       <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-info">Processing</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                      </td>
-                    </tr>
+                      <td><span class="badge badge-info">Processing</span></td></tr>
                     <tr>
                       <td><a href="pages/examples/invoice.html">OR1848</a></td>
                       <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
+                      <td><span class="badge badge-warning">Pending</span></td></tr>
                     <tr>
                       <td><a href="pages/examples/invoice.html">OR7429</a></td>
                       <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
+                      <td><span class="badge badge-danger">Delivered</span></td></tr>
                     <tr>
                       <td><a href="pages/examples/invoice.html">OR9842</a></td>
                       <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                      </td>
-                    </tr>
+                      <td><span class="badge badge-success">Shipped</span></td></tr>
                     </tbody>
                   </table>
                 </div>
