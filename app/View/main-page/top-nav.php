@@ -22,8 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Navbar -->
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
-      <img src="dist/img/AdminLTELogo.png" width="30" height="30" class="d-inline-block align-top" alt="" style="margin-left: 50px;">
-      Bootstrap
+      <img src="<?php __DIR__ ?>/img/EDU.png" width="350" class="d-inline-block align-top" alt="" style="margin-left: 50px;">
     </a>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -241,8 +240,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="card">
       
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      
+        <div class="footer-single-item">
+          <p>eduPGT - Sistem Informasi Mahasiswa. © 2023  </p>
+          <p class="contact-info"><img width="18"src="https://img.icons8.com/wired/64/online-support--v2.png" alt="online-support--v2"/> <a href="/">  021-57946104</a></p>
+          <p class="contact-info"><span class="far fa-envelope"></span><a href="/"> pddikti@kemdikbud.go.id</a> </p>
+          <p class="contact-info"><span><img width="18" src="https://img.icons8.com/ios/50/marker--v1.png" alt="marker--v1"/></span><a href="https://www.google.com/maps/place/Politeknik+Gajah+Tunggal/@-6.1931097,106.5666022,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fe4fc675da0f:0x84a0e5fc6c009127!8m2!3d-6.193115!4d106.5691771!16s%2Fg%2F11b6t85qc2?entry=ttu"> Politeknik Gajah Tunggal<br>Jl. Gajah Tunggal No.16,<br>Kec. Jatiuwung,<br>Kota Tangerang,<br>Banten 15133 </a></p>
+        </div>
+      
       </div>
       <div class="card-footer">
         <small class="text-muted">Last updated 3 mins ago</small>
