@@ -107,13 +107,14 @@
 						<p>Kelas</p>
 					</a>
 				</li>
+				
 			
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a href="/subjects" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/subjects' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-book"></i>
 						<p>Mata Kuliah</p>
 					</a>
-				</li>
+				</li> -->
 				<?php
 					endif;
 				?>
@@ -141,12 +142,19 @@
              
             </ul>
           </li>
+		  <li class="nav-item">
+					<a href="/user" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/user' ? 'active' : '' ?>">
+					<i class="nav-icon fas fa-users"></i>
+						<p>Informasi Users</p>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="/users" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/users' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-user-cog"></i>
 						<p>Profil</p>
 					</a>
 				</li>
+				
 				<li class="nav-item nav-log-out">
 					<a href="/logout" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>

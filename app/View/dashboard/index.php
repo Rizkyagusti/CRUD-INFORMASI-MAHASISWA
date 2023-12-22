@@ -25,9 +25,9 @@
 <div class="wrapper">
 <?php require __DIR__ . "/../layouts/nav-aside.php"; ?>
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
     <img src="img/logo.png" alt="AdminLTELogo" height="120" width="120">
-  </div>
+  </div> -->
 
   <!-- Navbar -->
     <!-- /.navbar -->
