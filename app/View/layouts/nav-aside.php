@@ -73,10 +73,22 @@
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+				<?php
+					if($role === "admin") :
+				?>
 				<li class="nav-item">
-					<a href="/" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/' ? 'active' : '' ?>">
+					<a href="/dashboard" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/dashboard' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>Dashboard</p>
+					</a>
+				</li>
+				<?php
+					endif;
+				?>
+				<li class="nav-item">
+					<a href="/mahasiswas" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/mahasiswas' ? 'active' : '' ?>">
+						<i class="nav-icon fas  fa-graduation-cap"></i>
+						<p>Info Mahasiswa</p>
 					</a>
 				</li>
 
@@ -95,13 +107,14 @@
 						<p>Kelas</p>
 					</a>
 				</li>
+				
 			
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a href="/subjects" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/subjects' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-book"></i>
 						<p>Mata Kuliah</p>
 					</a>
-				</li>
+				</li> -->
 				<?php
 					endif;
 				?>
@@ -129,12 +142,19 @@
              
             </ul>
           </li>
+		  <li class="nav-item">
+					<a href="/user" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/user' ? 'active' : '' ?>">
+					<i class="nav-icon fas fa-users"></i>
+						<p>Informasi Users</p>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="/users" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/users' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-user-cog"></i>
 						<p>Profil</p>
 					</a>
 				</li>
+				
 				<li class="nav-item nav-log-out">
 					<a href="/logout" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>

@@ -150,20 +150,25 @@ class AuthController
     {
         $model = new UserModel();
         try {
-            // Supaya tidak bisa ubah user lain
             $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
             $payload = JWT::decode($jwt, new Key(AuthController::$SECRET_KEY, "HS256"));
+			$query = new UserModel();
+			$role = $query->getRoleUserById($payload->user_id)["role"];
+            if($role !== "admin"){
+            // Supaya tidak bisa ubah user lain
+           
             if ($payload->user_id != $id) {
                 throw new Exception("Tidak bisa mengganggu akun lain");
+            }
             }
 
             $model->deleteUser($id);
             FlashMessage::setIfNotFlashMessage("success", "Akun berhasil dihapus");
-            header("Location: /logout");
+            header("Location: /user");
             exit(0);
         } catch (Exception $exception) {
             FlashMessage::setFlashMessage("error", $exception->getMessage());
-            header("Location: /users");
+            header("Location: /user");
             exit(0);
         }
     }

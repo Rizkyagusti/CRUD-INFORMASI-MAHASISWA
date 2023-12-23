@@ -163,8 +163,8 @@
                                                         class="btn btn-sm btn-warning button-edit">Ubah</button>
                                                     <form action="/majors/delete/<?= $major["id"] ?>" method="post"
                                                         class="form-delete d-inline-block">
-                                                        <!-- <button type="submit"
-                                                            class="btn btn-sm btn-danger button-delete">Hapus</button> -->
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-danger button-delete">Hapus</button>
                                                     </form>
                                                 </td>
 
