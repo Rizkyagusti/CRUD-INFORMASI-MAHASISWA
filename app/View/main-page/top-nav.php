@@ -52,46 +52,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Tentang</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Some action </a></li>
-              <li><a href="#" class="dropdown-item">Some other action</a></li>
-              
-              <li class="dropdown-divider"></li>
-
-              <!-- Level two dropdown-->
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                  </li>
-
-                  <!-- Level three dropdown-->
-                  <li class="dropdown-submenu">
-                    <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                    <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                      <li><a href="#" class="dropdown-item">3rd level</a></li>
-                      <li><a href="#" class="dropdown-item">3rd level</a></li>
-                    </ul>
-                  </li>
-                  <!-- End Level three -->
-
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
-                </ul>
-              </li>
-              <!-- End Level two -->
+              <li><a href="#" class="dropdown-item">Aplikasi</a></li>
+              <li><a href="#" class="dropdown-item">Pembuat</a></li>
             </ul>
           </li>
+
+          <!-- End Level two -->
           <li class="nav-item">
             <a href="#" class="nav-link">Login</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">FAQ?</a>
           </li>
-        </ul>
-
-        <!-- SEARCH FORM -->
-        
       </div>
 
       <!-- Right navbar links -->
@@ -243,31 +215,62 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
         <div class="footer-single-item">
           <p>eduPGT - Sistem Informasi Mahasiswa. © 2023  </p>
-          <p class="contact-info"><img width="18"src="https://img.icons8.com/wired/64/online-support--v2.png" alt="online-support--v2"/> <a href="/">  021-57946104</a></p>
-          <p class="contact-info"><span class="far fa-envelope"></span><a href="/"> pddikti@kemdikbud.go.id</a> </p>
+          <p class="contact-info"><img width="18"src="https://img.icons8.com/wired/64/online-support--v2.png" alt="online-support--v2"/> <a href="/">  0215900468</a></p>
+          <p class="contact-info"><span class="far fa-envelope"></span><a href="/"> administrasi@poltek-gt.ac.id</a> </p>
           <p class="contact-info"><span><img width="18" src="https://img.icons8.com/ios/50/marker--v1.png" alt="marker--v1"/></span><a href="https://www.google.com/maps/place/Politeknik+Gajah+Tunggal/@-6.1931097,106.5666022,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fe4fc675da0f:0x84a0e5fc6c009127!8m2!3d-6.193115!4d106.5691771!16s%2Fg%2F11b6t85qc2?entry=ttu"> Politeknik Gajah Tunggal<br>Jl. Gajah Tunggal No.16,<br>Kec. Jatiuwung,<br>Kota Tangerang,<br>Banten 15133 </a></p>
         </div>
-      
+
       </div>
+      
+      <div class="card-footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </div>
+
+    <div class="card">
+    <div class="card-body">
+      <div class="col-md-7 col-sm-7 ">
+        <div class="footer-single-item">
+          <h2>LINK</h2>
+          <div class="footer-links">
+            <ul>
+              <li><a href="https://poltek-gt.ac.id/">POLTEK-GT</a></li>
+              <li><a href="https://sisfo.poltek-gt.ac.id/">SISFO POLTEK-GT</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+
       <div class="card-footer">
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </div>
     <div class="card">
-      
+
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </div>
-    <div class="card">
-     
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+       <div class="container-fluid aos-init aos-animate" data-aos="flip-up" data-aos-duration="1000">
+            <h2 class="text-4xl fw-bold color-palette-1 mb-10">Kritik &amp; Saran</h2>
+            <div class="row">
+                <form name="submit-to-google-sheet">
+                    <div class="col mb-3">
+                        <div class="form-group">
+                            <label for="kritik">Kritik</label><br>
+                            <textarea class="form-control" id="kritik" name="kritik" placeholder="Silahkan Isi"></textarea>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="form-group">
+                            <label for="saran">Saran</label>
+                            <textarea class="form-control" id="saran" name="saran" placeholder="Silahkan Isi"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-left:7px">Kirim</button>
+                </form>
+            </div>
+
+            <p class="mt-2 text-xs color-palette-1 "><a href="/">Klik disini untuk melihat kritik dan saran</a></p>
+        </div>
       </div>
       <div class="card-footer">
         <small class="text-muted">Last updated 3 mins ago</small>
