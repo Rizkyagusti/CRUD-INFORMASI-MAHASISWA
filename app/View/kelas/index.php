@@ -17,12 +17,13 @@
 <body class="hold-transition sidebar-mini">
 
     <?php
+
     use Krispachi\KrisnaLTE\App\FlashMessage;
 
     FlashMessage::flashMessage();
     ?>
 
-<div class="wrapper">
+    <div class="wrapper">
         <?php require __DIR__ . "/../layouts/nav-aside.php"; ?>
 
         <!-- Modal -->
@@ -42,14 +43,11 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="nama">Nama Jurusan</label>
-                                        <input type="text" name="nama" class="form-control" id="nama"
-                                            value="<?= $_SESSION["form-input"]["nama"] ?? "" ?>"
-                                            placeholder="Masukkan Nama Jurusan">
+                                        <input type="text" name="nama" class="form-control" id="nama" value="<?= $_SESSION["form-input"]["nama"] ?? "" ?>" placeholder="Masukkan Nama Jurusan">
                                     </div>
                                     <div class="form-group">
                                         <label for="mata_kuliah">Mata Kuliah</label>
-                                        <select style="width: 100%;" class="js-example-basic-multiple" id="mata_kuliah"
-                                            name="mata_kuliahs[]" multiple="multiple">
+                                        <select style="width: 100%;" class="js-example-basic-multiple" id="mata_kuliah" name="mata_kuliahs[]" multiple="multiple">
                                             <?php
                                             foreach ($subjects as $row) {
                                                 if (isset($_SESSION["form-input"]["mata_kuliahs"])) {
@@ -76,8 +74,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="create_jurusan"
-                                class="btn btn-success button-save">Tambah</button>
+                            <button type="submit" name="create_jurusan" class="btn btn-success button-save">Tambah</button>
                         </div>
                     </div>
             </form>
@@ -105,114 +102,101 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
-                <?php
-                $majors = [];
-                $subjects = [];
+    <div class="container-fluid">
+        <?php
+        $majors = [];
+        $subjects = [];
 
-                $model = new Krispachi\KrisnaLTE\Model\MajorModel();
-                $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
-                $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-                $majors = $model->getAllMajor();
-                $classData = $modelKelas->getAllKelas();
-               
-                ?>
+        $model = new Krispachi\KrisnaLTE\Model\MajorModel();
+        $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
+        $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
+        $majors = $model->getAllMajor();
+        $classData = $modelKelas->getAllKelas();
+        ?>
 
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header d-flex align-items-center">
-                                <h3 class="card-title">Tabel Daftar Jurusan</h3>
-                                <!-- Dropdown to select majors -->
-                                <select id="majorDropdown" class="form-control ml-auto">
-                                    <?php foreach ($majors as $major): ?>
-                                        <option value="<?= $major['id'] ?>">
-                                            <?= $major['nama'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <!-- /.card-header -->
-                           <!-- ... Your existing PHP code ... -->
-                           <?php
-
-// ... Your existing PHP code ...
-
-// Instantiate MajorModel, KelasModel, and MahasiswaModel
-$majorModel = new Krispachi\KrisnaLTE\Model\MajorModel();
-$kelasModel = new Krispachi\KrisnaLTE\Model\KelasModel();
-$mahasiswaModel = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-
-// Get all majors from MajorModel
-$majors = $majorModel->getAllMajor();
-
-?>
-
-<!-- Display the combined data in the table -->
-<div class="card-body">
-    <table id="majorTable" class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Jurusan</th>
-                <th>Kelas</th>
-                <th>Jumlah Pria</th>
-                <th>Jumlah Wanita</th>
-                <!-- Add more columns as needed -->
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody id="majorTableBody">
-            <?php
-            $no = 1;
-            foreach ($majors as $major) {
-                // Get kelas by jurusan id from KelasModel
-                $kelas = $kelasModel->getKelasByJurusanId($major['id']);
-
-                // Determine the rowspan value for the "Jurusan" column
-                $rowspan = count($kelas);
-
-                foreach ($kelas as $key => $kelasItem) {
-                    // Output the "Jurusan" cell only for the first row of each major
-                    if ($key === 0) {
-                        ?>
-                        <tr>
-                            <td rowspan="<?= $rowspan ?>"><?= $no++ ?></td>
-                            <td rowspan="<?= $rowspan ?>"><?= $major['nama'] ?></td>
-                        <?php
-                    }
-                    ?>
-                    <td><?= $kelasItem['kelas'] ?></td>
-                    <td><?= $mahasiswaModel->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?></td>
-                    <td><?= $mahasiswaModel->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?></td>
-                    <!-- Add more columns as needed -->
-                    <td>
-                        <button class="btn btn-sm btn-warning button-edit">Ubah</button>
-                        <!-- Add your delete form here -->
-                    </td>
-                    </tr>
-                    <?php
-                }
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-
-
-<!-- ... Your existing PHP code ... -->
-
-
-<!-- ... Your existing PHP code ... -->
-
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <h3 class="card-title">Tabel Daftar Jurusan</h3>
+                    <input type="text" id="searchInput" class="form-control ml-auto" placeholder="Cari jurusan...">
                 </div>
+                    <!-- /.card-header -->
+                    
+                    <!-- Skrip JavaScript dipindahkan ke bagian bawah -->
+                    
 
-               
+                    <!-- ... Your existing PHP code ... -->
+                    
+                    <!-- Display the combined data in the table -->
+                    <div class="card-body">
+                        <table id="majorTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Jurusan</th>
+                                    <th>Kelas</th>
+                                    <th>Jumlah Pria</th>
+                                    <th>Jumlah Wanita</th>
+                                    <!-- Add more columns as needed -->
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="majorTableBody">
+                                <?php
+                                $no = 1;
+                                foreach ($majors as $major) {
+                                    // Get kelas by jurusan id from KelasModel
+                                    $kelas = $modelKelas->getKelasByJurusanId($major['id']);
 
-            </div><!-- /.container-fluid -->
-        </section>
+                                    // Determine the rowspan value for the "Jurusan" column
+                                    $rowspan = count($kelas);
+
+                                    foreach ($kelas as $key => $kelasItem) {
+                                        // Output the "Jurusan" cell only for the first row of each major
+                                        if ($key === 0) {
+                                ?>
+                                            <tr>
+                                                <td rowspan="<?= $rowspan ?>"><?= $no++ ?></td>
+                                                <td rowspan="<?= $rowspan ?>"><?= $major['nama'] ?></td>
+                                        <?php
+                                        }
+                                        ?>
+                                        <td><?= $kelasItem['kelas'] ?></td>
+                                        <td><?= $modelMahasiswa->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?></td>
+                                        <td><?= $modelMahasiswa->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?></td>
+                                        <!-- Add more columns as needed -->
+                                        <td>
+                                            <button class="btn btn-sm btn-warning button-edit">Ubah</button>
+                                            <!-- Add your delete form here -->
+                                        </td>
+                                    </tr>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- ... Your existing PHP code ... -->
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        function filterTable() {
+                            var selectedMajorId = $("#majorDropdown").val();
+
+                            // Hide all rows initially
+                            $("#majorTableBody tr").hide();
+
+                            // Show only the rows corresponding to the selected major
+                            $("#majorTableBody tr[data-major-id='" + selectedMajorId + "']").show();
+                        }
+                    </script>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -245,27 +229,72 @@ $majors = $majorModel->getAllMajor();
     <script src="AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <!-- Page specific script -->
     <script>
-        $(document).ready(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false, "responsive": true,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+      
+    // ...
+
+    // Fungsi untuk mengatur perilaku pencarian jurusan
+    $(document).ready(function() {
+    // ...
+
+    // Fungsi untuk mengatur perilaku pencarian jurusan
+    $("#searchInput").on("input", function() {
+        var searchTerm = $(this).val().toLowerCase();
+        $("#majorTableBody tr").each(function() {
+            var isMatch = false;
+
+            // Iterasi melalui setiap sel (kolom) dalam baris
+            $(this).find("td").each(function(index) {
+                var cellText = $(this).text().toLowerCase();
+
+                // Jika terdapat kecocokan pada kolom tertentu, tandai sebagai kecocokan
+                if (cellText.indexOf(searchTerm) > -1) {
+                    isMatch = true;
+                    return false; // Hentikan pencarian saat pertama kali kecocokan ditemukan
+                }
             });
+
+            // Tampilkan baris jika ada kecocokan pada salah satu kolom
+            if (isMatch) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+
+        // Tampilkan semua baris jika kotak pencarian kosong
+        if (searchTerm === "") {
+            $("#majorTableBody tr").show();
+        }
+    });
+
+    // ...
+});
+
+
+
+
+
+    // ...
+
+
+    $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+    });
+
+    // ... Kode JavaScript lainnya ...
 
             $('.js-example-basic-multiple').select2({
                 placeholder: "Pilih Mata Kuliah",
                 allowClear: true
             });
 
-            $(".form-delete").on("submit", function (e) {
+            $(".form-delete").on("submit", function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'Konfirmasi Hapus',
@@ -289,18 +318,18 @@ $majors = $majorModel->getAllMajor();
                 });
             });
 
-            $(".button-create").click(function () {
+            $(".button-create").click(function() {
                 $(".button-save").text("Tambah").removeClass("btn-warning").addClass("btn-success").attr("name", "create_major");
                 $("#majorModalLabel").text("Tambah Jurusan");
             });
 
-            $(".button-edit").click(function () {
+            $(".button-edit").click(function() {
                 // Reset form
                 $("#modal-form").attr("action", "/majors");
                 $("#modal-form")[0].reset();
                 $("#mata_kuliah").val(null).trigger('change');
 
-                $.get("/majors/" + $(this).data("id"), function (response) {
+                $.get("/majors/" + $(this).data("id"), function(response) {
                     let data;
                     try {
                         data = JSON.parse(response);
@@ -327,7 +356,7 @@ $majors = $majorModel->getAllMajor();
             });
 
             // Clear form saat modal edit close dan cek atribut name button-save
-            $("#majorModal").on('hidden.bs.modal', function () {
+            $("#majorModal").on('hidden.bs.modal', function() {
                 if ($(".button-save").attr("name") == "edit_major") {
                     $("#modal-form").attr("action", "/majors");
                     $("#modal-form")[0].reset();
@@ -335,7 +364,7 @@ $majors = $majorModel->getAllMajor();
                 }
                 $(".button-save").attr("name", "create_major");
             });
-        });
+      
     </script>
 </body>
 

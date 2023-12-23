@@ -28,9 +28,9 @@ class MajorController {
         $model = new MajorModel();
         $result = $model->getMajorById($id);
         $model = new SubjectModel();
-        $result += [
-            "mata_kuliahs" => $model->getByMajor($id)
-        ];
+        // $result += [
+        //     "mata_kuliahs" => $model->getByMajor($id)
+        // ];
 
         if(!empty($result)) {
             echo json_encode($result);
