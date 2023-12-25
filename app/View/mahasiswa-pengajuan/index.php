@@ -4,8 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>eduPGT | Dashboard</title>
-	<?php require __DIR__ . "/layouts/headlinks.php" ?>
+	<title>eduPGT | Pengajuan data</title>
+	<?php require __DIR__ . "/../layouts/headlinks.php" ?>
 	<!-- DataTables -->
 	<link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" href="AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -15,15 +15,28 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 
 	<?php
+
 	use Krispachi\KrisnaLTE\App\FlashMessage;
 
 	FlashMessage::flashMessage();
-	use Krispachi\KrisnaLTE\Model\MahasiswaModel;
-	// use Krispachi\KrisnaLTE\Model\MahasiswaModel();
+	// Import model MahasiswaPribadiModel
+	use Krispachi\KrisnaLTE\Model\PengajuanModel;
+	if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+		$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+		$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+		$query = new Krispachi\KrisnaLTE\Model\UserModel;
+		$result = $query->getUserById($payload->user_id);
+		$role = $query->getRoleUserById($payload->user_id)["role"];
+		$nama = $result["username"] ;
+		
+		
+	} else {
+		echo "User tidak ditemukan";
+	}
 	?>
 
 	<div class="wrapper">
-		<?php require __DIR__ . "/layouts/nav-aside.php" ?>
+		<?php require __DIR__ . "/../layouts/nav-aside.php" ?>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -32,11 +45,12 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Dashboard</h1>
+							<h1 class="m-0">Pengajuan</h1>
 						</div><!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item active">Dashboard</li>
+								<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+								<li class="breadcrumb-item active">Pengajuan</li>
 							</ol>
 						</div><!-- /.col -->
 					</div><!-- /.row -->
@@ -54,20 +68,11 @@
 								<div class="card-header d-flex align-items-center">
 									<h3 class="card-title" style="margin-bottom: 0;">Informasi Kampus Tabel Mahasiswa
 									</h3><br>
-									<?php
-									if ($role === "admin" || $role === "petugas_pendaftaran") {
-										echo '<a href="/mahasiswas/create" class="btn btn-success ml-auto">Tambah Mahasiswa</a>';
-									}
-									?>
+									<a class="btn btn-success ml-auto" id="ajukan" href="pengajuan/create/<?= $nama ?>">Ajukan Data</a>
+
 									<!-- Ganti "#informasi-pribadi-btn" dengan ID atau kelas yang sesuai -->
-									<?php
-										if($role === "admin") :
-									?>
-									<button id="informasi-pribadi-btn" class="btn btn-primary "
-										style="margin-left: 5px;">Pindah ke Informasi Pribadi</button>
-									<?php
-										endif;
-									?>	
+										<button id="informasi-pribadi-btn" class="btn btn-primary " style="margin-left: 5px;">Pindah ke Informasi Pribadi</button>
+									
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive">
@@ -84,24 +89,42 @@
 												<th>Tahun Ajaran</th>
 												<th>Telepon</th>
 												<th>Email</th>
-												<?php
-												if ($role === "admin" || $role === "petugas_pendaftaran") {
-													echo '<th>Aksi</th>';
-												}
-												?>
+												<th>Aksi</th>
 											</tr>
 										</thead>
+										<?php
+										// File yang membutuhkan informasi pribadi mahasiswa (contoh: informasi_pribadi.php)
+
+
+
+										// Buat objek model
+										$mahasiswaModel = new PengajuanModel();
+										if ($role !== "admin") {
+											if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+												$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+												$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+												$query = new Krispachi\KrisnaLTE\Model\UserModel;
+												$result = $query->getUserById($payload->user_id);
+												$role = $query->getRoleUserById($payload->user_id)["role"];
+												$nama = $result["username"] ;
+												$model_info1 = $mahasiswaModel->getMahasiswaByNim($nama);
+											} else {
+												echo "User tidak ditemukan";
+											}
+											
+										}	else{
+											$model_info1 = $mahasiswaModel->getAllMahasiswa();
+										}	
+										// Panggil metode untuk mendapatkan informasi pribadi mahasiswa
+										
+										?>
 										<tbody>
-											
 											<?php
-											
 											$majors = new Krispachi\KrisnaLTE\Model\MajorModel();
-											$iteration = 0;
-											$mahasiswaModel = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-											$mahasiswaModel1 = new MahasiswaModel();
-											$hasil = $mahasiswaModel->getAllMahasiswa();
 											$subjects = new Krispachi\KrisnaLTE\Model\SubjectModel();
-											foreach ($model as $row):
+											$row["id_mahasiswa"] = 1;
+											$iteration = 0;
+											foreach ($model_info1 as $row) :
 												$iteration++;
 
 												try {
@@ -109,8 +132,7 @@
 												} catch (Exception $exception) {
 													$majors_subjects = [];
 												}
-												
-												?>
+											?>
 												<tr>
 													<td>
 														<?= $iteration ?>
@@ -144,24 +166,28 @@
 													</td>
 
 													<?php
-													if ($role === "admin" || $role === "petugas_pendaftaran"):
-														?>
-														<td style="white-space: nowrap;">
-															<a href="/mahasiswas/update/<?= $row["id_mahasiswa"] ?>"
-																class="btn btn-sm btn-warning">Ubah</a>
-															<form action="/mahasiswas/delete/<?= $row["id_mahasiswa"] ?>"
-																method="post" class="form-delete d-inline-block">
-																<button type="submit"
-																	class="btn btn-sm btn-danger button-delete">Hapus</button>
-															</form>
-														</td>
-
-														<?php
-													endif;
+													if ($role === "admin" || $role === "petugas_pendaftaran") {
+														echo '<td style="white-space: nowrap;">
+																<a href="/pengajuan/update/' . $row["id_mahasiswa"] . '" class="btn btn-sm btn-warning">Ubah</a>
+																<form action="/pengajuan/delete/' . $row["id_mahasiswa"] . '" method="post" class="form-delete d-inline-block">
+																	<button type="submit" class="btn btn-sm btn-danger button-delete">Hapus</button>
+																</form>
+																<form action="/pengajuan/approve/' . $row["id_mahasiswa"] . '" method="post">
+																<button type="submit" class="btn btn-sm btn-success button-approve" data-id="' . $row["id_mahasiswa"] . '">Approve</button>
+																</form>
+															</td>';
+													}else{
+														echo '<td style="white-space: nowrap;">
+																<a href="/pengajuan/update/' . $row["id_mahasiswa"] . '" class="btn btn-sm btn-warning">Ubah</a>
+																<form action="/pengajuan/delete/' . $row["id_mahasiswa"] . '" method="post" class="form-delete d-inline-block">
+																	<button type="submit" class="btn btn-sm btn-danger button-delete">Hapus</button>
+																</form>
+																</td>';
+													}
 													?>
 
 												</tr>
-												<?php
+											<?php
 											endforeach;
 											?>
 										</tbody>
@@ -175,18 +201,29 @@
 							<!-- Informasi Pribadi Mahasiswa Section -->
 							<?php
 							// File yang membutuhkan informasi pribadi mahasiswa (contoh: informasi_pribadi.php)
-							
-							// Import model MahasiswaPribadiModel
-							
-							// Buat objek model
-							$mahasiswaPribadiModel = new MahasiswaModel();
-							
 
+
+
+							// Buat objek model
+							$mahasiswaPribadiModel = new PengajuanModel();
+							if($role === "admin"){
+								$model_info = $mahasiswaPribadiModel->getAllMahasiswaPribadi();
+							}else{
+								if($row["id_mahasiswa"]){
+									$model_info = $mahasiswaPribadiModel->getMahasiswaPribadiById($row['id_mahasiswa']);
+								}else{
+									$model_info = null;
+								}
+								
+								// var_dump($model_info);
+								// die;
+								
+							}
 							// Panggil metode untuk mendapatkan informasi pribadi mahasiswa
-							$model_info = $mahasiswaPribadiModel->getAllMahasiswaPribadi();
+							
 							?>
 
-							<div class="card" id="informasi-pribadi" style="display: none;" >
+							<div class="card" id="informasi-pribadi" style="display: none;">
 								<div class="card-header d-flex align-items-center">
 									<h3 class="card-title">Informasi Pribadi Mahasiswa</h3>
 									<!-- Ganti "#tabel-mahasiswa-btn" dengan ID atau kelas yang sesuai -->
@@ -198,6 +235,7 @@
 									<table id="example2" class="table table-bordered table-striped">
 										<thead>
 											<tr>
+												<th>ID</th>
 												<th>Nama</th>
 												<th>Agama</th>
 												<th>NIK</th>
@@ -210,35 +248,48 @@
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach ($model_info as $info): ?>
-												<tr>
-													<td>
-														<?= $info['nama'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['agama'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['nik'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['nama_ibu_kandung'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['npwp'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['no_bpjs'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['alamat'] ?? '-' ?>
-													</td>
-													<td>
-														<?= $info['golongan_darah'] ?? '-' ?>
-													</td>
-													<!-- Tambahkan kolom lain sesuai kebutuhan -->
-												</tr>
-											<?php endforeach; ?>
+											
+										<?php 
+										if($role === "admin"):
+										foreach ($model_info as $info) : ?>
+											
+											
+											
+											<tr>
+												<td><?= $info['id_mahasiswa'] ?? '-' ?></td>
+												<td><?= $info['nama'] ?? '-' ?></td>
+												<td><?= $info['agama'] ?? '-' ?></td>
+												<td><?= $info['nik'] ?? '-' ?></td>
+												<td><?= $info['nama_ibu_kandung'] ?? '-' ?></td>
+												<td><?= $info['npwp'] ?? '-' ?></td>
+												<td><?= $info['no_bpjs'] ?? '-' ?></td>
+												<td><?= $info['alamat'] ?? '-' ?></td>
+												<td><?= $info['golongan_darah'] ?? '-' ?></td>
+												<!-- Tambahkan kolom lain sesuai kebutuhan -->
+											</tr>
+										<?php 
+										
+									endforeach; 
+								endif;?>
+
+										<?php 
+										if($role !== "admin"):
+										?>
+											<tr>
+												<td><?= $model_info['id_mahasiswa'] ?? '-' ?></td>
+												<td><?= $model_info['nama'] ?? '-' ?></td>
+												<td><?= $model_info['agama'] ?? '-' ?></td>
+												<td><?= $model_info['nik'] ?? '-' ?></td>
+												<td><?= $model_info['nama_ibu_kandung'] ?? '-' ?></td>
+												<td><?= $model_info['npwp'] ?? '-' ?></td>
+												<td><?= $model_info['no_bpjs'] ?? '-' ?></td>
+												<td><?= $model_info['alamat'] ?? '-' ?></td>
+												<td><?= $model_info['golongan_darah'] ?? '-' ?></td>
+												<!-- Tambahkan kolom lain sesuai kebutuhan -->
+											</tr>
+										<?php 
+								endif;?>
+										
 										</tbody>
 									</table>
 								</div>
@@ -253,11 +304,11 @@
 			</section>
 			<!-- /.content -->
 		</div>
-		<?php require __DIR__ . "/layouts/footer.php" ?>
+		<?php require __DIR__ . "/../layouts/footer.php" ?>
 	</div>
 	<!-- ./wrapper -->
 
-	<?php require __DIR__ . "/layouts/bodyscripts.php" ?>
+	<?php require __DIR__ . "/../layouts/bodyscripts.php" ?>
 	<!-- DataTables  & Plugins -->
 	<script src="AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -273,77 +324,79 @@
 	<script src="AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(document).ready(function () {
+		$(document).ready(function() {
 			// Inisialisasi DataTables
 			var tableMahasiswa = $("#example1").DataTable({
-				"responsive": true, "lengthChange": false, "autoWidth": false, "responsive": true,
+				"responsive": true,
+				"lengthChange": false,
+				"autoWidth": false,
+				"responsive": true,
 				"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
 			}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
 			var tableInformasiPribadi = $("#example2").DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        "buttons": [
-            {
-                extend: 'copy',
-                text: 'Copy',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'csv',
-                text: 'CSV',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'excel',
-                text: 'Excel',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdf',
-                text: 'PDF',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                text: 'Print',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            'colvis'
-        ]
-    });
+				"paging": true,
+				"lengthChange": false,
+				"searching": false,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false,
+				"responsive": true,
+				"buttons": [{
+						extend: 'copy',
+						text: 'Copy',
+						exportOptions: {
+							columns: ':visible'
+						}
+					},
+					{
+						extend: 'csv',
+						text: 'CSV',
+						exportOptions: {
+							columns: ':visible'
+						}
+					},
+					{
+						extend: 'excel',
+						text: 'Excel',
+						exportOptions: {
+							columns: ':visible'
+						}
+					},
+					{
+						extend: 'pdf',
+						text: 'PDF',
+						exportOptions: {
+							columns: ':visible'
+						}
+					},
+					{
+						extend: 'print',
+						text: 'Print',
+						exportOptions: {
+							columns: ':visible'
+						}
+					},
+					'colvis'
+				]
+			});
 
-    // Add the buttons container to the DataTable
-    tableInformasiPribadi.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+			// Add the buttons container to the DataTable
+			tableInformasiPribadi.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 
 
-			
 
-				
 
-			
+
+
+
 			// Toggle visibility tabel-mahasiswa dan informasi-pribadi
-			$("#informasi-pribadi-btn").on("click", function () {
+			$("#informasi-pribadi-btn").on("click", function() {
 				$("#tabel-mahasiswa").hide();
 				$("#informasi-pribadi").show();
 			});
 
-			$("#tabel-mahasiswa-btn").on("click", function () {
+			$("#tabel-mahasiswa-btn").on("click", function() {
 				$("#informasi-pribadi").hide();
 				$("#tabel-mahasiswa").show();
 			});
@@ -351,7 +404,7 @@
 			// ... (sama seperti sebelumnya) ...
 
 			// ada banyak form di tabel dengan class .form-delete, makannya pakai $(this)
-			$(".form-delete").on("submit", function (e) {
+			$(".form-delete").on("submit", function(e) {
 				e.preventDefault();
 				Swal.fire({
 					title: 'Konfirmasi Hapus',

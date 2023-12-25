@@ -26,7 +26,18 @@
         <?php
         require __DIR__ . "/../layouts/nav-aside.php";
         $modelIzin = new Krispachi\KrisnaLTE\Model\IzinModel();
-        $dataIzin = $modelIzin->getAllIzin1();
+        
+        if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+            $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+            $payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+            $query = new Krispachi\KrisnaLTE\Model\UserModel;
+            $result = $query->getUserById($payload->user_id);
+            $role = $query->getRoleUserById($payload->user_id)["role"];
+            $nama = $result["username"] ;
+            
+        } else {
+            echo "User tidak ditemukan";
+        }
         ?>
 
         <!-- Modal -->
@@ -53,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nama">NIM</label>
-                        <input type="number" class="form-control" id="nim" name="nim" required>
+                        <input type="number" class="form-control" id="nim" name="nim" value="<?=$nama?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="nama">Keperluan</label>
@@ -128,6 +139,7 @@
                                             <th>Status</th>
                                             <?php
                                                 if($role === "admin") :
+                                                    
                                             ?>
                                             <th>Aksi</th>
                                             <?php
@@ -137,6 +149,13 @@
                                     </thead>
                                     <tbody id="majorTableBody">
                                         <?php
+                                        if ($role !== "admin") {
+											
+                                            $dataIzin =$modelIzin -> getIzin1ByNim($nama);
+											
+										}	else{
+											$dataIzin = $modelIzin->getAllIzin1();
+										}
                                         $no = 1;
                                         foreach ($dataIzin as $hasilDataIzin) {
 

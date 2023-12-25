@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>eduPGT | Pengajuan Data</title>
+	<title>eduPGT | Informasi Users</title>
 	<?php require __DIR__ . "/../layouts/headlinks.php" ?>
 	<!-- DataTables -->
 	<link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -21,8 +21,6 @@
 	FlashMessage::flashMessage();
 	?>
 	<div class="wrapper">
-
-
 		<!-- Modal -->
 		<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="majorModalLabel" aria-hidden="true">
 			<!-- form start -->
@@ -55,14 +53,14 @@
 											</div>
 										</div>
 									</div>
-									<div class="input-group mb-3">
+									<!-- <div class="input-group mb-3">
 										<input type="file" name="gambar" class="form-control" value="<?= $_SESSION["form-input"]["gambar"] ?? "" ?>" placeholder="Gambar" required>
 										<div class="input-group-append">
 											<div class="input-group-text">
 												<span class="fas fa-image"></span>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<div class="input-group mb-3">
 										<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
 										<div class="input-group-append">
@@ -83,7 +81,7 @@
 									</div>
 									<div class="row">
 										<!-- /.col -->
-										
+
 										<!-- /.col -->
 									</div>
 									<?php
@@ -103,6 +101,61 @@
 		</div>
 
 
+
+	</div>
+	<div class="wrapper">
+		<!-- Modal Edit User -->
+		<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+			<form action="/users/edit" method="post" id="edit-user-form">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col">
+									<!-- Tambahkan input fields untuk data yang ingin diubah -->
+									<input type="hidden" name="id" class="form-control" placeholder="id" id="id" required>
+									<div class="input-group mb-3">
+										<input type="text" name="edited_username" class="form-control" placeholder="Username" id="username" required>
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<span class="fas fa-user"></span>
+											</div>
+										</div>
+									</div>
+									<div class="input-group mb-3">
+										<input type="email" name="edited_email" class="form-control" placeholder="Email" id="email"  required>
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<span class="fas fa-envelope"></span>
+											</div>
+										</div>
+									</div>
+									<div class="input-group mb-3">
+										<input type="password" name="edited_password" class="form-control" placeholder="password" id="password"  required>
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<span class="fas fa-envelope"></span>
+											</div>
+										</div>
+									</div>
+									<!-- Tambahkan input fields lainnya sesuai kebutuhan -->
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+							<button type="submit" name="edit_user" class="btn btn-primary">Simpan Perubahan</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 
 	</div>
 	<div class="wrapper">
@@ -167,7 +220,7 @@
 
 													<td style="white-space: nowrap;">
 														<!-- Tambahkan tombol aksi sesuai kebutuhan -->
-														<button class="btn btn-sm btn-warning">Ubah</button>
+														<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal" onclick="kirimdata(<?= $user['id'] ?>, '<?= $user['username'] ?>','<?= $user['email'] ?>','<?= $user['password'] ?>')">Ubah</button>
 														<form action="/users/delete/<?= $user["id"] ?>" method="post" class="form-delete d-inline-block">
 															<button type="submit" class="btn btn-sm btn-danger  button-delete-profile"><b>Hapus Akun</b></button>
 														</form>
@@ -208,6 +261,17 @@
 	<script src="AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	<!-- Page specific script -->
 	<script>
+		function kirimdata(id, username, email, password) {
+            // Set data ke dalam modal
+            document.getElementById('id').value = id;
+            document.getElementById('username').value = username;
+            document.getElementById('email').value = email ;
+            document.getElementById('password').value = password;
+
+            // Tampilkan modal edit
+            $('#kelasModalEdit').modal('show');
+        }
+
 		$(document).ready(function() {
 			// Inisialisasi DataTables untuk tabel pengguna
 			var tablePengguna = $("#example").DataTable({
@@ -217,6 +281,7 @@
 				"responsive": true,
 				"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
 			}).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
 
 			// Mengonfigurasi SweetAlert untuk konfirmasi hapus
 			$(".form-delete").on("submit", function(e) {

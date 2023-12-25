@@ -17,6 +17,18 @@
 <?php
     use Krispachi\KrisnaLTE\App\FlashMessage;
     FlashMessage::flashMessage();
+
+    if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+        $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+        $payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+        $query = new Krispachi\KrisnaLTE\Model\UserModel;
+        $result = $query->getUserById($payload->user_id);
+        $role = $query->getRoleUserById($payload->user_id)["role"];
+        $nama = $result["username"] ;
+        
+    } else {
+        echo "User tidak ditemukan";
+    }
 ?>
     
 <div class="wrapper">
@@ -50,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nama">NIM</label>
-                        <input type="number" class="form-control" id="nim" name="nim" required>
+                        <input type="number" class="form-control" id="nim" name="nim" value="<?=$nama?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="nama">Kelas</label>
@@ -137,6 +149,13 @@
                                 </thead>
                                 <tbody id="majorTableBody">
                                         <?php
+                                        if ($role !== "admin") {
+											
+                                            $dataIzin =$modelIzin -> getIzin2ByNim($nama);
+											
+										}	else{
+											$dataIzin = $modelIzin->getAllIzin2();
+										}
                                         $no = 1;
                                         foreach ($dataIzin as $hasilDataIzin) {
                                                                                        

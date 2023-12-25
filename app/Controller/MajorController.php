@@ -16,9 +16,9 @@ class MajorController {
             "majors" => $result->getAllMajor()
         ];
         $result = new SubjectModel();
-        $model += [
-            "subjects" => $result->getAllSubject()
-        ];
+        // $model += [
+        //     "subjects" => $result->getAllSubject()
+        // ];
         
         View::render("major/index", $model);
     }

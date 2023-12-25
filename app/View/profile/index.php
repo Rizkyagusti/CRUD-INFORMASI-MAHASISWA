@@ -10,7 +10,32 @@
 
 <?php
     use Krispachi\KrisnaLTE\App\FlashMessage;
+    use Krispachi\KrisnaLTE\Model\MahasiswaModel;
+    use Krispachi\KrisnaLTE\Model\MajorModel;
+
     FlashMessage::flashMessage();
+
+    if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+        $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+        $payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+        $query = new Krispachi\KrisnaLTE\Model\UserModel;
+        $result = $query->getUserById($payload->user_id);
+        $role = $query->getRoleUserById($payload->user_id)["role"];
+        $nama = $result["username"] ;
+        
+    } else {
+        echo "User tidak ditemukan";
+    }
+    $modelMahasiswa = new MahasiswaModel();
+    $modelMajor = new MajorModel();
+    $dataMahasiswa = $modelMahasiswa->getMahasiswaByNim($nama);
+    // foreach($dataMahasiswa as $dataMhs){
+    //     $dataJurusan = $modelMajor->getMajorById($dataMhs["jurusan"]);
+    //     var_dump($dataJurusan["nama"]);
+    // // die;
+    // }
+    
+    
 ?>
 
 <div class="wrapper">
@@ -38,72 +63,131 @@
 
 		<!-- Main content -->
 		<section class="content">
-			<div class="container-fluid">
-				<div class="row">
-                    <div class="col-md-6 m-auto">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 m-auto">
 
-                        <!-- Profile Image -->
-                        <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
-                                <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="<?php __DIR__ ?>/img/<?php
-					if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
-						$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
-						$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
-						$query = new Krispachi\KrisnaLTE\Model\UserModel;
-						$result = $query->getUserById($payload->user_id);
-						$role = $query->getRoleUserById($payload->user_id)["role"];
-						echo $result["gambar"];
-					} else {
-						echo "Uknown Users" ;
-					}
-				?>" alt="User profile picture">
-                                </div>
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle" src="<?php __DIR__ ?>/img/<?php
+                            if (isset($_COOKIE["X-KRISNALTE-SESSION"]) && $gambar !== null) {
+                                $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+                                $payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+                                $query = new Krispachi\KrisnaLTE\Model\UserModel;
+                                $result = $query->getUserById($payload->user_id);
+                                $role = $query->getRoleUserById($payload->user_id)["role"];
+                                echo $result["gambar"];
+                            } else {
+                                echo "user.png";
+                            }
+                            ?>" alt="User profile picture">
+                        </div>
 
-                                <?php
-                                    if(!isset($_COOKIE["X-KRISNALTE-SESSION"])) {
-                                        $result = [
-                                            "id" => "0",
-                                            "username" => "N/A",
-                                            "email" => "N/A"
-                                        ];
-                                    }
-                                ?>
-                                <form action="/users/update/<?= $result["id"] ?>" method="post" id="form-profile">
-                                    <ul class="list-group list-group-unbordered my-3">
-                                        <li class="list-group-item">
-                                            <div class="row d-flex align-items-center">
-                                                <div class="col-3">Username</div>
-                                                <div class="col-9"><input type="text" name="username" id="username" value="<?= $_SESSION["form-input"]["username"] ?? $result["username"] ?>" class="form-control"></div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="row d-flex align-items-center">
-                                                <div class="col-3">Email</div>
-                                                <div class="col-9"><input type="email" name="email" id="email" value="<?= $_SESSION["form-input"]["email"] ?? $result["email"] ?>" class="form-control"></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <?php
-                                        if(isset($_SESSION["form-input"])) {
-                                            unset($_SESSION["form-input"]);
-                                        }
-                                    ?>
-                                </form>
+                        <h3 class="profile-username text-center"><?php echo $result["username"] ?? "Uknown" ?></h3>
 
-                                <a class="btn btn-primary btn-block button-edit-profile"><b>Ubah Profil</b></a>
-                                <form action="/users/delete/<?= $result["id"] ?>" method="post" class="form-delete d-block mt-1">
-                                    <button type="submit" class="btn btn-danger btn-block button-delete-profile"><b>Hapus Akun</b></button>
-                                </form>
+                        <p class="text-muted text-center"><?php echo $role ?? "Uknown Role" ?></p>
+
+                        <!-- About Me Box -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Tentang saya</h5>
                             </div>
+                            <?php 
+                                foreach($dataMahasiswa as $data):
+                                    $dataJurusan = $modelMajor->getMajorById($data["jurusan"]);
+                            ?>
+                            <div class="card-body">
+                                <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
+
+                                <p class="text-muted">
+                                    <?php echo $result["email"] ?? "Belum Pengajuan Data" ?>
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-university mr-1"></i> Jurusan</strong>
+
+                                <p class="text-muted">
+                                    <?php echo $dataJurusan["nama"] ?? "-" ?>
+                                </p>
+
+                                <hr>
+
+                                <strong><i class="fas fa-columns mr-1"></i> Kelas</strong>
+
+                                <p class="text-muted">
+                                    <?php echo $data["kelas"] ?? "-" ?>
+                                </p>
+
+                                <hr>
+
+                                <!-- Tambahkan field lain sesuai kebutuhan -->
+
+                                <!-- Tombol untuk memanggil modal ubah password -->
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#ubahPasswordModal">
+                                    Ubah Password
+                                </button>
+                            </div>
+                            <?php
+                            endforeach;
+                            ?>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
+
                     </div>
-                    <!-- /.col -->
-				</div>		
-			</div><!-- /.container-fluid -->
-		</section>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div><!-- /.container-fluid -->
+
+    <!-- Modal Ubah Password -->
+    <div class="modal fade" id="ubahPasswordModal" tabindex="-1" role="dialog" aria-labelledby="ubahPasswordModalLabel" aria-hidden="true">
+    <form action="/changePassword/<?=$result["id"]?>" method="post" id="modal-form">    
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ubahPasswordModalLabel">Ubah Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Isi dengan form ubah password sesuai kebutuhan -->
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="username" name="username" value="<?=$nama?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Password Lama</label>
+                        <input type="password" class="form-control" id="password1" name="password1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Password Baru</label>
+                        <input type="password" class="form-control" id="password2" name="password2" required>
+                    </div><!-- Tambahkan form ubah password di sini -->
+                    <div class="form-group">
+                        <label for="password3">Re-type Password</label>
+                        <input type="password" class="form-control" id="password3" name="password3" required>
+                    </div><!-- Tambahkan form ubah password di sini -->
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <!-- /.Modal Ubah Password -->
+</section>
+
+
 		<!-- /.content -->
 	</div>
 	<?php require __DIR__ . "/../layouts/footer.php" ?>

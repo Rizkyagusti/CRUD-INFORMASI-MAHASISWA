@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,12 +16,12 @@
 <body class="hold-transition sidebar-mini">
 
     <?php
-    use Krispachi\KrisnaLTE\App\FlashMessage;
 
+    use Krispachi\KrisnaLTE\App\FlashMessage;
     FlashMessage::flashMessage();
     ?>
 
-<div class="wrapper">
+    <div class="wrapper">
         <?php require __DIR__ . "/../layouts/nav-aside.php"; ?>
 
         <!-- Modal -->
@@ -56,25 +55,25 @@
                                     <div class="form-group">
                                         <label for="mata_kuliah">Mata Kuliah</label>
                                         <select style="width: 100%;" class="js-example-basic-multiple" id="mata_kuliah" name="mata_kuliahs[]" multiple="multiple">
-                                        <label for="jurusan">Jurusan</label>
-                                        <select style="width: 100%;" name="id_jurusan" class="js-example-basic-single" id="jurusan" style="width: 100%; height: 60px;">
-                                            <option value="" selected disabled>Pilih Jurusan</option>
-                                            <?php
-                                            $model = new Krispachi\KrisnaLTE\Model\MajorModel();
+                                            <label for="jurusan">Jurusan</label>
+                                            <select style="width: 100%;" name="id_jurusan" class="js-example-basic-single" id="jurusan" style="width: 100%; height: 60px;">
+                                                <option value="" selected disabled>Pilih Jurusan</option>
+                                                <?php
+                                                $model = new Krispachi\KrisnaLTE\Model\MajorModel();
 
-                                            foreach ($model->getAllMajor() as $jurusan) {
-                                                if (isset($_SESSION["form-input"]["id_jurusan"])) {
-                                                    if ($_SESSION["form-input"]["id_jurusan"] == $jurusan["id"]) {
-                                                        echo "<option value=" . $jurusan["id"] . " selected>" . $jurusan["nama"] . "</option>";
+                                                foreach ($model->getAllMajor() as $jurusan) {
+                                                    if (isset($_SESSION["form-input"]["id_jurusan"])) {
+                                                        if ($_SESSION["form-input"]["id_jurusan"] == $jurusan["id"]) {
+                                                            echo "<option value=" . $jurusan["id"] . " selected>" . $jurusan["nama"] . "</option>";
+                                                        } else {
+                                                            echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
+                                                        }
                                                     } else {
                                                         echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
                                                     }
-                                                } else {
-                                                    echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
                                                 }
-                                            }
-                                            ?>
-                                        </select>
+                                                ?>
+                                            </select>
 
                                     </div>
                                     <div class="form-group">
@@ -91,9 +90,6 @@
                     </div>
             </form>
         </div>
-
-
-
     </div>
     <div class="wrapper">
         <div class="modal fade" id="kelasModalEdit" tabindex="-1" aria-labelledby="kelasModalEditLabel" aria-hidden="true">
@@ -127,7 +123,6 @@
             </form>
         </div>
     </div>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -149,15 +144,14 @@
 
         <!-- Main content -->
         <section class="content">
-                <div class="container-fluid">
+            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
                                 <h3 class="card-title">Tabel Daftar Jurusan</h3>
-                                <a class="btn btn-success ml-auto button-create" data-toggle="modal"
-                                    data-target="#majorModal">Tambah Jurusan</a>
+                                <a class="btn btn-success ml-auto button-create" data-toggle="modal" data-target="#majorModal">Tambah Jurusan</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -177,20 +171,10 @@
                                     $model = new Krispachi\KrisnaLTE\Model\MajorModel();
                                     $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
                                     $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-
-                                    // use Krispachi\KrisnaLTE\Model\MahasiswaModel;
-                                    
-                                    // $modelMahasiswa = new MahasiswaModel();
-                                    
                                     $majors = $model->getAllMajor();
-
-
-
                                     ?>
-
-
                                     <tbody>
-                                    <?php
+                                        <?php
                                         // Instantiate MajorModel, KelasModel, and MahasiswaModel
                                         $majorModel = new Krispachi\KrisnaLTE\Model\MajorModel();
                                         $kelasModel = new Krispachi\KrisnaLTE\Model\KelasModel();
@@ -203,48 +187,43 @@
                                             // Get kelas by jurusan id from KelasModel
                                             $kelas = $kelasModel->getKelasByJurusanId($major['id']);
 
-                // Determine the rowspan value for the "Jurusan" column
-                $rowspan = count($kelas);
+                                            // Determine the rowspan value for the "Jurusan" column
+                                            $rowspan = count($kelas);
 
-                foreach ($kelas as $key => $kelasItem) {
-                    // Output the "Jurusan" cell only for the first row of each major
-                    if ($key === 0) {
-                        ?>
-                        <tr>
-                            <td rowspan="<?= $rowspan ?>"><?= $no++ ?></td>
-                            <td rowspan="<?= $rowspan ?>"><?= $major['nama'] ?></td>
-                        <?php
-                    }
-                    ?>
-                    <td><?= $kelasItem['kelas'] ?></td>
-                    <td><?= $mahasiswaModel->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?></td>
-                    <td><?= $mahasiswaModel->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?></td>
-                    <!-- Add more columns as needed -->
-                    <td>
-                        <button class="btn btn-sm btn-warning button-edit">Ubah</button>
-                        <!-- Add your delete form here -->
-                    </td>
-                    </tr>
-                    <?php
-                }
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-
-
-<!-- ... Your existing PHP code ... -->
-
-
-<!-- ... Your existing PHP code ... -->
-
+                                            foreach ($kelas as $key => $kelasItem) {
+                                                // Output the "Jurusan" cell only for the first row of each major
+                                                if ($key === 0) {
+                                        ?>
+                                                    <tr>
+                                                        <td rowspan="<?= $rowspan ?>"><?= $no++ ?></td>
+                                                        <td rowspan="<?= $rowspan ?>"><?= $major['nama'] ?></td>
+                                                    <?php
+                                                }
+                                                    ?>
+                                                    <td><?= $kelasItem['kelas'] ?></td>
+                                                    <td><?= $mahasiswaModel->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?></td>
+                                                    <td><?= $mahasiswaModel->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?></td>
+                                                    <!-- Add more columns as needed -->
+                                                    <td>
+                                                        <button class="btn btn-sm btn-warning button-edit" onclick="kirimdata(<?= $kelasItem['id'] ?>, '<?= $kelasItem['kelas'] ?>')">Ubah</button>
+                                                        <!-- Add your delete form here -->
+                                                        <form action="/kelas/delete" method="post" class="d-inline form-delete">
+                                                            <input type="hidden" name="id_kelas" value="<?= $kelasItem['id'] ?>">
+                                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                                        </form>
+                                                        <!-- Add your delete form here -->
+                                                    </td>
+                                                    </tr>
+                                            <?php
+                                            }
+                                        }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-               
-
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
@@ -288,21 +267,24 @@
     </script>
     <!-- Page specific script -->
     <script>
-         function kirimdata(id, kelas) {
-                // Set data ke dalam modal
-                document.getElementById('edit-id-kelas').value = id;
-                document.getElementById('edit-kelas').value = kelas;
+        function kirimdata(id, kelas) {
+            // Set data ke dalam modal
+            document.getElementById('edit-id-kelas').value = id;
+            document.getElementById('edit-kelas').value = kelas;
 
-                // Tampilkan modal edit
-                $('#kelasModalEdit').modal('show');
-            }
+            // Tampilkan modal edit
+            $('#kelasModalEdit').modal('show');
+        }
 
         $(document).ready(function() {
-           
+
 
 
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false, "responsive": true,
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "responsive": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -344,7 +326,7 @@
                 });
             });
 
-            $(".button-create").click(function () {
+            $(".button-create").click(function() {
                 $(".button-save").text("Tambah").removeClass("btn-warning").addClass("btn-success").attr("name", "create_major");
                 $("#majorModalLabel").text("Tambah Jurusan");
             });
@@ -390,7 +372,7 @@
                 $(".button-save").attr("name", "create_major");
             });
         });
-            </script>
+    </script>
 </body>
 
 </html>

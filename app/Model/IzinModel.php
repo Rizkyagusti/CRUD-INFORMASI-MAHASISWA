@@ -44,6 +44,24 @@ class IzinModel{
         }
     }
 
+    public function getIzin1ByNim($nim)
+    {
+        $query = "SELECT * FROM {$this->table1} WHERE nim = :nim";
+        $this->database->query($query);
+        $this->database->bind("nim", $nim);
+
+        return $this->database->resultSet();
+    }
+
+    public function getIzin2ByNim($nim)
+    {
+        $query = "SELECT * FROM {$this->table2} WHERE nim = :nim";
+        $this->database->query($query);
+        $this->database->bind("nim", $nim);
+
+        return $this->database->resultSet();
+    }
+
     public function processApproval($izinId, $approvalStatus)
     {
         try {
