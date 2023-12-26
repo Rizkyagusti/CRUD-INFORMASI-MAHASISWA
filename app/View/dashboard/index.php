@@ -23,7 +23,45 @@
 ?>
     
 <div class="wrapper">
-<?php require __DIR__ . "/../layouts/nav-aside.php"; ?>
+<?php 
+require __DIR__ . "/../layouts/nav-aside.php"; 
+
+$mahasiswaModel = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
+$izinModel = new Krispachi\KrisnaLTE\Model\IzinModel();
+$jumlahElektro = $mahasiswaModel->getJumlahMahasiswaByJurusan(1);
+$jumlahMesin = $mahasiswaModel->getJumlahMahasiswaByJurusan(2);
+$jumlahIndustri = $mahasiswaModel->getJumlahMahasiswaByJurusan(3);
+$jumlahAll = $jumlahElektro + $jumlahMesin + $jumlahIndustri;
+
+$jumlahIzinElektro = $izinModel->getJumlahIzinByJurusan(1);
+$jumlahIzinMesin = $izinModel->getJumlahIzinByJurusan(2);
+$jumlahIzinIndustri = $izinModel->getJumlahIzinByJurusan(3);
+$jumlahIzinAll = $jumlahIzinElektro + $jumlahIzinMesin + $jumlahIzinIndustri;
+
+
+// $persentaseElektro = $persentaseElektro * (100/100);
+if ($jumlahElektro != 0) {
+  $persentaseElektro = $jumlahIzinElektro / $jumlahElektro * (100/100);
+} else {
+  // Handle ketika $jumlahElektro sama dengan nol (hindari pembagian dengan nol)
+  $persentaseElektro = 0; // Atau berikan nilai default lainnya
+}
+if ($jumlahMesin != 0) {
+  $persentaseMesin = $jumlahIzinMesin / $jumlahMesin * (100/100);
+} else {
+  // Handle ketika $jumlahMesin sama dengan nol (hindari pembagian dengan nol)
+  $persentaseMesin = 0; // Atau berikan nilai default lainnya
+}
+
+if ($jumlahIndustri != 0) {
+  $persentaseIndustri = $jumlahIzinIndustri / $jumlahIndustri * (100/100);
+} else {
+  // Handle ketika $jumlahMesin sama dengan nol (hindari pembagian dengan nol)
+  $persentaseIndustri = 0; // Atau berikan nilai default lainnya
+}
+
+$allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
+?>
   <!-- Preloader -->
   <!-- <div class="preloader flex-column justify-content-center align-items-center">
     <img src="img/logo.png" alt="AdminLTELogo" height="120" width="120">
@@ -65,7 +103,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Teknik Mesin</span>
                 <span class="info-box-number">
-                  146
+                 <?=$jumlahMesin;?>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -79,7 +117,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Teknik Elektronika</span>
-                <span class="info-box-number">147</span>
+                <span class="info-box-number"><?=$jumlahElektro;?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -96,7 +134,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Teknologi Industri</span>
-                <span class="info-box-number">90</span>
+                <span class="info-box-number"><?=$jumlahIndustri;?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -109,7 +147,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Jumlah Mahasiswa</span>
-                <span class="info-box-number">384</span>
+                <span class="info-box-number"><?=$jumlahAll;?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -123,24 +161,12 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-title">Monthly Recap Report</h5>
+                <h5 class="card-title">Rekap Tahunan</h5>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                      <i class="fas fa-wrench"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                      <a href="#" class="dropdown-item">Action</a>
-                      <a href="#" class="dropdown-item">Another action</a>
-                      <a href="#" class="dropdown-item">Something else here</a>
-                      <a class="dropdown-divider"></a>
-                      <a href="#" class="dropdown-item">Separated link</a>
-                    </div>
-                  </div>
                   <button type="button" class="btn btn-tool" data-card-widget="remove">
                     <i class="fas fa-times"></i>
                   </button>
@@ -151,7 +177,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <p class="text-center">
-                      <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                      <strong>2023</strong>
                     </p>
 
                     <div class="chart">
@@ -163,41 +189,41 @@
                   <!-- /.col -->
                   <div class="col-md-4">
                     <p class="text-center">
-                      <strong>Goal Completion</strong>
+                      <strong>Jumlah Izin Tidak Masuk</strong>
                     </p>
 
                     <div class="progress-group">
-                      Add Products to Cart
-                      <span class="float-right"><b>160</b>/200</span>
+                      Mahasiswa Mesin Izin
+                      <span class="float-right"><b><?=$jumlahIzinMesin;?></b>/<?=$jumlahMesin;?></span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-primary" style="width: 80%"></div>
+                        <div class="progress-bar bg-primary" style="width: <?=$persentaseMesin;?>%"></div>
                       </div>
                     </div>
                     <!-- /.progress-group -->
 
                     <div class="progress-group">
-                      Complete Purchase
-                      <span class="float-right"><b>310</b>/400</span>
+                      Mahasiswa Elektro Izin
+                      <span class="float-right"><b><?=$jumlahIzinElektro;?></b>/<?=$jumlahElektro;?></span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-danger" style="width: 75%"></div>
+                        <div class="progress-bar bg-danger" style="width: <?=$persentaseElektro;?>%"></div>
                       </div>
                     </div>
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      <span class="progress-text">Visit Premium Page</span>
-                      <span class="float-right"><b>480</b>/800</span>
+                      <span class="progress-text">Mahasiswa Industri Izin </span>
+                      <span class="float-right"><b><?=$jumlahIzinIndustri;?></b>/<?=$jumlahIndustri;?></span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                        <div class="progress-bar " style="background-color: #8A2BE2; width:<?=$persentaseIndustri;?>%;"></div>
                       </div>
                     </div>
 
                     <!-- /.progress-group -->
                     <div class="progress-group">
-                      Send Inquiries
-                      <span class="float-right"><b>250</b>/500</span>
+                      Total Izin
+                      <span class="float-right"><b><?=$jumlahIzinAll;?></b>/<?=$jumlahAll;?></span>
                       <div class="progress progress-sm">
-                        <div class="progress-bar bg-warning" style="width: 50%"></div>
+                        <div class="progress-bar bg-warning" style="width: <?=$allPersentase;?>%"></div>
                       </div>
                     </div>
                     <!-- /.progress-group -->
@@ -216,7 +242,7 @@
         <!-- /.row -->
         <div class="card">
               <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">Mahasiswa Izin Keluar Area Kampus</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -227,85 +253,67 @@
                   </button>
                 </div>
               </div>
+              <?php
+               $modelIzin = new Krispachi\KrisnaLTE\Model\IzinModel();
+               $dataIzin = $modelIzin->getAllIzin1();
+              ?>
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <div class="table-responsive">
                   <table class="table m-0">
                     <thead>
                     <tr>
-                      <th>Order ID</th>
-                      <th>Item</th>
+                      <th>Link ID</th>
+                      <th>Keterangan Izin</th>
                       <th>Status</th>
-                      <th>Popularity</th>
+                      <th>Tanggal</th>
                     </tr>
                     </thead>
                     <tbody>
+                      <?php
+                    $no = 1;
+                    foreach ($dataIzin as $hasilDataIzin) :
+                    ?>
                     <tr>
-                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                      <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
+                      <td><a href="/izin">Pergi</a></td>
+                      <td><?= $hasilDataIzin['keperluan'] ?></td>
+                      <td style="background-color: 
+                                            <?php
+                                                if ($role === "admin") {
+                                                    // Jika admin, tampilkan warna berdasarkan status persetujuan2 dari database
+                                                    echo $hasilDataIzin['persetujuan2'] === "Di Izinkan" ? "#7FFF7F" : ($hasilDataIzin['persetujuan2'] === "Di Tolak" ? "#FF7F7F" : "#FFFF7F");
+                                                } else {
+                                                    // Jika bukan admin, tampilkan warna berdasarkan keputusan admin (approve/reject/pending)
+                                                    echo $hasilDataIzin['persetujuan2'] === "Di Izinkan" ? "#7FFF7F" : ($hasilDataIzin['persetujuan2'] === "Di Tolak" ? "#FF7F7F" : "#FFFF7F");
+                                                }
+                                            ?>
+                                        ;">
+                                            <?php
+                                        if ($role === "admin") {
+                                            // Jika admin, tampilkan status persetujuan2 dari database
+                                            echo $hasilDataIzin['persetujuan2'];
+                                        } else {
+                                            // Jika bukan admin, tampilkan status sesuai keputusan admin (approve/reject/pending)
+                                            echo $hasilDataIzin['persetujuan2'] === "Di Izinkan" ? "Disetujui" : ($hasilDataIzin['persetujuan2'] === "Di Tolak" ? "Ditolak" : "Pending");
+                                        }
+                                        ?>
+                                            </td>
                       <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                      <?= $hasilDataIzin['tanggal'] ?>
                       </td>
                     </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-info">Processing</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                      <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                      </td>
-                    </tr>
+                   
+                    <?php
+
+                    endforeach;
+                                        ?>
                     </tbody>
                   </table>
                 </div>
                 <!-- /.table-responsive -->
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-              </div>
+              
               <!-- /.card-footer -->
             </div>
         <!-- Main row -->
@@ -368,7 +376,7 @@
       ],
       datasets: [
         {
-          data: [700,500,400],
+          data: [<?= json_encode($jumlahMesin); ?>,<?= json_encode($jumlahElektro); ?>,<?= json_encode($jumlahIndustri); ?>],
           backgroundColor : ['#17A2B8', '#DC3545', '#8A2BE2'],
         }
       ]

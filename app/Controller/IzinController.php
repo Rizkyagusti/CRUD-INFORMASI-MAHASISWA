@@ -86,6 +86,8 @@ class IzinController{
             'tanggal' => $_POST['tanggal'],
             'nama' => $_POST['nama'],
             'nim' => $_POST['nim'],
+            'kelas' => $_POST['kelas'],
+            'jurusan' => $_POST['id_jurusan'],
             'keperluan' => $_POST['keperluan'],
             'jam_keluar' => $_POST['jam_keluar'],
             'jam_kembali' => $_POST['jam_kembali'],
@@ -154,6 +156,7 @@ class IzinController{
             'nama' => $_POST['nama'],
             'nim' => $_POST['nim'],
             'kelas' => $_POST['kelas'],
+            'jurusan' => $_POST['id_jurusan'],
             'tanggal' => $_POST['tanggal'],
             'keperluan' => $_POST['keperluan'],
             'bukti' => $bukti

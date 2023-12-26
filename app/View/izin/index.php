@@ -20,6 +20,8 @@
     use Krispachi\KrisnaLTE\App\FlashMessage;
 
     FlashMessage::flashMessage();
+    use Krispachi\KrisnaLTE\Model\KelasModel;
+    use Krispachi\KrisnaLTE\Model\MajorModel;
     ?>
 
     <div class="wrapper">
@@ -63,8 +65,47 @@
                         <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
                     <div class="form-group">
-                        <label for="nama">NIM</label>
+                        <label for="nim">NIM</label>
                         <input type="number" class="form-control" id="nim" name="nim" value="<?=$nama?>" readonly>
+                    </div>
+                    <div class="form-group">
+                    <label for="kelas">Kelas</label>
+                                            <select style="width: 100%;" name="kelas" class="" id="kelas">
+                                                <option value="" selected disabled>Pilih Kelas</option>
+                                                <?php
+                                                // Mendapatkan semua kelas
+                                                $kelasModel = new KelasModel();
+                                                $kelas = $kelasModel->getAllKelas();
+
+                                                // Menampilkan opsi untuk setiap kelas
+                                                foreach ($kelas as $kelasData) {
+                                                    echo "<option value='{$kelasData['kelas']}'>{$kelasData['kelas']}</option>";
+                                                }
+                                                ?>
+                                            </select>
+                    </div>
+                    <div class="form-group">
+                    <label for="jurusan">Jurusan</label>
+                                            <select style="width: 100%;" name="id_jurusan"
+                                                class="js-example-basic-single" id="jurusan">
+                                                <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
+                                                <?php
+                                                $jurusanModel = new MajorModel();
+                                                $hasil = $jurusanModel->getAllMajor();
+                                                foreach ($hasil as $jurusan) {
+                                                
+                                                    if (isset($_SESSION["form-input"]["id_jurusan"])) {
+                                                        if ($_SESSION["form-input"]["id_jurusan"] == $jurusan["id"]) {
+                                                            echo "<option value=" . $jurusan["id"] . " selected>" . $jurusan["nama"] . "</option>";
+                                                        } else {
+                                                            echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
+                                                        }
+                                                    } else {
+                                                        echo "<option value=" . $jurusan["id"] . ">" . $jurusan["nama"] . "</option>";
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
                     </div>
                     <div class="form-group">
                         <label for="nama">Keperluan</label>
@@ -104,7 +145,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Jurusan</li>
+                            <li class="breadcrumb-item active">Izin</li>
                         </ol>
                     </div>
                 </div>
@@ -119,7 +160,7 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
-                                <h3 class="card-title">Data Izin Keluar Kampus</h3>
+                                <h3 class="card-title">Data Izin Keluar Area Kampus</h3>
                                 <a class="btn btn-success ml-auto button-create" data-toggle="modal"
                                     data-target="#izinModal">Ajukan Izin</a>
                             </div>
@@ -132,8 +173,9 @@
                                             <th>Hari/Tanggal</th>
                                             <th>Nama</th>
                                             <th>NIM</th>
+                                            <th>Kelas</th>
+                                            <th>Jurusan</th>
                                             <th>Keperluan</th>
-                                            
                                             <th>Jam Keluar</th>
                                             <th>Jam Kembali</th>
                                             <th>Status</th>
@@ -149,6 +191,7 @@
                                     </thead>
                                     <tbody id="majorTableBody">
                                         <?php
+                                        $majorModel = new MajorModel();
                                         if ($role !== "admin") {
 											
                                             $dataIzin =$modelIzin -> getIzin1ByNim($nama);
@@ -173,6 +216,12 @@
                                             </td>
                                             <td>
                                                 <?= $hasilDataIzin['nim'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $hasilDataIzin['kelas'] ?>
+                                            </td>
+                                            <td>
+                                                <?=  $hasilDataIzin["jurusan"] < 0 ? "-" : $majorModel->getNamaById($hasilDataIzin["jurusan"])["nama"] ?>
                                             </td>
                                             <td>
                                                 <?= $hasilDataIzin['keperluan'] ?>

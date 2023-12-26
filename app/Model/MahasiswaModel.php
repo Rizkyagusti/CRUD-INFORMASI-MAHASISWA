@@ -256,6 +256,17 @@ class MahasiswaModel
         return $result['jumlah'];
     }
 
+    public function getJumlahMahasiswaByJurusan($jurusan)
+    {
+        $query = "SELECT COUNT(*) as jumlah FROM {$this->table} WHERE jurusan = :jurusan";
+        $this->database->query($query);
+        $this->database->bind("jurusan", $jurusan);
+
+        $result = $this->database->single();
+
+        return $result['jumlah'];
+    }
+
 
 
 }

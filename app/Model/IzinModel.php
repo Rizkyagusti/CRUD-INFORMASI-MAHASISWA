@@ -107,12 +107,14 @@ class IzinModel{
             // Lakukan validasi atau pengecekan keamanan jika diperlukan
 
             // Lakukan insert data izin ke dalam database
-            $query = "INSERT INTO {$this->table1} (tanggal, nama,nim, keperluan, persetujuan2, jam_keluar, jam_masuk) 
-                      VALUES (:tanggal, :nama, :nim, :keperluan, 'Menunggu' ,:jam_keluar,:jam_kembali)";
+            $query = "INSERT INTO {$this->table1} (tanggal, nama,nim,kelas,jurusan, keperluan, persetujuan2, jam_keluar, jam_masuk) 
+                      VALUES (:tanggal, :nama, :nim,:kelas,:jurusan, :keperluan, 'Menunggu' ,:jam_keluar,:jam_kembali)";
              $this->database->query($query);
              $this->database->bind("tanggal", $izinData["tanggal"]);
              $this->database->bind("nama",$izinData["nama"]);
              $this->database->bind("nim",$izinData["nim"]);
+             $this->database->bind("kelas",$izinData["kelas"]);
+             $this->database->bind("jurusan",$izinData["jurusan"]);
              $this->database->bind("keperluan",$izinData["keperluan"]);
              $this->database->bind("jam_keluar",$izinData["jam_keluar"]);
              $this->database->bind("jam_kembali",$izinData["jam_kembali"]);
@@ -132,13 +134,14 @@ class IzinModel{
             // Lakukan validasi atau pengecekan keamanan jika diperlukan
 
             // Lakukan insert data izin ke dalam database
-            $query = "INSERT INTO {$this->table2} (nama, nim, kelas, tanggal_izin, keperluan, bukti) 
-          VALUES (:nama, :nim, :kelas, :tanggal, :keperluan, :bukti)";
+            $query = "INSERT INTO {$this->table2} (nama, nim, kelas,jurusan, tanggal_izin, keperluan, bukti) 
+          VALUES (:nama, :nim, :kelas,:jurusan, :tanggal, :keperluan, :bukti)";
 
             $this->database->query($query);
             $this->database->bind("nama", $izinData["nama"]);
             $this->database->bind("nim", $izinData["nim"]);
             $this->database->bind("kelas", $izinData["kelas"]);
+            $this->database->bind("jurusan", $izinData["jurusan"]);
             $this->database->bind("tanggal", $izinData["tanggal"]);
             $this->database->bind("keperluan", $izinData["keperluan"]);
             $this->database->bind("bukti", $izinData["bukti"]);
@@ -151,6 +154,17 @@ class IzinModel{
             die("Error: " . $e->getMessage());
             return false; // Gagal menambahkan data izin
         }
+    }
+
+    public function getJumlahIzinByJurusan($jurusan)
+    {
+        $query = "SELECT COUNT(*) as jumlah FROM {$this->table2} WHERE jurusan = :jurusan";
+        $this->database->query($query);
+        $this->database->bind("jurusan", $jurusan);
+
+        $result = $this->database->single();
+
+        return $result['jumlah'];
     }
 
 }
