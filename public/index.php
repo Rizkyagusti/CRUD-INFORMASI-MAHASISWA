@@ -30,7 +30,7 @@ Router::add("GET", "/logout", AuthController::class, "logout", [AuthMiddleware::
 Router::add("POST", "/changePassword/([0-9a-zA-Z]*)", AuthController::class, "change", [AuthMiddleware::class]);
 
 
-Router::add("GET", "/", MainController::class, "index",  [AuthMiddleware::class]);
+Router::add("GET", "/", MainController::class, "index2", [GuestMiddleware::class]);
 Router::add("GET", "/mahasiswas", MahasiswaController::class, "index", [AuthMiddleware::class]);
 Router::add("GET", "/mahasiswas/create", MahasiswaController::class, "create", [AuthMiddleware::class, PetugasPendaftaranMiddleware::class]);
 Router::add("POST", "/mahasiswas/create", MahasiswaController::class, "store", [AuthMiddleware::class, PetugasPendaftaranMiddleware::class]);

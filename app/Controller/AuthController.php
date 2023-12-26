@@ -41,7 +41,7 @@ class AuthController
             setcookie("X-KRISNALTE-SESSION", $jwt);
 
             FlashMessage::setFlashMessage("success", "Log In berhasil, Halo {$result['username']}");
-            header("Location: /");
+            header("Location: /dashboard");
             exit(0);
         } else {
             FlashMessage::setFlashMessage("error", "Username / Password salah");
