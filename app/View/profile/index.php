@@ -129,6 +129,7 @@
                                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#ubahPasswordModal">
                                     Ubah Password
                                 </button>
+
                             </div>
                             <?php
                             endforeach;
