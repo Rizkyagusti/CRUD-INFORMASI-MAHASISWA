@@ -44,10 +44,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Contact</a>
+            <a href="#kontak" class="nav-link">Contact</a>
           </li>
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Tentang</a>
@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!-- End Level two -->
           <li class="nav-item">
-            <a href="#" class="nav-link">Login</a>
+            <a href="/login" class="nav-link">Login</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">FAQ?</a>
@@ -178,13 +178,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </ol>
       <div class="carousel-inner" >
         <div class="carousel-item active">
-          <img src="<?php __DIR__ ?>/img/1325692.jpeg" class="d-block w-100" alt="...">
+          <img src="<?php __DIR__ ?>/img/Breaking-News.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="<?php __DIR__ ?>/img/1325692.jpeg" class="d-block w-100" alt="...">
+          <img src="<?php __DIR__ ?>/img/Breaking-News.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="<?php __DIR__ ?>/img/1325692.jpeg" class="d-block w-100" alt="...">
+          <img src="<?php __DIR__ ?>/img/Breaking-News.jpg" class="d-block w-100" alt="...">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
@@ -213,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
       <div class="card-body">
       
-        <div class="footer-single-item">
+        <div class="footer-single-item" id="kontak">
           <p>eduPGT - Sistem Informasi Mahasiswa. © 2023  </p>
           <p class="contact-info"><img width="18"src="https://img.icons8.com/wired/64/online-support--v2.png" alt="online-support--v2"/> <a href="/">  0215900468</a></p>
           <p class="contact-info"><span class="far fa-envelope"></span><a href="/"> administrasi@poltek-gt.ac.id</a> </p>
