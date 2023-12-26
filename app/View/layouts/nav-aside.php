@@ -22,14 +22,21 @@
 			<img src="<?php __DIR__ ?>/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 			<span class="brand-text font-weight-light">eduPGT</span>
 		</a>
-
+		<?php
+		$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
+		$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
+		$query = new Krispachi\KrisnaLTE\Model\UserModel;
+		$result = $query->getUserById($payload->user_id);
+		$role = $query->getRoleUserById($payload->user_id)["role"];
+		$gambar = $result["gambar"];
+		?>
 		<!-- Sidebar -->
 		<div class="sidebar">
 		<!-- Sidebar user panel (optional) -->
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
 				<img src="<?php __DIR__ ?>/img/<?php
-					if(isset($_COOKIE["X-KRISNALTE-SESSION"])) {
+					if(isset($_COOKIE["X-KRISNALTE-SESSION"]) && $gambar !== null) {
 						$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
 						$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
 						$query = new Krispachi\KrisnaLTE\Model\UserModel;
@@ -37,7 +44,7 @@
 						$role = $query->getRoleUserById($payload->user_id)["role"];
 						echo $result["gambar"];
 					} else {
-						echo "Uknown Users";
+						echo "user.png";
 					}
 				?>" class="img-circle elevation-2" alt="User Image">
 			</div>
@@ -107,13 +114,14 @@
 						<p>Kelas</p>
 					</a>
 				</li>
+				
 			
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a href="/subjects" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/subjects' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-book"></i>
 						<p>Mata Kuliah</p>
 					</a>
-				</li>
+				</li> -->
 				<?php
 					endif;
 				?>
@@ -141,12 +149,31 @@
              
             </ul>
           </li>
+		  <li class="nav-item">
+					<a href="/pengajuan" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/pengajuan' ? 'active' : '' ?>">
+					<i class="nav-icon fas fa-user-plus"></i>
+						<p>Pengajuan data</p>
+					</a>
+				</li>
+				<?php
+					if($role === "admin") :
+				?>
+		 		 <li class="nav-item">
+					<a href="/user" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/user' ? 'active' : '' ?>">
+					<i class="nav-icon fas fa-users"></i>
+						<p>Informasi Users</p>
+					</a>
+				</li>
+				<?php
+				endif;
+				?>
 				<li class="nav-item">
 					<a href="/users" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/users' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-user-cog"></i>
 						<p>Profil</p>
 					</a>
 				</li>
+				
 				<li class="nav-item nav-log-out">
 					<a href="/logout" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>

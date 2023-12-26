@@ -31,6 +31,7 @@
     use Krispachi\KrisnaLTE\Model\KelasModel;
     use Krispachi\KrisnaLTE\Model\MajorModel;
 
+
     ?>
 
     <div class="wrapper">
@@ -43,12 +44,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Tambah Data Mahasiswa</h1>
+                            <h1 class="m-0">Ajukan Data Mahasiswa</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Tambah Data Mahasiswa</li>
+                                <li class="breadcrumb-item active">Ajukan Data Mahasiswa</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -64,11 +65,11 @@
                             <!-- general form elements -->
                             <div class="card card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">Tambah Data Mahasiswa</h3>
+                                    <h3 class="card-title">Ajukan Data Mahasiswa</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form action="/mahasiswas/create" method="post">
+                                <form action="/mahasiswa-pengajuan/create" method="post">
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="nim">NIM</label>
@@ -98,8 +99,10 @@
                                                 class="js-example-basic-single" id="jurusan">
                                                 <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
                                                 <?php
+                                                $jurusanModel = new MajorModel();
+                                                $hasil = $jurusanModel->getAllMajor();
+                                                foreach ($hasil as $jurusan) {
                                                 
-                                                foreach ($model as $jurusan) {
                                                     if (isset($_SESSION["form-input"]["id_jurusan"])) {
                                                         if ($_SESSION["form-input"]["id_jurusan"] == $jurusan["id"]) {
                                                             echo "<option value=" . $jurusan["id"] . " selected>" . $jurusan["nama"] . "</option>";

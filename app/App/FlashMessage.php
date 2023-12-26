@@ -8,6 +8,8 @@ class FlashMessage {
             "status" => $status,
             "message" => $message
         ];
+
+        
     }
 
     public static function flashMessage() {

@@ -66,7 +66,7 @@ class AuthController
             $size = $_FILES['gambar']['size'];
 
             if ($error == 4) {
-                echo ("<script>alert('Gambar belum ditambahkan')</script>");
+                FlashMessage::setFlashMessage("error", "Gambar belum diberikan");
                 return false;
             }
 
@@ -75,13 +75,13 @@ class AuthController
             $ekstensiFile = strtolower(end($ekstensiFile));
 
             if (!in_array($ekstensiFile, $ekstensiValid)) {
-                echo ("<script>alert('Yang anda upload bukan gambar')</script>");
+                FlashMessage::setFlashMessage("error", "Yang anda upload bukan gambar");
                 return false;
             }
 
 
             if ($size > 2000000) {
-                echo ("<script>alert('Ukuran gambar terlalu besar')</script>");
+                FlashMessage::setFlashMessage("error", "Ukuran Gambar terlalu besar");
                 return false;
             }
             $namaFileBaru = uniqid();
@@ -150,20 +150,25 @@ class AuthController
     {
         $model = new UserModel();
         try {
-            // Supaya tidak bisa ubah user lain
             $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
             $payload = JWT::decode($jwt, new Key(AuthController::$SECRET_KEY, "HS256"));
+			$query = new UserModel();
+			$role = $query->getRoleUserById($payload->user_id)["role"];
+            if($role !== "admin"){
+            // Supaya tidak bisa ubah user lain
+           
             if ($payload->user_id != $id) {
                 throw new Exception("Tidak bisa mengganggu akun lain");
+            }
             }
 
             $model->deleteUser($id);
             FlashMessage::setIfNotFlashMessage("success", "Akun berhasil dihapus");
-            header("Location: /logout");
+            header("Location: /user");
             exit(0);
         } catch (Exception $exception) {
             FlashMessage::setFlashMessage("error", $exception->getMessage());
-            header("Location: /users");
+            header("Location: /user");
             exit(0);
         }
     }
@@ -202,6 +207,48 @@ class AuthController
             header("Location: /users");
             exit(0);
         }
+    }
+
+    public function change($id){
+        $data = [
+            "id"=>$id,
+            "username"=> $_POST["username"],
+            "passwordlama" => $_POST["password1"],
+            "passwordbaru" => $_POST["password2"],
+            "passwordbaru2" => $_POST["password3"]
+        ];
+
+        if (empty(trim($data["passwordlama"])) || empty(trim($data["passwordbaru"])) || empty(trim($data["passwordbaru2"]))) {
+            FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
+            $this->sendFormInput($data);
+            header("Location: /users");
+            exit(0);
+        }
+
+        if ($data["passwordbaru"] != $data["passwordbaru2"]) {
+            FlashMessage::setFlashMessage("error", "Konfirmasi password salah");
+            $this->sendFormInput($data);
+            header("Location: /users");
+            exit(0);
+        }
+
+        $model = new UserModel();
+        // $result = $model->authUser($data["username"], $data["passwordlama"],$data["passwordbaru"],$id);
+
+
+        try {
+            // Supaya tidak bisa ubah user lain
+            $model->gantipassword($data["username"], $data["passwordlama"],$data["passwordbaru"],$id);
+            FlashMessage::setFlashMessage("success", "Password berhasil diubah");
+            header("Location: /users");
+            exit(0);
+        } catch (Exception $exception) {
+            FlashMessage::setFlashMessage("error", $exception->getMessage());
+            $this->sendFormInput($data);
+            header("Location: /users");
+            exit(0);
+        }
+        
     }
 
     public function sendFormInput(array $data): void

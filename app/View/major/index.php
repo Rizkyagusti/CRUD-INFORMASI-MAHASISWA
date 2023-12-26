@@ -63,28 +63,7 @@
                 </div>
             </form>
 
-            <script>
-                let counter = 1;
-
-                function tambahFormKelas() {
-                    counter++;
-                    const kelasContainer = document.getElementById('kelas-container');
-
-                    const label = document.createElement('label');
-                    label.setAttribute('for', 'kelas');
-                    label.textContent = `Kelas ${counter}`;
-
-                    const input = document.createElement('input');
-                    input.setAttribute('type', 'text');
-                    input.setAttribute('style', 'width: 100%;');
-                    input.setAttribute('class', 'form-control');
-                    input.setAttribute('name', `kelas[]`);
-                    input.setAttribute('placeholder', `Masukkan Kelas ${counter}`);
-
-                    kelasContainer.appendChild(label);
-                    kelasContainer.appendChild(input);
-                }
-            </script>
+            
         </div>
 
         <!-- Content Wrapper. Contains page content -->
@@ -184,8 +163,8 @@
                                                         class="btn btn-sm btn-warning button-edit">Ubah</button>
                                                     <form action="/majors/delete/<?= $major["id"] ?>" method="post"
                                                         class="form-delete d-inline-block">
-                                                        <!-- <button type="submit"
-                                                            class="btn btn-sm btn-danger button-delete">Hapus</button> -->
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-danger button-delete">Hapus</button>
                                                     </form>
                                                 </td>
 
