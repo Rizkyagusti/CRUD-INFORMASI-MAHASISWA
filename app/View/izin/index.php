@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eduPGT | Izin 1</title>
+    <title>eduPGT | Izin Keluar</title>
     <?php require __DIR__ . "/../layouts/headlinks.php" ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -283,12 +283,16 @@
 					endif;
 				?>
                                             <td>
-                                            <form action="/print" method="post">
-                                                        <input type="hidden" name="id" value="<?= $hasilDataIzin['id'] ?>">
-                                                        <button type="submit" name="print" value="Di Izinkan"
-                                                            class="btn btn-sm btn-success">Print</button>
-                                                        
+                                                <?php if($hasilDataIzin['persetujuan2'] === "Di Izinkan") { ?>
+                                                    <form action="/print" method="post">
+                                                                <input type="hidden" name="id" value="<?= $hasilDataIzin['id'] ?>">
+                                                                <button type="submit" name="print" value="Di Izinkan"
+                                                                    class="btn btn-sm btn-success">Print</button>
+                                                                
                                                     </form>
+                                            <?php }else{?>
+                                                 Belum Tersedia
+                                                <?php }?>
                                             </td>
                                             </tr>
                                             <?php

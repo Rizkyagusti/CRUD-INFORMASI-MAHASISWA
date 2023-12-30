@@ -51,7 +51,7 @@
         }
         
         .card {
-            min-width: 540px;
+            /* min-width: 540px; */
             margin: 0 auto;
         }
 
@@ -59,6 +59,15 @@
             height: 100%;
             width: 100%;
             object-fit: cover;
+        } 
+
+
+
+        @media(max-width:1000px){
+            .card {
+            width: 100%;
+            margin: 0 auto;
+        }
         }
     </style>
 </head>
@@ -83,9 +92,9 @@
     
    
 
-    <div class="card mb-3" style="min-width: 540px; margin:0 auto;">
+    <div class="card mb-3" style="margin:0 auto;">
   <div class="row no-gutters">
-    <div class="col-md-6" style="overflow:hidden;">
+    <div class="col-md-6" style="overflow:hidden;" id="gambar">
       <img src="<?php __DIR__ ?>/img/apel.jpeg" class="card-img" alt="..." style="height:100%; width:100%;object-fit:cover;">
     </div>
     <div class="col-md-6">
@@ -112,7 +121,7 @@
                 </div>
                 <div class="row">
                     <!-- /.col -->
-                    <div class="col-4 offset-4"><button type="submit" name="button-login" class="btn btn-primary btn-block mb-3">Log In</button></div>
+                    <div class=" offset-4"><button type="submit" name="button-login" class="btn btn-primary btn-block mb-3">Log In</button></div>
                     <!-- /.col -->
                 </div>
             </form>

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>eduPGT | Dashboard</title>
+	<title>eduPGT | Informasi Mahasiswa</title>
 	<?php require __DIR__ . "/layouts/headlinks.php" ?>
 	<!-- DataTables -->
 	<link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

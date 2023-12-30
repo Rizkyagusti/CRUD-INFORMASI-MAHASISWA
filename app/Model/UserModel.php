@@ -147,6 +147,20 @@ class UserModel
             return [];
         }
     }
+    public function gantiPhoto($id, $gambar)
+    {   
+        if (empty($this->getUserById($id))) {
+            throw new Exception("User tidak ditemukan");
+        }
+            
+                $query = "UPDATE {$this->table} SET gambar = :gambar WHERE id = :id";
+                $this->database->query($query);
+                $this->database->bind('gambar',$gambar);
+                $this->database->bind("id", $id);
+                return $this->database->execute();
+                // return $user;
+                // break;
+    }
 
     public function editUser($data)
     {

@@ -28,6 +28,7 @@ Router::add("POST", "/register2", UserController::class, "addUser", [AuthMiddlew
 Router::add("GET", "/forgot-password", AuthController::class, "forgotPassword", [GuestMiddleware::class]);
 Router::add("GET", "/logout", AuthController::class, "logout", [AuthMiddleware::class]);
 Router::add("POST", "/changePassword/([0-9a-zA-Z]*)", AuthController::class, "change", [AuthMiddleware::class]);
+Router::add("POST", "/changePhoto/([0-9a-zA-Z]*)", AuthController::class, "changePhoto", [AuthMiddleware::class]);
 
 
 Router::add("GET", "/", MainController::class, "index2", [GuestMiddleware::class]);

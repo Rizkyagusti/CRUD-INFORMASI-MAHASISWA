@@ -6,7 +6,7 @@
 				<a class="nav-link" data-widget="pushmenu" role="button"><i class="fas fa-bars"></i></a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
-				<a href="/" class="nav-link">Home</a>
+				<a href="/dashboard" class="nav-link">Home</a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
 				<a class="nav-link" onclick="alert('Hubungi BAAK')">Kontak</a>
@@ -36,7 +36,7 @@
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
 				<img src= "" alt="">
-				<img src="<?php __DIR__ ?>/img/<?php
+				<img src="<?php __DIR__ ?>/PhotoProfile/<?php
 					if(isset($_COOKIE["X-KRISNALTE-SESSION"]) && $gambar !== null) {
 						$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
 						$payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));

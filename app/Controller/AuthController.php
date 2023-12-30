@@ -251,6 +251,73 @@ class AuthController
         
     }
 
+    public function changePhoto($id){
+        function uploadPhoto()
+        {
+            $name = $_FILES['photo']['name'];
+            $tmpName = $_FILES['photo']['tmp_name'];
+            $error = $_FILES['photo']['error'];
+            $size = $_FILES['photo']['size'];
+
+            if ($error == 4) {
+                FlashMessage::setFlashMessage("error", "Gambar belum diberikan");
+                return false;
+            }
+
+            $ekstensiValid = ['jpg', 'jpeg', 'png'];
+            $ekstensiFile = explode('.', $name);
+            $ekstensiFile = strtolower(end($ekstensiFile));
+
+            if (!in_array($ekstensiFile, $ekstensiValid)) {
+                FlashMessage::setFlashMessage("error", "Yang anda upload bukan gambar");
+                return false;
+            }
+
+
+            if ($size > 2000000) {
+                FlashMessage::setFlashMessage("error", "Ukuran Gambar terlalu besar");
+                return false;
+            }
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= ".";
+            $namaFileBaru .= $ekstensiFile;
+            move_uploaded_file($tmpName, 'PhotoProfile/' . $namaFileBaru);
+            return $namaFileBaru;
+        }
+        $gambar = uploadPhoto();
+        $data = [
+            "id"=>$id,
+            "gambar" => $gambar
+            
+        ];
+        // var_dump($data["gambar"]);
+        // die;
+        if (empty(trim($data["gambar"]))) {
+            FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
+            $this->sendFormInput($data);
+            header("Location: /users");
+            exit(0);
+        }
+
+        $model = new UserModel();
+        // $result = $model->authUser($data["username"], $data["passwordlama"],$data["passwordbaru"],$id);
+
+
+        try {
+            
+            $model->gantiPhoto($id,$data["gambar"]);
+            FlashMessage::setFlashMessage("success", "Photo Profile berhasil diubah");
+            header("Location: /users");
+            exit(0);
+        } catch (Exception $exception) {
+            FlashMessage::setFlashMessage("error", $exception->getMessage());
+            $this->sendFormInput($data);
+            header("Location: /users");
+            exit(0);
+        }
+        
+    }
+
     public function sendFormInput(array $data): void
     {
         $_SESSION["form-input"] = [];

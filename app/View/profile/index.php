@@ -12,6 +12,7 @@
     use Krispachi\KrisnaLTE\App\FlashMessage;
     use Krispachi\KrisnaLTE\Model\MahasiswaModel;
     use Krispachi\KrisnaLTE\Model\MajorModel;
+    use Krispachi\KrisnaLTE\Model\UserModel;
 
     FlashMessage::flashMessage();
 
@@ -28,6 +29,9 @@
     }
     $modelMahasiswa = new MahasiswaModel();
     $modelMajor = new MajorModel();
+    $modelUser = new UserModel();
+    $dataUser = $modelUser->getUserByUsername($nama);
+    
     $dataMahasiswa = $modelMahasiswa->getMahasiswaByNim($nama);
     // foreach($dataMahasiswa as $dataMhs){
     //     $dataJurusan = $modelMajor->getMajorById($dataMhs["jurusan"]);
@@ -71,7 +75,8 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="<?php __DIR__ ?>/img/<?php
+                            
+                            <img class="profile-user-img img-fluid img-circle" src="<?php __DIR__ ?>/PhotoProfile/<?php
                             if (isset($_COOKIE["X-KRISNALTE-SESSION"]) && $gambar !== null) {
                                 $jwt = $_COOKIE["X-KRISNALTE-SESSION"];
                                 $payload = Firebase\JWT\JWT::decode($jwt, new Firebase\JWT\Key(Krispachi\KrisnaLTE\Controller\AuthController::$SECRET_KEY, "HS256"));
@@ -91,7 +96,7 @@
                                     echo "user.png";
                                 }
                             }
-                            ?>" alt="User profile picture">
+                            ?>" alt="User profile picture" data-toggle="modal" data-target="#ubahPhotoModel" >
                         </div>
 
                         <h3 class="profile-username text-center"><?php echo $result["username"] ?? "Uknown" ?></h3>
@@ -133,16 +138,16 @@
                                 <hr>
 
                                 <!-- Tambahkan field lain sesuai kebutuhan -->
-
+                                <?php
+                            endforeach;
+                            ?>
                                 <!-- Tombol untuk memanggil modal ubah password -->
                                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#ubahPasswordModal">
                                     Ubah Password
                                 </button>
 
                             </div>
-                            <?php
-                            endforeach;
-                            ?>
+                            
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
@@ -195,6 +200,36 @@
         </form>
     </div>
     <!-- /.Modal Ubah Password -->
+    <!-- Modal Ganti Photo Profile -->
+    <div class="modal fade" id="ubahPhotoModel" tabindex="-1" role="dialog" aria-labelledby="ubahPhotoModel" aria-hidden="true">
+    <form action="/changePhoto/<?=$result["id"]?>" method="post" id="modal-form" enctype="multipart/form-data">    
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ubahPasswordModalLabel">Ubah Photo Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Isi dengan form ubah password sesuai kebutuhan -->
+                    <!-- <div class="form-group">
+                        <input type="hidden" class="form-control" id="username" name="username" value="<?=$nama?>" required>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="password1">Masukkan Gambar</label>
+                        <input type="file" class="form-control" id="photo" name="photo" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <!-- Modal ganti Photo profile -->
 </section>
 
 
