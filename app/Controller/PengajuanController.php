@@ -8,6 +8,7 @@ use Krispachi\KrisnaLTE\App\View;
 use Krispachi\KrisnaLTE\Model\PengajuanModel;
 use Krispachi\KrisnaLTE\Model\KelasModel;
 use Krispachi\KrisnaLTE\Model\MajorModel;
+use Krispachi\KrisnaLTE\Model\MahasiswaModel;
 
 
 class PengajuanController
@@ -195,12 +196,22 @@ class PengajuanController
             // Dapatkan data dari model PengajuanModel atau sumber lain
             $pengajuanModel = new PengajuanModel();
             $dataToApprove = $pengajuanModel->getMahasiswaById($id);
-            
             $dataToApprove2 = $pengajuanModel->getMahasiswaPribadiById($id);
+
+            $mahasiswaModel = new MahasiswaModel();
+
+            $cekData = $mahasiswaModel->getMahasiswaByNim($dataToApprove["nim"]);
+            
+            if($cekData){
+                $mahasiswaModel->deleteMahasiswa($cekData[0]["id_mahasiswa"]);
+                $pengajuanModel->approveDataToDatabase($dataToApprove, $dataToApprove2);
+            }else{
+                $pengajuanModel->approveDataToDatabase($dataToApprove, $dataToApprove2);
+            }
             
             // Panggil metode approveDataToDatabase untuk menyimpan data ke dalam tabel
             // $approvalModel = new ApprovalModel();
-            $pengajuanModel->approveDataToDatabase($dataToApprove, $dataToApprove2);
+            
 
             // Respond dengan sukses
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil ditambah");

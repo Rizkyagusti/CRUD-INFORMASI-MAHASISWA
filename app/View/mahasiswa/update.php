@@ -202,7 +202,7 @@
         ?>
         <div class="form-group">
         <!-- <label for="id_mahasiswa">ID Mahasiswa</label> -->
-        <input type="hidden" name="id_mahasisw" class="form-control"
+        <input type="hidden" name="id_mahasiswa" class="form-control"
             id="id_mahasiswa"
             value="<?= isset($_SESSION["form-input"]["id_mahasiswa"]) ? $_SESSION["form-input"]["id_mahasiswa"] : (isset($dataPribadi["id_mahasiswa"]) ? $dataPribadi["id_mahasiswa"] : "") ?>"
             placeholder="Masukkan Nama Pribadi" readonly>
@@ -216,15 +216,21 @@
     </div>
         <div class="form-group">
             <label for="agama">Agama</label>
-            <input type="text" name="agama" class="form-control" id="agama"
-                value="<?= isset($_SESSION["form-input"]["agama"]) ? $_SESSION["form-input"]["agama"] : (isset($dataPribadi["agama"]) ? $dataPribadi["agama"] : "") ?>"
-                placeholder="Masukkan Agama">
+            <select name="agama" id="agama" style="width: 100%;"
+                                                class="js-example-basic-single">
+                                                <option value="Islam">Islam</option>
+                                                <option value="Katolik">Katolik</option>
+                                                <option value="Protestan">Protestan</option>
+                                                <option value="Budha">Budha</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Konghucu">Konghucu</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="agama">NIK</label>
             <input type="text" name="nik" class="form-control" id="nik"
                 value="<?= isset($_SESSION["form-input"]["nik"]) ? $_SESSION["form-input"]["nik"] : (isset($dataPribadi["nik"]) ? $dataPribadi["nik"] : "") ?>"
-                placeholder="Masukkan NIK">
+                placeholder="Masukkan NIK" maxlength="16" oninput="validateInteger(this)">
         </div>
         <div class="form-group">
             <label for="agama">Nama Ibu Kandung</label>
@@ -236,13 +242,13 @@
             <label for="agama">NPWP</label>
             <input type="text" name="npwp" class="form-control" id="npwp"
                 value="<?= isset($_SESSION["form-input"]["npwp"]) ? $_SESSION["form-input"]["npwp"] : (isset($dataPribadi["npwp"]) ? $dataPribadi["npwp"] : "") ?>"
-                placeholder="Masukkan NPWP">
+                placeholder="Masukkan NPWP" maxlength="16" oninput="validateInteger(this)">
         </div>
         <div class="form-group">
             <label for="agama">No BPJS</label>
             <input type="text" name="no_bpjs" class="form-control" id="no_bpjs"
                 value="<?= isset($_SESSION["form-input"]["no_bpjs"]) ? $_SESSION["form-input"]["no_bpjs"] : (isset($dataPribadi["no_bpjs"]) ? $dataPribadi["no_bpjs"] : "") ?>"
-                placeholder="Masukkan No BPJS">
+                placeholder="Masukkan No BPJS" maxlength="13" oninput="validateInteger(this)">
         </div>
         <div class="form-group">
             <label for="agama">Alamat</label>
@@ -251,10 +257,14 @@
                 placeholder="Masukkan alamat">
         </div>
         <div class="form-group">
-            <label for="agama">Golongan darah</label>
-            <input type="text" name="golongan_darah" class="form-control" id="golongan_darah"
-                value="<?= isset($_SESSION["form-input"]["golongan_darah"]) ? $_SESSION["form-input"]["golongan_darah"] : (isset($dataPribadi["golongan_darah"]) ? $dataPribadi["golongan_darah"] : "") ?>"
-                placeholder="Golongan Darah">
+            <label for="golongan_darah">Golongan darah</label>
+            <select name="golongan_darah" id="golongan_darah" style="width: 100%;"
+                                                class="js-example-basic-single">
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="AB">AB</option>
+                                                <option value="O">O</option>
+            </select>
         </div>
         <!-- Sisipkan bagian formulir lainnya sesuai kebutuhan Anda -->
     </div>
@@ -288,6 +298,17 @@
     <?php require __DIR__ . "/../layouts/bodyscripts.php" ?>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        function validateInteger(input) {
+            // Menghapus karakter selain digit dan titik desimal dari nilai input
+            input.value = input.value.replace(/[^\d.]/g, "");
+
+            // Memastikan hanya satu titik desimal yang diperbolehkan
+            var dotCount = (input.value.match(/\./g) || []).length;
+            if (dotCount > 1) {
+                input.value = input.value.slice(0, -1);
+            }
+            }
+
         $(document).ready(function () {
             $(".js-example-basic-single").select2({
                 placeholder: "Pilih Jurusan",

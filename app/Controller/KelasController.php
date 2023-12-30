@@ -35,10 +35,14 @@ class KelasController{
 
         if ($success) {
             // Redirect atau lakukan sesuatu jika berhasil menambahkan izin
+            FlashMessage::setFlashMessage("success", "Kelas berhasil dibuat");
             header("Location: /kelas"); // Gantilah dengan halaman tujuan yang sesuai
+            exit(0);
         } else {
             // Tampilkan pesan atau lakukan sesuatu jika terjadi kesalahan
+            FlashMessage::setFlashMessage("error", "Kelas gagal dibuat");
             header("Location: /kelas");
+
         }
     }
 
@@ -59,9 +63,12 @@ class KelasController{
 
         if ($success) {
             // Redirect atau lakukan sesuatu jika berhasil menghapus kelas
+            FlashMessage::setFlashMessage("success", "Kelas berhasil dihapus");
             header("Location: /kelas"); // Gantilah dengan halaman tujuan yang sesuai
+            exit(0);
         } else {
             // Tampilkan pesan atau lakukan sesuatu jika terjadi kesalahan
+            FlashMessage::setFlashMessage("error", "Kelas Gagal dihapus");
             die('Error deleting kelas');
         }
     }

@@ -55,7 +55,7 @@ class MahasiswaController {
         try {
             $model->createMahasiswa($data, $dataPribadi);
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil ditambah");
-            header("Location: /");
+            header("Location: /mahasiswas");
             exit(0);
         } catch (Exception $exception) {
             FlashMessage::setFlashMessage("error", $exception->getMessage());
@@ -74,7 +74,7 @@ class MahasiswaController {
         ];
         if(empty($result["mahasiswa"])) {
             FlashMessage::setFlashMessage("error", "Mahasiswa tidak ditemukan");
-            header("Location: /");
+            header("Location: /mahasiswas");
             exit(0);
         }
         $model = new MajorModel();
@@ -131,7 +131,7 @@ class MahasiswaController {
             $model->updateMahasiswa($data);
             $model->updateMahasiswa2($dataPribadi);
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil diubah");
-            header("Location: /");
+            header("Location: /mahasiswas");
             exit(0);
         } catch (Exception $exception) {
             FlashMessage::setFlashMessage("error", $exception->getMessage());
@@ -146,7 +146,7 @@ class MahasiswaController {
         try {
             $model->deleteMahasiswa($id);
             FlashMessage::setFlashMessage("success", "Mahasiswa berhasil dihapus");
-            header("Location: /");
+            header("Location: /mahasiswas");
             exit(0);
         } catch (Exception $exception) {
             if (preg_match("/23000/", $exception->getMessage())) {

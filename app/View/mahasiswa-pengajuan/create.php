@@ -168,20 +168,23 @@
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
+                                            
                                             <div class="form-group">
-                                                <label for="nama_pribadi">Nama Pribadi</label>
-                                                <input type="text" name="nama_pribadi" class="form-control"
-                                                    id="nama_pribadi" placeholder="Masukkan Nama Pribadi" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="agama">Agama</label>
-                                                <input type="text" name="agama" class="form-control" id="agama"
-                                                    placeholder="Masukkan Agama" required>
+                                            <label for="agama">Agama</label>
+                                                <select name="agama" id="agama" style="width: 100%;"
+                                                class="js-example-basic-single">
+                                                <option value="Islam">Islam</option>
+                                                <option value="Katolik">Katolik</option>
+                                                <option value="Protestan">Protestan</option>
+                                                <option value="Budha">Budha</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Konghucu">Konghucu</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nik">NIK</label>
                                                 <input type="text" name="nik" class="form-control" id="nik"
-                                                    placeholder="Masukkan NIK" required>
+                                                    placeholder="Masukkan NIK" maxlength="16" oninput="validateInteger(this)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama_ibu_kandung">Nama Ibu Kandung</label>
@@ -192,12 +195,12 @@
                                             <div class="form-group">
                                                 <label for="npwp">NPWP</label>
                                                 <input type="text" name="npwp" class="form-control" id="npwp"
-                                                    placeholder="Masukkan NPWP" required>
+                                                    placeholder="Masukkan NPWP" maxlength="16" oninput="validateInteger(this)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="no_bpjs">No BPJS</label>
                                                 <input type="text" name="no_bpjs" class="form-control" id="no_bpjs"
-                                                    placeholder="Masukkan No BPJS" required>
+                                                    placeholder="Masukkan No BPJS" maxlength="13" oninput="validateInteger(this)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="alamat">Alamat</label>
@@ -206,8 +209,13 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="golongan_darah">Golongan Darah</label>
-                                                <input type="text" name="golongan_darah" class="form-control"
-                                                    id="golongan_darah" placeholder="Masukkan Golongan Darah" required>
+                                                <select name="golongan_darah" id="golongan_darah" style="width: 100%;"
+                                                class="js-example-basic-single">
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="AB">AB</option>
+                                                <option value="O">O</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <!-- /.card-body -->
@@ -216,7 +224,7 @@
 
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-success">Kirim</button>
-                                        <a href="/" class="btn btn-secondary">Kembali</a>
+                                        <a href="/pengajuan" class="btn btn-secondary">Kembali</a>
                                     </div>
                                     <?php
                                     if (isset($_SESSION["form-input"])) {
@@ -240,6 +248,16 @@
     <?php require __DIR__ . "/../layouts/bodyscripts.php" ?>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        function validateInteger(input) {
+            // Menghapus karakter selain digit dan titik desimal dari nilai input
+            input.value = input.value.replace(/[^\d.]/g, "");
+
+            // Memastikan hanya satu titik desimal yang diperbolehkan
+            var dotCount = (input.value.match(/\./g) || []).length;
+            if (dotCount > 1) {
+                input.value = input.value.slice(0, -1);
+            }
+            }
         $(document).ready(function () {
             $(".js-example-basic-single").select2({
                 placeholder: "Pilih Jurusan",

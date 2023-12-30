@@ -19,7 +19,7 @@ class IzinModel{
     public function getAllIzin1()
     {
         try {
-            $query = "SELECT * FROM data_izin_1";
+            $query = "SELECT * FROM data_izin_1 ORDER BY tanggal DESC";
             $result = $this->database->query($query);
             
             // Mengembalikan hasil sebagai array asosiatif
@@ -33,7 +33,7 @@ class IzinModel{
     public function getAllIzin2()
     {
         try {
-            $query = "SELECT * FROM data_izin_2";
+            $query = "SELECT * FROM data_izin_2 ORDER BY tanggal DESC";
             $result = $this->database->query($query);
             
             // Mengembalikan hasil sebagai array asosiatif
@@ -46,16 +46,24 @@ class IzinModel{
 
     public function getIzin1ByNim($nim)
     {
-        $query = "SELECT * FROM {$this->table1} WHERE nim = :nim";
+        $query = "SELECT * FROM {$this->table1} WHERE nim = :nim ORDER BY tanggal DESC" ;
         $this->database->query($query);
         $this->database->bind("nim", $nim);
+
+        return $this->database->resultSet();
+    }
+    public function getIzin1ById($id)
+    {
+        $query = "SELECT * FROM {$this->table1} WHERE id = :id " ;
+        $this->database->query($query);
+        $this->database->bind("id", $id);
 
         return $this->database->resultSet();
     }
 
     public function getIzin2ByNim($nim)
     {
-        $query = "SELECT * FROM {$this->table2} WHERE nim = :nim";
+        $query = "SELECT * FROM {$this->table2} WHERE nim = :nim ORDER BY tanggal DESC";
         $this->database->query($query);
         $this->database->bind("nim", $nim);
 
@@ -166,6 +174,8 @@ class IzinModel{
 
         return $result['jumlah'];
     }
+
+    
 
 }
 

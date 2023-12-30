@@ -78,9 +78,18 @@
                                 $query = new Krispachi\KrisnaLTE\Model\UserModel;
                                 $result = $query->getUserById($payload->user_id);
                                 $role = $query->getRoleUserById($payload->user_id)["role"];
-                                echo $result["gambar"];
+                                
+                                    if($role === "admin"){
+                                        echo "admin.png";
+                                    }else{
+                                        echo $result["gambar"];
+                                    }
                             } else {
-                                echo "user.png";
+                                if($role === "admin"){
+                                    echo "admin.png";
+                                }else{
+                                    echo "user.png";
+                                }
                             }
                             ?>" alt="User profile picture">
                         </div>

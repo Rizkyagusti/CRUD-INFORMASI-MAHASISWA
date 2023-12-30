@@ -36,9 +36,9 @@ class IzinController{
             $success = $approvalModel->processApproval($izinId, $approvalStatus);
 
             if ($success) {
-                FlashMessage::setFlashMessage("success", "Approval processed successfully");
+                FlashMessage::setFlashMessage("success", "Proses perizinan berhasil");
             } else {
-                FlashMessage::setFlashMessage("error", "Error processing approval");
+                FlashMessage::setFlashMessage("error", "proses perizinan gagal");
             }
         } else {
             FlashMessage::setFlashMessage("error", "Invalid request");
@@ -64,9 +64,9 @@ class IzinController{
             $success = $approvalModel->processApproval2($izinId, $approvalStatus);
 
             if ($success) {
-                FlashMessage::setFlashMessage("success", "Approval processed successfully");
+                FlashMessage::setFlashMessage("success", "Proses perizinan berhasil");
             } else {
-                FlashMessage::setFlashMessage("error", "Error processing approval");
+                FlashMessage::setFlashMessage("error", "proses perizinan gagal");
             }
         } else {
             FlashMessage::setFlashMessage("error", "Invalid request");
@@ -94,6 +94,13 @@ class IzinController{
             // Tambahkan field lainnya sesuai formulir
         ];
 
+        if (empty(trim($izinData["nama"])) || empty(trim($izinData["nim"])) || empty(trim($izinData["kelas"])) || empty(trim($izinData["jurusan"])) || empty(trim($izinData["tanggal"])) || empty(trim($izinData["keperluan"])) || empty(trim($izinData["jam_keluar"])) || empty(trim($izinData["jam_kembali"]))) {
+            FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
+            $this->sendFormInput($izinData);
+            header("Location: /izin");
+            exit(0);
+        }
+
         // Buat instance IzinModel
         $izinModel = new IzinModel();
 
@@ -102,9 +109,11 @@ class IzinController{
 
         if ($success) {
             // Redirect atau lakukan sesuatu jika berhasil menambahkan izin
+            FlashMessage::setFlashMessage("success", "Izin berhasil di ajukan");
             header("Location: /izin"); // Gantilah dengan halaman tujuan yang sesuai
         } else {
             // Tampilkan pesan atau lakukan sesuatu jika terjadi kesalahan
+            FlashMessage::setFlashMessage("error", "Izin gagal di ajukan");
             die('Error creating izin');
         }
     }
@@ -163,6 +172,13 @@ class IzinController{
             // Tambahkan field lainnya sesuai formulir
         ];
 
+        if (empty(trim($izinData["nama"])) || empty(trim($izinData["nim"])) || empty(trim($izinData["kelas"])) || empty(trim($izinData["jurusan"])) || empty(trim($izinData["tanggal"])) || empty(trim($izinData["keperluan"])) || empty(trim($izinData["bukti"]))) {
+            FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
+            $this->sendFormInput($izinData);
+            header("Location: /izin2");
+            exit(0);
+        }
+
         // Buat instance IzinModel
         $izinModel = new IzinModel();
 
@@ -173,10 +189,24 @@ class IzinController{
             // Redirect atau lakukan sesuatu jika berhasil menambahkan izin
             // var_dump($success);
             // die;
+            FlashMessage::setFlashMessage("success", "Izin berhasil di ajukan");
             header("Location: /izin2"); // Gantilah dengan halaman tujuan yang sesuai
         } else {
             // Tampilkan pesan atau lakukan sesuatu jika terjadi kesalahan
+            FlashMessage::setFlashMessage("error", "Izin gagal di ajukan");
             die('Error creating izin');
+        }
+    }
+
+    public function sendFormInput(array $data): void
+    {
+        $_SESSION["form-input"] = [];
+        foreach ($data as $key => $input) {
+            if (!empty(trim($input))) {
+                $_SESSION["form-input"] += [
+                    "$key" => trim($input)
+                ];
+            }
         }
     }
 }

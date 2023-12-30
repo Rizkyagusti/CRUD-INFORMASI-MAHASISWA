@@ -62,7 +62,7 @@ class MahasiswaModel
                           VALUES (:mahasiswa_id, :nama, :agama, :nik, :nama_ibu_kandung, :npwp, :no_bpjs, :alamat, :golongan_darah)";
         $this->database->query($queryPribadi);
         $this->database->bind("mahasiswa_id", $mahasiswaId);
-        $this->database->bind("nama", $dataPribadi["nama"]);
+        $this->database->bind("nama", $data["nama"]);
         $this->database->bind("agama", $dataPribadi["agama"]);
         $this->database->bind("nik", $dataPribadi["nik"]);
         $this->database->bind("nama_ibu_kandung", $dataPribadi["nama_ibu_kandung"]);

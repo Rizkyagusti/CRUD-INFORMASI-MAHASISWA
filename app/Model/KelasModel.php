@@ -29,7 +29,7 @@ class KelasModel {
     }
     public function getKelasByJurusanId($idJurusan) {
         try {
-            $query = "SELECT * FROM {$this->table} WHERE id_jurusan = :idJurusan ORDER BY id_jurusan";
+            $query = "SELECT * FROM {$this->table} WHERE id_jurusan = :idJurusan ORDER BY kelas ASC ";
             $this->database->query($query);
             $this->database->bind(':idJurusan', $idJurusan);
             

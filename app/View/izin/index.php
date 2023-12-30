@@ -49,7 +49,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="izinModalLabel">Tambah Izin</h5>
+                    <h5 class="modal-title" id="izinModalLabel">Ajukan Izin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -69,27 +69,11 @@
                         <input type="number" class="form-control" id="nim" name="nim" value="<?=$nama?>" readonly>
                     </div>
                     <div class="form-group">
-                    <label for="kelas">Kelas</label>
-                                            <select style="width: 100%;" name="kelas" class="" id="kelas">
-                                                <option value="" selected disabled>Pilih Kelas</option>
-                                                <?php
-                                                // Mendapatkan semua kelas
-                                                $kelasModel = new KelasModel();
-                                                $kelas = $kelasModel->getAllKelas();
-
-                                                // Menampilkan opsi untuk setiap kelas
-                                                foreach ($kelas as $kelasData) {
-                                                    echo "<option value='{$kelasData['kelas']}'>{$kelasData['kelas']}</option>";
-                                                }
-                                                ?>
-                                            </select>
-                    </div>
-                    <div class="form-group">
-                    <label for="jurusan">Jurusan</label>
-                                            <select style="width: 100%;" name="id_jurusan"
-                                                class="js-example-basic-single" id="jurusan">
-                                                <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
-                                                <?php
+                        <label for="jurusan">Jurusan</label>
+                        <select style="width: 100%;" name="id_jurusan"
+                        class="js-example-basic-single2" id="jurusan">
+                        <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
+                        <?php
                                                 $jurusanModel = new MajorModel();
                                                 $hasil = $jurusanModel->getAllMajor();
                                                 foreach ($hasil as $jurusan) {
@@ -106,7 +90,23 @@
                                                 }
                                                 ?>
                                             </select>
-                    </div>
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="kelas">Kelas</label>
+                                                                <select style="width: 100%;" name="kelas" class="js-example-basic-single1" id="kelas">
+                                                                    <option value="" selected disabled>Pilih Kelas</option>
+                                                                    <?php
+                                                                    // Mendapatkan semua kelas
+                                                                    $kelasModel = new KelasModel();
+                                                                    $kelas = $kelasModel->getAllKelas();
+                    
+                                                                    // Menampilkan opsi untuk setiap kelas
+                                                                    foreach ($kelas as $kelasData) {
+                                                                        echo "<option value='{$kelasData['kelas']}'>{$kelasData['kelas']}</option>";
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                        </div>
                     <div class="form-group">
                         <label for="nama">Keperluan</label>
                         <input type="text" class="form-control" id="keperluan" name="keperluan" required>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">Izin</li>
                         </ol>
                     </div>
@@ -187,6 +187,7 @@
                                             <?php
                                                 endif;
                                             ?>
+                                            <th>Cetak</th>
                                         </tr>
                                     </thead>
                                     <tbody id="majorTableBody">
@@ -209,7 +210,7 @@
                                                 <?= $no++ ?>
                                             </td>
                                             <td>
-                                                <?= $hasilDataIzin['tanggal'] ?>
+                                                <?= date("d F Y", strtotime($hasilDataIzin['tanggal'])); ?>
                                             </td>
                                             <td>
                                                 <?= $hasilDataIzin['nama'] ?>
@@ -281,6 +282,14 @@
                                             <?php
 					endif;
 				?>
+                                            <td>
+                                            <form action="/print" method="post">
+                                                        <input type="hidden" name="id" value="<?= $hasilDataIzin['id'] ?>">
+                                                        <button type="submit" name="print" value="Di Izinkan"
+                                                            class="btn btn-sm btn-success">Print</button>
+                                                        
+                                                    </form>
+                                            </td>
                                             </tr>
                                             <?php
 
@@ -339,6 +348,15 @@
     <!-- Page specific script -->
     <script>
         $(document).ready(function () {
+            $(".js-example-basic-single1").select2({
+                placeholder: "Pilih Kelas",
+                allowClear: true
+            });
+            $(".js-example-basic-single2").select2({
+                placeholder: "Pilih Jurusan",
+                allowClear: true
+            });
+            
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false, "responsive": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

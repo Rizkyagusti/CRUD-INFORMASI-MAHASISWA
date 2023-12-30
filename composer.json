@@ -10,7 +10,9 @@
     ],
     "require": {
         "php": ">=8",
-        "firebase/php-jwt": "^6.8"
+        "firebase/php-jwt": "^6.8",
+        "dompdf/dompdf": "^2.0",
+        "spipu/html2pdf": "^5.2"
     },
     "autoload": {
         "psr-4": {

@@ -7,6 +7,7 @@
 
     class MajorModel {
         private $table = "jurusans";
+        private $tableKelas = "kelas";
         private $jurusan_mata_kuliah_table = "jurusans_mata_kuliahs";
         private $database;
 
@@ -76,6 +77,12 @@
                 
                 // Delete di jurusans_mata_kuliahs
                 $query = "DELETE FROM {$this->jurusan_mata_kuliah_table} WHERE id_jurusan = :id_jurusan";
+                $this->database->query($query);
+                $this->database->bind("id_jurusan", $id);
+                $this->database->execute();
+
+                // Delete di kelas
+                $query = "DELETE FROM {$this->tableKelas} WHERE id_jurusan = :id_jurusan";
                 $this->database->query($query);
                 $this->database->bind("id_jurusan", $id);
                 $this->database->execute();

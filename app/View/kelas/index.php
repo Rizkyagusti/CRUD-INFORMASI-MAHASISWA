@@ -48,13 +48,9 @@
                                     }
                                     ?>
 
+                                    
                                     <div class="form-group">
-                                        <label for="nama">Nama Jurusan</label>
-                                        <input type="text" name="nama" class="form-control" id="nama" value="<?= $_SESSION["form-input"]["nama"] ?? "" ?>" placeholder="Masukkan Nama Jurusan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="mata_kuliah">Mata Kuliah</label>
-                                        <select style="width: 100%;" class="js-example-basic-multiple" id="mata_kuliah" name="mata_kuliahs[]" multiple="multiple">
+                                        
                                             <label for="jurusan">Jurusan</label>
                                             <select style="width: 100%;" name="id_jurusan" class="js-example-basic-single" id="jurusan" style="width: 100%; height: 60px;">
                                                 <option value="" selected disabled>Pilih Jurusan</option>
@@ -134,7 +130,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">Kelas</li>
                         </ol>
                     </div>
@@ -150,8 +146,8 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-header d-flex align-items-center">
-                                <h3 class="card-title">Tabel Daftar Jurusan</h3>
-                                <a class="btn btn-success ml-auto button-create" data-toggle="modal" data-target="#majorModal">Tambah Jurusan</a>
+                                <h3 class="card-title">Tabel Daftar Kelas</h3>
+                                <a class="btn btn-success ml-auto button-create" data-toggle="modal" data-target="#kelasModal">Tambah Kelas</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

@@ -79,5 +79,13 @@ Router::add("GET", "/pengajuan/update/([0-9a-zA-Z]*)", PengajuanController::clas
 Router::add("POST", "/mahasiswa-pengajuan/update/([0-9a-zA-Z]*)", PengajuanController::class, "edit", [AuthMiddleware::class]);
 Router::add("POST", "/pengajuan/delete/([0-9a-zA-Z]*)", PengajuanController::class, "delete", [AuthMiddleware::class]);
 Router::add("POST", "/pengajuan/approve/([0-9a-zA-Z]*)", PengajuanController::class, "approve", [AuthMiddleware::class]);
+
+
+Router::add("GET", "/tentang", MainController::class, "tentang", [GuestMiddleware::class]);
+Router::add("GET", "/tentang2", MainController::class, "tentang2", [GuestMiddleware::class]);
+Router::add("GET", "/faq", MainController::class, "faq", [GuestMiddleware::class]);
+Router::add("POST", "/print", MainController::class, "print", [AuthMiddleware::class]);
+Router::add("GET", "/keluar", MainController::class, "keluar", [AuthMiddleware::class]);
+Router::add("GET", "/cuti", MainController::class, "cuti", [AuthMiddleware::class]);
 Router::run();
 ?>

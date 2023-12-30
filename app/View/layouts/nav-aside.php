@@ -35,6 +35,7 @@
 		<!-- Sidebar user panel (optional) -->
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
+				<img src= "" alt="">
 				<img src="<?php __DIR__ ?>/img/<?php
 					if(isset($_COOKIE["X-KRISNALTE-SESSION"]) && $gambar !== null) {
 						$jwt = $_COOKIE["X-KRISNALTE-SESSION"];
@@ -44,7 +45,11 @@
 						$role = $query->getRoleUserById($payload->user_id)["role"];
 						echo $result["gambar"];
 					} else {
-						echo "user.png";
+						if($role === "admin"){
+							echo "admin.png";
+						}else{
+							echo "user.png";
+						}
 					}
 				?>" class="img-circle elevation-2" alt="User Image">
 			</div>
@@ -96,6 +101,7 @@
 					<a href="/mahasiswas" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/mahasiswas' ? 'active' : '' ?>">
 						<i class="nav-icon fas  fa-graduation-cap"></i>
 						<p>Info Mahasiswa</p>
+						<!-- <p>ANJAY</p> -->
 					</a>
 				</li>
 
@@ -137,7 +143,7 @@
               <li class="nav-item">
 			  <a href="/izin" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/izin' ? 'active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Izin Keluar Kampus</p>
+                  <p>Izin keluar area kampus</p>
                 </a>
               </li>
               <li class="nav-item">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>eduPGT | Jurusan</title>
+    <title>eduPGT | Izin 2</title>
     <?php require __DIR__ . "/../layouts/headlinks.php" ?>
     <!-- DataTables -->
     <link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -68,27 +68,11 @@
                         <input type="number" class="form-control" id="nim" name="nim" value="<?=$nama?>" readonly>
                     </div>
                     <div class="form-group">
-                    <label for="kelas">Kelas</label>
-                                            <select style="width: 100%;" name="kelas" class="" id="kelas">
-                                                <option value="" selected disabled>Pilih Kelas</option>
-                                                <?php
-                                                // Mendapatkan semua kelas
-                                                $kelasModel = new KelasModel();
-                                                $kelas = $kelasModel->getAllKelas();
-
-                                                // Menampilkan opsi untuk setiap kelas
-                                                foreach ($kelas as $kelasData) {
-                                                    echo "<option value='{$kelasData['kelas']}'>{$kelasData['kelas']}</option>";
-                                                }
-                                                ?>
-                                            </select>
-                    </div>
-                    <div class="form-group">
-                    <label for="jurusan">Jurusan</label>
-                                            <select style="width: 100%;" name="id_jurusan"
-                                                class="js-example-basic-single" id="jurusan">
-                                                <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
-                                                <?php
+                        <label for="jurusan">Jurusan</label>
+                        <select style="width: 100%;" name="id_jurusan"
+                        class="js-example-basic-single" id="jurusan">
+                        <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
+                        <?php
                                                 $jurusanModel = new MajorModel();
                                                 $hasil = $jurusanModel->getAllMajor();
                                                 foreach ($hasil as $jurusan) {
@@ -105,7 +89,23 @@
                                                 }
                                                 ?>
                                             </select>
-                    </div>
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="kelas">Kelas</label>
+                                                                <select style="width: 100%;" name="kelas" class="" id="kelas">
+                                                                    <option value="" selected disabled>Pilih Kelas</option>
+                                                                    <?php
+                                                                    // Mendapatkan semua kelas
+                                                                    $kelasModel = new KelasModel();
+                                                                    $kelas = $kelasModel->getAllKelas();
+                    
+                                                                    // Menampilkan opsi untuk setiap kelas
+                                                                    foreach ($kelas as $kelasData) {
+                                                                        echo "<option value='{$kelasData['kelas']}'>{$kelasData['kelas']}</option>";
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                        </div>
                     <div class="form-group">
                         <label for="nama">Tanggal Izin</label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal" required>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">Izin</li>
                         </ol>
                     </div>

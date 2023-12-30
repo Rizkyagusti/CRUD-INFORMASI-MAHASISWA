@@ -6,24 +6,60 @@
     <title>eduPGT | Log in</title>
     <?php require __DIR__ . "/../layouts/headlinks.php" ?>
     <style>
-      body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: linear-gradient(90deg, #0a74da, #87cefa);
-  animation: backgroundAnimation 3s linear infinite; /* Mengubah durasi animasi menjadi 3 detik */
-}
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background-image:url("<?php __DIR__ ?>/img/labte.jpeg");
+            filter: brightness(0.2) blur(2px); /* Adjust brightness and blur values as needed */
+            animation: backgroundAnimation 50s linear infinite;
+        }
 
-@keyframes backgroundAnimation {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 0%;
-  }
-}
+        .background-image {
+            width: auto;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.2) blur(2px); /* Adjust brightness and blur values as needed */
+            animation: backgroundAnimation 20s linear infinite;
+        }
 
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .login-box {
+            display: flex;
+            /* flex-direction: column; */
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+        
+        .card {
+            min-width: 540px;
+            margin: 0 auto;
+        }
+
+        .card-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body class="hold-transition login-page">
@@ -33,16 +69,27 @@
     FlashMessage::flashMessage();
 ?>
 
-<div class="login-box">
-    <div class="login-logo">
+<div class="background-container">
+    <!-- <img src="<?php __DIR__ ?>/img/labte.jpeg" class="background-image" alt="Background Image"> -->
+</div>
+ <div class="login-logo" style="color:white;">
     <img src="<?php __DIR__ ?>/img/logo.png" alt="Logo" style="width:50px;">
 <a><b>EDU</b>PGT</a>
 
     </div>
+<div class="login-box">
+   
 
-    <!-- /.login-logo -->
-    <div class="card">
-        <div class="card-body login-card-body" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+    
+   
+
+    <div class="card mb-3" style="min-width: 540px; margin:0 auto;">
+  <div class="row no-gutters">
+    <div class="col-md-6" style="overflow:hidden;">
+      <img src="<?php __DIR__ ?>/img/apel.jpeg" class="card-img" alt="..." style="height:100%; width:100%;object-fit:cover;">
+    </div>
+    <div class="col-md-6">
+    <div class="card-body login-card-body" style="border-top-left-radius:10px;border-top-right-radius:10px;">
             <p class="login-box-msg">Log In untuk melanjutkan ke aplikasi</p>
 
             <form action="/login" method="post">
@@ -70,11 +117,12 @@
                 </div>
             </form>
 
-            <p class="m-0">Belum punya akun? <a href="/register" class="text-center"> buat akun baru</a></p>
+            
             <p class="m-0"><a href="/forgot-password" class="text-center">Lupa Password?</a></p>
         </div>
-        <!-- /.login-card-body -->
     </div>
+  </div>
+</div>
 </div>
 <!-- /.login-box -->
 

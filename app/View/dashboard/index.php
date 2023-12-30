@@ -101,7 +101,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Teknik Mesin</span>
+                <span class="info-box-text">Mahasiswa Teknik Mesin</span>
                 <span class="info-box-number">
                  <?=$jumlahMesin;?>
                 </span>
@@ -116,7 +116,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-bolt"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Teknik Elektronika</span>
+                <span class="info-box-text">mahasiswa Teknik Elektronika</span>
                 <span class="info-box-number"><?=$jumlahElektro;?></span>
               </div>
               <!-- /.info-box-content -->
@@ -133,7 +133,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
               <span class="info-box-icon elevation-1" style="background-color: #8A2BE2;"><i class="fas fa-industry"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Teknologi Industri</span>
+                <span class="info-box-text">Mahasiswa Teknologi Industri</span>
                 <span class="info-box-number"><?=$jumlahIndustri;?></span>
               </div>
               <!-- /.info-box-content -->
@@ -175,9 +175,9 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-7" style="border-right:1px solid rgba(0,0,0,0.2) ">
                     <p class="text-center">
-                      <strong>2023</strong>
+                      <strong>Grafik Jumlah Mahasiswa 2023</strong>
                     </p>
 
                     <div class="chart">
@@ -187,7 +187,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
                     <!-- /.chart-responsive -->
                   </div>
                   <!-- /.col -->
-                  <div class="col-md-4">
+                  <div class="col-md-5">
                     <p class="text-center">
                       <strong>Jumlah Izin Tidak Masuk</strong>
                     </p>
@@ -299,7 +299,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
                                         ?>
                                             </td>
                       <td>
-                      <?= $hasilDataIzin['tanggal'] ?>
+                      <?= date("d F Y", strtotime($hasilDataIzin['tanggal'])); ?>
                       </td>
                     </tr>
                    
