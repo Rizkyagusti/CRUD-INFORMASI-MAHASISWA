@@ -8,8 +8,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EDUPGT | Top Navigation</title>
-
+  <title>EDUPGT | WELCOME</title>
+  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -26,106 +26,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
         display: none;
       }
     }
+
+    .carousel-item {
+        max-width: 100%;
+        max-height: 700px; /* Sesuaikan dengan tinggi yang diinginkan */
+        margin: 0 auto; /* Tengahkan gambar */
+    }
   </style>
 </head>
 
 <body class="hold-transition layout-top-nav">
   <div class="wrapper">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <img src="<?php __DIR__ ?>/img/EDU.png" width="350" class="d-inline-block align-top" alt="" style="margin-left: 50px;">
-      </a>
-
-    </nav>
-    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-
-      <div class="container">
-        <!-- Image and text -->
+  <?php require __DIR__ . "/navbar.php" ?>
 
 
-        <br>
-        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-          <!-- Left navbar links -->
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="/" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="#kontak" class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Tentang</a>
-              <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a href="/tentang" class="dropdown-item">Aplikasi</a></li>
-                <li><a href="/tentang2" class="dropdown-item">Pembuat</a></li>
-              </ul>
-            </li>
-
-            <!-- End Level two -->
-            <li class="nav-item">
-              <a href="/login" class="nav-link">Login</a>
-            </li>
-            <li class="nav-item">
-              <a href="/faq" class="nav-link">FAQ?</a>
-            </li>
-        </div>
-
-        <!-- Right navbar links -->
-
-      </div>
-    </nav>
-    <!-- /.navbar -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" id="carousel">
-      <!-- Content Header (Page header) -->
-
-      <!-- /.content-header -->
-
-      <!-- Main content -->
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <!-- Main content -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <?php
+            $berita = new Krispachi\KrisnaLTE\Model\BeritaModel();
+            $beritaList = $berita->getAllBerita();
+
+            foreach ($beritaList as $index => $user) :
+            ?>
+            <li data-target="#carouselExampleIndicators" data-slide-to="<?= $index ?>" <?= $index === 0 ? 'class="active"' : '' ?>></li>
+            <?php endforeach; ?>
         </ol>
+
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="<?php __DIR__ ?>/img/Breaking-News.jpg" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="<?php __DIR__ ?>/img/Breaking-News.jpg" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="<?php __DIR__ ?>/img/Breaking-News.jpg" class="d-block w-100" alt="...">
-          </div>
+            <?php foreach ($beritaList as $index => $user) : ?>
+            <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                <img src="<?php __DIR__ ?>/img/<?= $user["gambar"] ?>" class="d-block w-100 carousel-img" alt="...">
+            </div>
+            <?php endforeach; ?>
         </div>
+        
         <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
         </button>
-      </div>
-      <!-- /.content-wrapper -->
-
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
-
-      <!-- Main Footer -->
-
     </div>
+    <!-- /.content-wrapper -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+
+    
 
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-body-tertiary text-muted">

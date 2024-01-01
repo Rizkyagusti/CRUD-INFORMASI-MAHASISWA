@@ -3,7 +3,7 @@
         'name' => 'krispachi/krisna-lte',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'efbcf7b5687c77f00c68005002b75b8987495b6f',
+        'reference' => '09faa7f7b898043a3577bfa90c509f267b98da64',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'krispachi/krisna-lte' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'efbcf7b5687c77f00c68005002b75b8987495b6f',
+            'reference' => '09faa7f7b898043a3577bfa90c509f267b98da64',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -8,12 +8,18 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- jquery -->
+  <!-- jQuery -->
+  <script src="AdminLTE/plugins/jquery/jquery.min.js"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="AdminLTE/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="AdminLTE/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" href="AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   
@@ -177,12 +183,13 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
                 <div class="row">
                   <div class="col-md-7" style="border-right:1px solid rgba(0,0,0,0.2) ">
                     <p class="text-center">
-                      <strong>Grafik Jumlah Mahasiswa 2023</strong>
+                      <strong>Grafik Jumlah Mahasiswa th.2023/2024</strong>
                     </p>
 
                     <div class="chart">
                       <!-- Sales Chart Canvas -->
-                     <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+
                     </div>
                     <!-- /.chart-responsive -->
                   </div>
@@ -346,7 +353,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- <script src="AdminLTE/plugins/jquery/jquery.min.js"></script> -->
 <!-- Bootstrap -->
 <script src="AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
@@ -366,7 +373,7 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="AdminLTE/dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="AdminLTE/dist/js/pages/dashboard2.js"></script>
+<!-- <script src="AdminLTE/dist/js/pages/dashboard2.js"></script> -->
 <script>var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
     var donutData        = {
       labels: [

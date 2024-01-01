@@ -60,6 +60,14 @@ class IzinModel{
 
         return $this->database->resultSet();
     }
+    public function getIzin2ById($id)
+    {
+        $query = "SELECT * FROM {$this->table2} WHERE id = :id " ;
+        $this->database->query($query);
+        $this->database->bind("id", $id);
+
+        return $this->database->resultSet();
+    }
 
     public function getIzin2ByNim($nim)
     {
@@ -69,6 +77,8 @@ class IzinModel{
 
         return $this->database->resultSet();
     }
+
+   
 
     public function processApproval($izinId, $approvalStatus)
     {
@@ -173,6 +183,66 @@ class IzinModel{
         $result = $this->database->single();
 
         return $result['jumlah'];
+    }
+
+    public function updateIzin($data)  {
+        $query = "UPDATE {$this->table1} SET nama = :nama, nim = :nim, kelas = :kelas, jurusan = :jurusan, keperluan = :keperluan, jam_keluar = :jam_keluar, jam_masuk = :jam_masuk WHERE id = :id";
+        $this->database->query($query);
+
+        $this->database->bind("nama", $data["nama"]);
+        $this->database->bind("nim", $data["nim"]);
+        $this->database->bind("id", $data["id"]);
+        $this->database->bind("kelas", $data["kelas"]);
+        $this->database->bind("jurusan", $data["jurusan"]);
+        $this->database->bind("keperluan", $data["keperluan"]);
+        $this->database->bind("jam_keluar", $data["jam_keluar"]);
+        $this->database->bind("jam_masuk", $data["jam_masuk"]);
+
+        $this->database->execute();
+    }
+    public function updateIzin2($data)  {
+        $query = "UPDATE {$this->table2} SET nama = :nama, nim = :nim, kelas = :kelas, jurusan = :jurusan, keperluan = :keperluan, tanggal_izin = :tanggal_izin, bukti = :bukti WHERE id = :id";
+        $this->database->query($query);
+
+        $this->database->bind("nama", $data["nama"]);
+        $this->database->bind("nim", $data["nim"]);
+        $this->database->bind("id", $data["id"]);
+        $this->database->bind("kelas", $data["kelas"]);
+        $this->database->bind("jurusan", $data["jurusan"]);
+        $this->database->bind("keperluan", $data["keperluan"]);
+        $this->database->bind("tanggal_izin", $data["tanggal_izin"]);
+        $this->database->bind("bukti", $data["bukti"]);
+
+        $this->database->execute();
+    }
+
+    public function deleteIzin($id)
+    {
+        // Cek ada atau tidak di database
+        if (empty($this->getIzin1ById($id))) {
+            throw new Exception("Izin tidak ditemukan");
+        }
+
+        $query = "DELETE FROM {$this->table1} WHERE id = :id";
+        $this->database->query($query);
+
+        $this->database->bind("id", $id);
+
+        $this->database->execute();
+    }
+    public function deleteIzin2($id)
+    {
+        // Cek ada atau tidak di database
+        if (empty($this->getIzin2ById($id))) {
+            throw new Exception("Izin tidak ditemukan");
+        }
+
+        $query = "DELETE FROM {$this->table2} WHERE id = :id";
+        $this->database->query($query);
+
+        $this->database->bind("id", $id);
+
+        $this->database->execute();
     }
 
     

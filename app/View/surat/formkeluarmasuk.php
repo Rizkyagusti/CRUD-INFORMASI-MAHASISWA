@@ -58,10 +58,10 @@
         </tr>
         
     </table><br>
-    <table>
+    <table >
         <tr>
-            <td style="padding-bottom: 60px; padding-right:60px;text-align:center;">pemohon,</td><td></td><td></td>
-            <td style=" padding-bottom:60px;text-align:center;">menyetujui,</td><td></td><td></td>
+            <td style="padding-bottom: 60px; padding-right:60px;text-align:center;">pemohon,</td><td style="padding-left: 50px;"></td><td></td>
+            <td style=" padding-bottom:60px;text-align:center;">menyetujui,</td><td style="padding-left: 50px;"></td><td></td>
             <td style="padding-bottom:60px;text-align:center;">mengetahui,</td>
         </tr>
         <tr><td></td></tr>

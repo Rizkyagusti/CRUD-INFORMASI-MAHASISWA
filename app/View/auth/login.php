@@ -114,7 +114,7 @@
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="far fa-eye mr-2 eye-icon" onclick="hideShowPassword()"></span>
+                            <!-- <span class="far fa-eye mr-2 eye-icon" onclick="hideShowPassword()"></span> -->
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>

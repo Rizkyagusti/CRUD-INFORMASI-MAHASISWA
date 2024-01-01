@@ -7,6 +7,7 @@ use Krispachi\KrisnaLTE\App\View;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Krispachi\KrisnaLTE\Model\UserModel;
+use Krispachi\KrisnaLTE\Model\BeritaModel;
 use Krispachi\KrisnaLTE\Model\IzinModel;
 use \Dompdf\Dompdf;
 
@@ -39,6 +40,75 @@ class MainController{
     public function faq() {
         View::render("main-page/faq");
     } 
+    public function berita() {
+        View::render("berita/index");
+    } 
+
+    public function editberita()
+    {
+        // Ambil data pengguna berdasarkan ID dari model
+            $model = new BeritaModel();
+            
+
+            function uploadberita()
+            {
+                $name = $_FILES['gambar']['name'];
+                $tmpName = $_FILES['gambar']['tmp_name'];
+                $error = $_FILES['gambar']['error'];
+                $size = $_FILES['gambar']['size'];
+    
+                if ($error == 4) {
+                    FlashMessage::setFlashMessage("error", "Gambar belum diberikan");
+                    return false;
+                }
+    
+                $ekstensiValid = ['jpg', 'jpeg', 'png'];
+                $ekstensiFile = explode('.', $name);
+                $ekstensiFile = strtolower(end($ekstensiFile));
+    
+                if (!in_array($ekstensiFile, $ekstensiValid)) {
+                    FlashMessage::setFlashMessage("error", "Yang anda upload bukan gambar");
+                    return false;
+                }
+    
+    
+                if ($size > 2000000) {
+                    FlashMessage::setFlashMessage("error", "Ukuran Gambar terlalu besar");
+                    return false;
+                }
+                $namaFileBaru = uniqid();
+                $namaFileBaru .= ".";
+                $namaFileBaru .= $ekstensiFile;
+                move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
+                return $namaFileBaru;
+            }
+            $gambar = uploadberita();
+            // Lakukan validasi dan update data pengguna di dalam model
+            try {
+                // Ambil data yang dikirim dari formulir
+                $editedData = [
+                    'id' => $_POST['id'],
+                    'headline' => $_POST['headline'],
+                    'deskripsi' => $_POST['deskripsi'],
+                    'gambar' => $gambar
+                    // Tambahkan field lainnya sesuai kebutuhan
+                ];
+
+                // Panggil method di model untuk melakukan update
+                $model->updateBerita($editedData);
+
+                // Redirect ke halaman yang sesuai setelah berhasil
+                FlashMessage::setFlashMessage("success", "berita berhasil di ubah");
+                header("Location: /berita");
+            } catch (Exception $exception) {
+                // Tangani kesalahan jika diperlukan
+                FlashMessage::setFlashMessage("error", $exception->getMessage());
+            }
+        
+
+        // Tampilkan view edit dengan data pengguna yang akan diubah
+        // Misalnya: $this->render('users/edit', ['user' => $user]);
+    }
     public function keluar() {
         $model = new IzinModel();
         $dataIzin = $model->getIzin1ById(1);

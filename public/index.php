@@ -69,6 +69,10 @@ Router::add("POST", "/izin/process-approval", IzinController::class, "processApp
 Router::add("POST", "/izin/process-approval2", IzinController::class, "processApproval2");
 Router::add("POST", "/izin/create", IzinController::class, "create");
 Router::add("POST", "/izin/create2", IzinController::class, "create2");
+Router::add("POST", "/izin/edit", IzinController::class, "edit");
+Router::add("POST", "/izin/delete/([0-9a-zA-Z]*)", IzinController::class, "delete", [AuthMiddleware::class]);
+Router::add("POST", "/izin2/edit", IzinController::class, "edit2");
+Router::add("POST", "/izin2/delete/([0-9a-zA-Z]*)", IzinController::class, "delete2", [AuthMiddleware::class]);
 
 
 Router::add("GET", "/user", UserController::class, "index", [AuthMiddleware::class, AdminMiddleware::class]);
@@ -88,5 +92,7 @@ Router::add("GET", "/faq", MainController::class, "faq", [GuestMiddleware::class
 Router::add("POST", "/print", MainController::class, "print", [AuthMiddleware::class]);
 Router::add("GET", "/keluar", MainController::class, "keluar", [AuthMiddleware::class]);
 Router::add("GET", "/cuti", MainController::class, "cuti", [AuthMiddleware::class]);
+Router::add("GET", "/berita", MainController::class, "berita", [AuthMiddleware::class]);
+Router::add("POST", "/berita/edit", MainController::class, "editberita", [AuthMiddleware::class]);
 Router::run();
 ?>

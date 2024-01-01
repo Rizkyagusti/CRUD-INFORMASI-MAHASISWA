@@ -198,6 +198,136 @@ class IzinController{
         }
     }
 
+
+    public function edit(){
+        
+        $dataIzin = [
+            'id' => $_POST['id'],
+            'nama' => $_POST['nama'],
+            'nim' => $_POST['nim'],
+            'kelas' => $_POST['kelas'],
+            'jurusan' => $_POST['jurusan'],
+            'keperluan' => $_POST['keperluan'],
+            'jam_keluar' => $_POST['jam_keluar'],
+            'jam_masuk' => $_POST['jam_masuk'],
+        ];
+
+        // var_dump($dataIzin);
+        // die;
+        
+        if(empty(trim($dataIzin["id"])) || empty(trim($dataIzin["nama"])) || empty(trim($dataIzin["nim"])) || empty(trim($dataIzin["kelas"])) || empty(trim($dataIzin["jurusan"]))  || empty(trim($dataIzin["keperluan"])) || empty(trim($dataIzin["jam_keluar"]))  || empty(trim($dataIzin["jam_masuk"]))) {
+            FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
+            header("Location: /izin");
+            exit(0);
+        }
+    
+        $model = new IzinModel();
+        try {
+            $model->updateIzin($dataIzin);
+            FlashMessage::setFlashMessage("success", "Izin berhasil diubah");
+            header("Location: /izin");
+            exit(0);
+        } catch (Exception $exception) {
+            FlashMessage::setFlashMessage("error", $exception->getMessage());
+            header("Location: /izin");
+            exit(0);
+        }
+    }
+    public function edit2(){
+        function uploadBukti2()
+        {
+            $name = $_FILES['bukti']['name'];
+            $tmpName = $_FILES['bukti']['tmp_name'];
+            $error = $_FILES['bukti']['error'];
+            $size = $_FILES['bukti']['size'];
+
+            if ($error == 4) {
+                FlashMessage::setFlashMessage("error", "bukti belum dikirim");
+                return false;
+            }
+
+            $ekstensiValid = ['pdf'];
+            $ekstensiFile = explode('.', $name);
+            $ekstensiFile = strtolower(end($ekstensiFile));
+
+            if (!in_array($ekstensiFile, $ekstensiValid)) {
+                FlashMessage::setFlashMessage("error", "yang anda upload bukan pdf");
+                return false;
+            }
+
+
+            if ($size > 10000000) {
+                FlashMessage::setFlashMessage("error", "Ukuran PDF terlalu besar");
+                return false;
+            }
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= ".";
+            $namaFileBaru .= $ekstensiFile;
+            move_uploaded_file($tmpName, 'bukti/' . $namaFileBaru);
+            return $namaFileBaru;
+        }
+        $bukti = uploadBukti2();
+        $dataIzin = [
+            'id' => $_POST['id'],
+            'nama' => $_POST['nama'],
+            'nim' => $_POST['nim'],
+            'kelas' => $_POST['kelas'],
+            'jurusan' => $_POST['jurusan'],
+            'keperluan' => $_POST['keperluan'],
+            'tanggal_izin' => $_POST['tanggal_izin'],
+            'bukti' => $bukti,
+        ];
+
+        // var_dump($dataIzin);die;
+        
+        if(empty(trim($dataIzin["id"])) || empty(trim($dataIzin["nama"])) || empty(trim($dataIzin["nim"])) || empty(trim($dataIzin["kelas"])) || empty(trim($dataIzin["jurusan"]))  || empty(trim($dataIzin["keperluan"])) || empty(trim($dataIzin["tanggal_izin"]))  || empty(trim($dataIzin["bukti"]))) {
+            FlashMessage::setFlashMessage("error", "Form tidak boleh kosong");
+            header("Location: /izin2");
+            exit(0);
+        }
+    
+        $model = new IzinModel();
+        try {
+            $model->updateIzin2($dataIzin);
+            FlashMessage::setFlashMessage("success", "Izin berhasil diubah");
+            header("Location: /izin2");
+            exit(0);
+        } catch (Exception $exception) {
+            FlashMessage::setFlashMessage("error", $exception->getMessage());
+            header("Location: /izin2");
+            exit(0);
+        }
+    }
+
+    public function delete($id)
+    {
+        $model = new IzinModel();
+        try {
+            $model->deleteIzin($id);
+            FlashMessage::setIfNotFlashMessage("success", "Izin berhasil dihapus");
+            header("Location: /izin");
+            exit(0);
+        } catch (Exception $exception) {
+            FlashMessage::setFlashMessage("error", $exception->getMessage());
+            header("Location: /izin");
+            exit(0);
+        }
+    }
+    public function delete2($id)
+    {
+        $model = new IzinModel();
+        try {
+            $model->deleteIzin2($id);
+            FlashMessage::setIfNotFlashMessage("success", "Izin berhasil dihapus");
+            header("Location: /izin2");
+            exit(0);
+        } catch (Exception $exception) {
+            FlashMessage::setFlashMessage("error", $exception->getMessage());
+            header("Location: /izin2");
+            exit(0);
+        }
+    }
+
     public function sendFormInput(array $data): void
     {
         $_SESSION["form-input"] = [];

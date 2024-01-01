@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EDUPGT | Aplikasi</title>
+  <title>EDUPGT | FAQs</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,54 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="<?php __DIR__ ?>/img/EDU.png" width="350" class="d-inline-block align-top" alt="" style="margin-left: 50px;">
-    </a>
-    
-  </nav>
-  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-    
-    <div class="container">
-      <!-- Image and text -->
-
-      
-      <br>
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="#kontak" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Tentang</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="/tentang" class="dropdown-item">Aplikasi</a></li>
-              <li><a href="/tentang2" class="dropdown-item">Pembuat</a></li>
-            </ul>
-          </li>
-
-          <!-- End Level two -->
-          <li class="nav-item">
-            <a href="/login" class="nav-link">Login</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">FAQ?</a>
-          </li>
-      </div>
-
-      <!-- Right navbar links -->
-      
-    </div>
-  </nav>
-  <!-- /.navbar -->
+  <?php require __DIR__ . "/navbar.php" ?>
 
  <!-- FAQ 3 - Bootstrap Brain Component -->
 <section class="bsb-faq-3 py-3 py-md-5 py-xl-8">
@@ -173,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </section>
 
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+<footer class="text-center text-lg-start bg-body-tertiary text-muted" style="padding-top: 50px;"> 
   <!-- Section: Social media -->
   
   <!-- Section: Social media -->

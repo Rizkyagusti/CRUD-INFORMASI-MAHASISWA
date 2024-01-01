@@ -11,7 +11,7 @@ use Krispachi\KrisnaLTE\Model\UserModel;
 
 class AuthController
 {
-    public static string $SECRET_KEY = "IniAdalahWebsiteYangDibuatOlehKrispachiYangLebihDikenalDenganNamaKrisna#NamaWebsiteIniKrisnaLTE#YangNamanyaDiambilDariAdminLTE:v";
+    public static string $SECRET_KEY = "IniAdalahWebsiteYangDibuatOlehRizkyAgustiDanFinnanErlandungUntukMemenuhiMataKuliahWebProgramming";
 
     public function index()
     {

@@ -24,6 +24,7 @@
 		<!-- Modal -->
 		<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="majorModalLabel" aria-hidden="true">
 			<!-- form start -->
+			
 			<form action="/register2" method="post" id="modal-form">
 				<div class="modal-dialog">
 					<div class="modal-content">
