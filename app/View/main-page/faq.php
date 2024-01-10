@@ -19,8 +19,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/faqs/faq-3/assets/css/faq-3.css">
 <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
+<style>
+    .navbar .navbar-brand img{
+        width:300px;
+        margin-left:20px;
+      }
+
+  .hidden {
+      display: none;
+    }
+
     
+    @media only screen and (max-width: 800px) {
+      
+      .navbar{
+        background-color:black;
+        position:relative;
+      }
+      .navbar .navbar-brand {
+        width:100px;
+      }
+      .navbar .navbar-brand img{
+        width:100px;
+        margin-left:10px;
+      }
+    }
   </style>
 </head>
 <body class="hold-transition layout-top-nav">

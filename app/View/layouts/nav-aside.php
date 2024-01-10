@@ -11,6 +11,9 @@
 			<li class="nav-item d-none d-sm-inline-block">
 				<a class="nav-link" onclick="alert('Hubungi BAAK')">Kontak</a>
 			</li>
+			<li class="nav-item d-none d-sm-inline-block">
+				<a href="/panduanAplikasi" class="nav-link">Panduan</a>
+			</li>
 		</ul>
 	</nav>
 	<!-- /.navbar -->
@@ -82,13 +85,14 @@
 		</div>
 
 		<!-- Sidebar Menu -->
+		
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 				<?php
 					if($role === "admin") :
 				?>
-				<li class="nav-item">
+				<li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/dashboard" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/dashboard' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>Dashboard</p>
@@ -97,7 +101,7 @@
 				<?php
 					endif;
 				?>
-				<li class="nav-item">
+				<li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/mahasiswas" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/mahasiswas' ? 'active' : '' ?>">
 						<i class="nav-icon fas  fa-graduation-cap"></i>
 						<p>Info Mahasiswa</p>
@@ -108,13 +112,13 @@
 				<?php
 					if($role === "admin") :
 				?>
-				<li class="nav-item">
+				<li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/majors" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/majors' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-university"></i>
 						<p>Jurusan</p>
 					</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/kelas" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/kelas' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-columns"></i>
 						<p>Kelas</p>
@@ -131,7 +135,7 @@
 				<?php
 					endif;
 				?>
-				<li class="nav-item">
+				<li class="nav-item" style=" margin-bottom: 10px;">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -140,13 +144,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" style=" margin-bottom: 10px;">
 			  <a href="/izin" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/izin' ? 'active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Izin keluar area kampus</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" style=" margin-bottom: 10px;">
 			  <a href="/izin2" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/izin2' ? 'active' : '' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Izin tidak masuk</p>
@@ -155,22 +159,23 @@
              
             </ul>
           </li>
-		  <li class="nav-item">
+		  <li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/pengajuan" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/pengajuan' ? 'active' : '' ?>">
 					<i class="nav-icon fas fa-user-plus"></i>
 						<p>Pengajuan data</p>
 					</a>
 				</li>
+		  
 				<?php
 					if($role === "admin") :
 				?>
-		 		 <li class="nav-item">
+		 		 <li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/user" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/user' ? 'active' : '' ?>">
 					<i class="nav-icon fas fa-users"></i>
 						<p>Informasi Users</p>
 					</a>
 				</li>
-		 		 <li class="nav-item">
+		 		 <li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/berita" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/berita' ? 'active' : '' ?>">
 					<i class="nav-icon fas fa-globe"></i>
 						<p>Berita</p>
@@ -179,14 +184,20 @@
 				<?php
 				endif;
 				?>
-				<li class="nav-item">
+				<li class="nav-item" style=" margin-bottom: 10px;">
+					<a href="/panduanAplikasi" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/panduanAplikasi' ? 'active' : '' ?>">
+					<i class="nav-icon fas fa-book"></i>
+						<p>Panduan</p>
+					</a>
+				</li>
+				<li class="nav-item" style=" margin-bottom: 10px;">
 					<a href="/users" class="nav-link <?= $_SERVER['REQUEST_URI'] == '/users' ? 'active' : '' ?>">
 						<i class="nav-icon fas fa-user-cog"></i>
 						<p>Profil</p>
 					</a>
 				</li>
 				
-				<li class="nav-item nav-log-out">
+				<li class="nav-item nav-log-out" style=" margin-bottom: 10px;">
 					<a href="/logout" class="nav-link">
 						<i class="nav-icon fas fa-sign-out-alt"></i>
 						<p>Log Out</p>

@@ -166,7 +166,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="jurusan">Jurusan</label>
-                                <select style="width: 100%;" name="id_jurusan" class="js-example-basic-single" id="jurusan">
+                                <select style="width: 100%;" name="id_jurusan" class="form-control" id="jurusan">
                                     <option value="<?= null ?>" selected disabled>Pilih Jurusan</option>
                                     <?php
                                     $jurusanModel = new MajorModel();
@@ -188,7 +188,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="kelas">Kelas</label>
-                                <select style="width: 100%;" name="kelas" class="" id="kelas">
+                                <select style="width: 100%;" name="kelas" class="form-control" id="kelas">
                                     <option value="" selected disabled>Pilih Kelas</option>
                                     <?php
                                     // Mendapatkan semua kelas
@@ -255,7 +255,12 @@
                             <div class="card">
                                 <div class="card-header d-flex align-items-center">
                                     <h3 class="card-title">Data Izin Tidak Masuk Mahasiswa</h3>
+                                    <?php
+                                                if ($role != "admin") :
+
+                                                ?>
                                     <a class="btn btn-success ml-auto button-create" data-toggle="modal" data-target="#izinModal">Ajukan izin</a>
+                                    <?php endif;?>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

@@ -68,10 +68,18 @@
 								<div class="card-header d-flex align-items-center">
 									<h3 class="card-title" style="margin-bottom: 0;">Informasi Kampus Tabel Mahasiswa
 									</h3><br>
+									<?php
+                                                if ($role != "admin") :
+
+                                                ?>
 									<a class="btn btn-success ml-auto" id="ajukan" href="pengajuan/create/<?= $nama ?>">Ajukan Data</a>
+									<button id="informasi-pribadi-btn" class="btn btn-primary   " style="margin-left: 5px;">Pindah ke Informasi Pribadi</button>
+									<?php else:?>
+										<button id="informasi-pribadi-btn" class="btn btn-primary ml-auto" style="margin-left: 5px;">Pindah ke Informasi Pribadi</button>
+									<?php endif;?>
 
 									<!-- Ganti "#informasi-pribadi-btn" dengan ID atau kelas yang sesuai -->
-										<button id="informasi-pribadi-btn" class="btn btn-primary " style="margin-left: 5px;">Pindah ke Informasi Pribadi</button>
+										
 									
 								</div>
 								<!-- /.card-header -->
@@ -223,7 +231,7 @@
 							
 							?>
 
-							<div class="card" id="informasi-pribadi" style="display: none;">
+							<div class="card " id="informasi-pribadi" style="display: none;">
 								<div class="card-header d-flex align-items-center">
 									<h3 class="card-title">Informasi Pribadi Mahasiswa</h3>
 									<!-- Ganti "#tabel-mahasiswa-btn" dengan ID atau kelas yang sesuai -->
@@ -232,7 +240,7 @@
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive">
-									<table id="example2" class="table table-bordered table-striped">
+									<table id="example2" class="table table-bordered table-striped" >
 										<thead>
 											<tr>
 												<th>ID</th>
@@ -335,12 +343,10 @@
 			}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
 			var tableInformasiPribadi = $("#example2").DataTable({
-				"paging": true,
+				// "paging": true,
 				"lengthChange": false,
-				"searching": false,
-				"ordering": true,
-				"info": true,
-				"autoWidth": false,
+				"searching": true,
+				"autoWidth": true,
 				"responsive": true,
 				"buttons": [{
 						extend: 'copy',
@@ -383,11 +389,6 @@
 
 			// Add the buttons container to the DataTable
 			tableInformasiPribadi.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-
-
-
-
-
 
 
 			// Toggle visibility tabel-mahasiswa dan informasi-pribadi

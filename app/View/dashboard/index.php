@@ -354,12 +354,25 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <!-- <script src="AdminLTE/plugins/jquery/jquery.min.js"></script> -->
+<!-- jQuery -->
+<script src="AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="AdminLTE/dist/js/adminlte.js"></script>
+
+<!-- jQuery event listener untuk tombol sidebar -->
+<script>
+  $(document).ready(function() {
+    // Event listener untuk tombol sidebar
+    $('[data-widget="pushmenu"]').on('click', function() {
+      $('body').toggleClass('sidebar-collapse');
+    });
+  });
+</script>
+
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -374,7 +387,8 @@ $allPersentase = $persentaseElektro + $persentaseMesin + $persentaseIndustri;
 <!-- <script src="AdminLTE/dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="AdminLTE/dist/js/pages/dashboard2.js"></script> -->
-<script>var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+<script>
+var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
     var donutData        = {
       labels: [
           'Teknik Mesin',

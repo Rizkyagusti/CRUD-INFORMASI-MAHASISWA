@@ -138,12 +138,14 @@
 										</div>
 									</div>
 									<div class="input-group mb-3">
+										<select name="role" id="role" class="form-control"style="width: 100%; ">
+											<option value="admin">admin</option>
+											<option value="Mahasiswa">Mahasiswa</option>
+										</select>
+										
+									</div>
+									<div class="input-group mb-3">
 										<input type="password" name="edited_password" class="form-control" placeholder="password" id="password"  required>
-										<div class="input-group-append">
-											<div class="input-group-text">
-												<span class="fas fa-envelope"></span>
-											</div>
-										</div>
 									</div>
 									<!-- Tambahkan input fields lainnya sesuai kebutuhan -->
 								</div>
@@ -221,7 +223,7 @@
 
 													<td style="white-space: nowrap;">
 														<!-- Tambahkan tombol aksi sesuai kebutuhan -->
-														<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal" onclick="kirimdata(<?= $user['id'] ?>, '<?= $user['username'] ?>','<?= $user['email'] ?>','<?= $user['password'] ?>')">Ubah</button>
+														<button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal" onclick="kirimdata(<?= $user['id'] ?>, '<?= $user['username'] ?>','<?= $user['email'] ?>','<?= $user['password'] ?>','<?= $user['role'] ?>')">Ubah</button>
 														<form action="/users/delete/<?= $user["id"] ?>" method="post" class="form-delete d-inline-block">
 															<button type="submit" class="btn btn-sm btn-danger  button-delete-profile"><b>Hapus Akun</b></button>
 														</form>
@@ -262,12 +264,13 @@
 	<script src="AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		function kirimdata(id, username, email, password) {
+		function kirimdata(id, username, email, password, role) {
             // Set data ke dalam modal
             document.getElementById('id').value = id;
             document.getElementById('username').value = username;
             document.getElementById('email').value = email ;
             document.getElementById('password').value = password;
+            document.getElementById('role').value = role;
 
             // Tampilkan modal edit
             $('#kelasModalEdit').modal('show');
@@ -309,6 +312,13 @@
 				});
 			});
 		});
+
+		$(document).ready(function() {
+            $(".js-example-basic-single").select2({
+                placeholder: "Pilih Role",
+                allowClear: true
+            });
+        });
 	</script>
 </body>
 

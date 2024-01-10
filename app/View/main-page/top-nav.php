@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EDUPGT | WELCOME</title>
+  <title>EDUPGT | Welcome</title>
   
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -19,18 +19,69 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <style>
     #carousel {
       display: block;
+      /* height: 100px; */
     }
 
+
+   .carousel-item {
+    position: relative;
+     /* Sesuaikan tinggi carousel sesuai kebutuhan Anda */
+    overflow: hidden;
+    height: 700px;
+  }
+
+  .carousel-item img {
+    width: 100%;
+    /* height: auto; */
+    transform: translateY(-10%);
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+  }
+
+  .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff; /* Warna teks caption */
+  }
+
+  .navbar {
+    background: none;
+  }
+
+        .navbar .navbar-brand img{
+        width:300px;
+        margin-left:20px;
+      }
+
+  .hidden {
+      display: none;
+    }
+
+    
     @media only screen and (max-width: 800px) {
       #carousel {
         display: none;
       }
-    }
-
-    .carousel-item {
-        max-width: 100%;
-        max-height: 700px; /* Sesuaikan dengan tinggi yang diinginkan */
-        margin: 0 auto; /* Tengahkan gambar */
+      .navbar{
+        background-color:black;
+        position:relative;
+      }
+      .navbar .navbar-brand {
+        width:100px;
+      }
+      .navbar .navbar-brand img{
+        width:100px;
+        margin-left:10px;
+      }
     }
   </style>
 </head>
@@ -38,8 +89,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition layout-top-nav">
   <div class="wrapper">
 
-  <?php require __DIR__ . "/navbar.php" ?>
-
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" >
+    <a class="navbar-brand" href="#">
+        <img src="<?php __DIR__ ?>/img/EDU.png" class="d-inline-block align-top" alt="" >
+      </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item <?= $_SERVER['REQUEST_URI'] == '/' ? 'active' : '' ?>">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#kontak" >Contact</a>
+      </li>
+      <li class="nav-item dropdown <?= $_SERVER['REQUEST_URI'] == '/tentang' ? 'active' : '' ?>">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          About
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/tentang" >About Apps</a>
+          <a class="dropdown-item" href="/tentang2">About Authors</a>
+        </div>
+      </li>
+      <li class="nav-item <?= $_SERVER['REQUEST_URI'] == '/faq' ? 'active' : '' ?>">
+        <a class="nav-link " href="/faq">FAQ</a>
+      </li>
+      <li class="nav-item" style="margin-top:-10px;">
+        <a class="nav-link" href="/login">
+        <button type="button" class="btn btn-info">Login</button>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 
     <!-- Content Wrapper. Contains page content -->
@@ -61,7 +145,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <?php foreach ($beritaList as $index => $user) : ?>
             <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                 <img src="<?php __DIR__ ?>/img/<?= $user["gambar"] ?>" class="d-block w-100 carousel-img" alt="...">
-            </div>
+                <div class="overlay"></div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h5><?= $user["headline"] ?></h5>
+                  <p><?= $user["deskripsi"] ?></p>
+                </div>
+              </div>
             <?php endforeach; ?>
         </div>
         
@@ -81,6 +170,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </aside>
     <!-- /.control-sidebar -->
 </div>
+
+<!-- Card Section -->
+<div class="container mt-5">
+  <div class="row">
+    <?php
+    // Ambil 3 berita pertama untuk ditampilkan pada card
+    $threeBerita = array_slice($beritaList, 0, 3);
+    foreach ($threeBerita as $berita) :
+    ?>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <img src="<?php __DIR__ ?>/img/<?= $berita["gambar"] ?>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><?= $berita["headline"] ?></h5>
+            <p class="card-text"><?= $berita["deskripsi"] ?></p>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</div>
+<!-- /Card Section -->
+
 
     
 
@@ -172,41 +284,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="AdminLTE/dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <!-- <script src="AdminLTE/dist/js/demo.js"></script> -->
-  <script>
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    $(function() {
-      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-      var donutData = {
-        labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
-        ],
-        datasets: [{
-          data: [700, 500, 400, 600, 300, 100],
-          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }]
-      }
-    })
+  
+   
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var lastScrollTop = 100;
+      var navbar = document.querySelector('.navbar');
 
-    //- PIE CHART -
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieData = donutData;
-    var pieOptions = {
-      maintainAspectRatio: false,
-      responsive: true,
-    }
-    new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
+      window.addEventListener('scroll', function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop) {
+          // Scroll down
+          navbar.classList.add('hidden');
+        } else {
+          // Scroll up
+          navbar.classList.remove('hidden');
+        }
+
+        lastScrollTop = scrollTop;
+      });
+    });
   </script>
+ 
 </body>
 
 </html>

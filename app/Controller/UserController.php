@@ -67,6 +67,7 @@ class UserController
                     'username' => $_POST['edited_username'],
                     'email' => $_POST['edited_email'],
                     'password' => $_POST['edited_password'],
+                    'role' => $_POST['role'],
                     // Tambahkan field lainnya sesuai kebutuhan
                 ];
 

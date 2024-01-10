@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .card{
+            color:black;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -138,91 +143,80 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
+       <!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <?php
+            // Misalnya, Anda memiliki model MajorModel yang memiliki fungsi getAllMajor untuk mengambil semua jurusan
+            $model = new Krispachi\KrisnaLTE\Model\MajorModel();
+            $kelasModel = new Krispachi\KrisnaLTE\Model\KelasModel();
+            $mahasiswaModel = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
+            $majors = $model->getAllMajor();
+            
+            foreach ($majors as $major) {
+                // Get kelas by jurusan id from KelasModel
+                $kelas = $kelasModel->getKelasByJurusanId($major['id']);
 
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header d-flex align-items-center">
-                                <h3 class="card-title">Tabel Daftar Kelas</h3>
-                                <a class="btn btn-success ml-auto button-create" data-toggle="modal" data-target="#kelasModal">Tambah Kelas</a>
+                // Tentukan warna berdasarkan jurusan
+                $warna = '';
+                switch ($major['nama']) {
+                    case 'Teknik Elektronika':
+                        $warna = 'bg-danger'; // Merah
+                        break;
+                    case 'Teknik Mesin':
+                        $warna = 'bg-primary'; // Biru
+                        break;
+                    case 'Teknik Industri':
+                        $warna = 'bg-purple'; // Ungu
+                        break;
+                    default:
+                        $warna = 'bg-info'; // Warna default jika jurusan tidak sesuai
+                        break;
+                }
+                
+                // Output only if there is at least one class for the major
+                if (!empty($kelas)) {
+            ?>
+                    <div class="col-md-6">
+                        <div class="card <?= $warna ?> text-dark" >
+                            <div class="card-header">
+                                <h3 class="card-title"><?= $major['nama'] ?></h3>
+                                <!-- You can add more elements here based on your design -->
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Jurusan</th>
-                                            <th>Kelas</th>
-                                            <th>Jumlah Pria</th>
-                                            <th>Jumlah Wanita</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <?php
-                                    // Misalnya, Anda memiliki model MajorModel yang memiliki fungsi getAllMajor untuk mengambil semua jurusan
-                                    $model = new Krispachi\KrisnaLTE\Model\MajorModel();
-                                    $modelKelas = new Krispachi\KrisnaLTE\Model\KelasModel();
-                                    $modelMahasiswa = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-                                    $majors = $model->getAllMajor();
-                                    ?>
-                                    <tbody>
-                                        <?php
-                                        // Instantiate MajorModel, KelasModel, and MahasiswaModel
-                                        $majorModel = new Krispachi\KrisnaLTE\Model\MajorModel();
-                                        $kelasModel = new Krispachi\KrisnaLTE\Model\KelasModel();
-                                        $mahasiswaModel = new Krispachi\KrisnaLTE\Model\MahasiswaModel();
-
-                                        // Get all majors from MajorModel
-                                        $majors = $majorModel->getAllMajor();
-                                        $no = 1;
-                                        foreach ($majors as $major) {
-                                            // Get kelas by jurusan id from KelasModel
-                                            $kelas = $kelasModel->getKelasByJurusanId($major['id']);
-
-                                            // Determine the rowspan value for the "Jurusan" column
-                                            $rowspan = count($kelas);
-
-                                            foreach ($kelas as $key => $kelasItem) {
-                                                // Output the "Jurusan" cell only for the first row of each major
-                                                if ($key === 0) {
-                                        ?>
-                                                    <tr>
-                                                        <td rowspan="<?= $rowspan ?>"><?= $no++ ?></td>
-                                                        <td rowspan="<?= $rowspan ?>"><?= $major['nama'] ?></td>
-                                                    <?php
-                                                }
-                                                    ?>
-                                                    <td><?= $kelasItem['kelas'] ?></td>
-                                                    <td><?= $mahasiswaModel->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?></td>
-                                                    <td><?= $mahasiswaModel->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?></td>
-                                                    <!-- Add more columns as needed -->
-                                                    <td>
-                                                        <button class="btn btn-sm btn-warning button-edit" onclick="kirimdata(<?= $kelasItem['id'] ?>, '<?= $kelasItem['kelas'] ?>')">Ubah</button>
-                                                        <!-- Add your delete form here -->
-                                                        <form action="/kelas/delete" method="post" class="d-inline form-delete">
-                                                            <input type="hidden" name="id_kelas" value="<?= $kelasItem['id'] ?>">
-                                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                                        </form>
-                                                        <!-- Add your delete form here -->
-                                                    </td>
-                                                    </tr>
-                                            <?php
-                                            }
-                                        }
-                                            ?>
-                                    </tbody>
-                                </table>
+                                <?php foreach ($kelas as $kelasItem) : ?>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?= $kelasItem['kelas'] ?></h5>
+                                            <br>
+                                            Jumlah Pria: <?= $mahasiswaModel->getJumlahMahasiswaPriaByJurusan($kelasItem['kelas']) ?>
+                                            <br>
+                                           Jumlah Wanita: <?= $mahasiswaModel->getJumlahMahasiswaWanitaByJurusan($kelasItem['kelas']) ?>
+                                           <br>
+                                            <!-- Add more information as needed -->
+                                            <button class="btn btn-warning button-edit" onclick="kirimdata(<?= $kelasItem['id'] ?>, '<?= $kelasItem['kelas'] ?>')">Ubah</button>
+                                            <form action="/kelas/delete" method="post" class="d-inline form-delete">
+                                                <input type="hidden" name="id_kelas" value="<?= $kelasItem['id'] ?>">
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
+                            <!-- /.card-body -->
                         </div>
+                        <!-- /.card -->
                     </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+            <?php
+                }
+            }
+            ?>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <?php require __DIR__ . "/../layouts/footer.php"; ?>
@@ -272,26 +266,23 @@
             $('#kelasModalEdit').modal('show');
         }
 
-        $(document).ready(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        }).buttons().container().appendTo("#example1_wrapper .col-md-6:eq(0)");
 
-
-
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "responsive": true,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+        // Sebelumnya ada ID "example2" yang belum terdefinisi, menggantinya dengan "example1"
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
 
             $('.js-example-basic-multiple').select2({
                 placeholder: "Pilih Kelas",
@@ -367,7 +358,7 @@
                 }
                 $(".button-save").attr("name", "create_major");
             });
-        });
+       
     </script>
 </body>
 

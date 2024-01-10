@@ -166,10 +166,11 @@ class UserModel
     {
         // Implementasikan logika untuk mengupdate data pengguna di database
         // Contoh:
-        $this->database->query("UPDATE users SET username = :username, email = :email , password = :password WHERE id = :id");
+        $this->database->query("UPDATE users SET username = :username, email = :email , password = :password, role = :role WHERE id = :id");
         $this->database->bind(':username', $data['username']);
         $this->database->bind(':email', $data['email']);
         $this->database->bind(':id', $data['id']);
+        $this->database->bind(':role', $data['role']);
         $this->database->bind(':password',  password_hash($data["password"], PASSWORD_DEFAULT));
         $this->database->execute();
         // Tambahkan logika untuk field lainnya sesuai kebutuhan

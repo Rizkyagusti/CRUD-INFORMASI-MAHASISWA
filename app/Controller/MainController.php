@@ -140,6 +140,11 @@ class MainController{
         // Output the generated PDF to Browser
         $dompdf->stream();
     }
+
+
+    public function panduan(){
+        View::render("panduan/index");
+    }
     
 }
 ?>

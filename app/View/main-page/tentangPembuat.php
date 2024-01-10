@@ -15,7 +15,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="AdminLTE/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="AdminLTE/dist/css/adminlte.min.css">
- 
+  <style>
+    .navbar .navbar-brand img{
+        width:300px;
+        margin-left:20px;
+      }
+
+  .hidden {
+      display: none;
+    }
+
+    
+    @media only screen and (max-width: 800px) {
+      
+      .navbar{
+        background-color:black;
+        position:relative;
+      }
+      .navbar .navbar-brand {
+        width:100px;
+      }
+      .navbar .navbar-brand img{
+        width:100px;
+        margin-left:10px;
+      }
+    }
+  </style>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">

@@ -94,5 +94,8 @@ Router::add("GET", "/keluar", MainController::class, "keluar", [AuthMiddleware::
 Router::add("GET", "/cuti", MainController::class, "cuti", [AuthMiddleware::class]);
 Router::add("GET", "/berita", MainController::class, "berita", [AuthMiddleware::class]);
 Router::add("POST", "/berita/edit", MainController::class, "editberita", [AuthMiddleware::class]);
+
+
+Router::add("GET", "/panduanAplikasi", MainController::class, "panduan", [AuthMiddleware::class]);
 Router::run();
 ?>

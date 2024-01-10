@@ -255,7 +255,12 @@
                             <div class="card">
                                 <div class="card-header d-flex align-items-center">
                                     <h3 class="card-title">Data Izin Keluar Area Kampus</h3>
+                                    <?php
+                                                if ($role != "admin") :
+
+                                                ?>
                                     <a class="btn btn-success ml-auto button-create" data-toggle="modal" data-target="#izinModal">Ajukan Izin</a>
+                                    <?php endif;?>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
