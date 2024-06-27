@@ -40,3 +40,6 @@ Website Create, Read, Update, Delete (CRUD) Mahasiswa dengan PHP MVC menggunakan
 - Di halaman registrasi dapat membuat akun untuk login
 - Setelah login diarahkan ke halaman dashboard yang berisi daftar mahasiswa
 - Selebihnya bisa eksplorasi untuk mengetahui lebih lanjut
+
+
+## Bantu kontribusi dengan fork
